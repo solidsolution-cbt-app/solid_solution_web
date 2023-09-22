@@ -1,0 +1,66 @@
+name: solidsolutionweb
+description: Solid Solution Admin Website.
+publish_to: 'none' 
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.5 <4.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.5
+  get_it: ^7.6.0
+  collection: ^1.15.0
+  flutter_svg: ^1.1.6
+  font_awesome_flutter: ^10.4.0
+  http: ^0.13.4
+  image_picker: ^1.0.0
+  http_parser: ^4.0.2
+  cached_network_image: ^3.2.3
+  lottie: ^2.4.0
+  math_expressions: ^2.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+
+flutter:
+
+ 
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - asset/images/
+    - asset/svg/
+    - asset/lottie_animation/
+
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: asset/font/Poppins-Black.ttf
+        - asset: asset/font/Poppins-BlackItalic.ttf
+        - asset: asset/font/Poppins-Bold.ttf
+        - asset: asset/font/Poppins-BoldItalic.ttf
+        - asset: asset/font/Poppins-ExtraLight.ttf
+        - asset: asset/font/Poppins-ExtraLightItalic.ttf
+        - asset: asset/font/Poppins-Italic.ttf
+        - asset: asset/font/Poppins-Light.ttf
+        - asset: asset/font/Poppins-LightItalic.ttf
+        - asset: asset/font/Poppins-Medium.ttf
+        - asset: asset/font/Poppins-MediumItalic.ttf
+        - asset: asset/font/Poppins-Regular.ttf
+        - asset: asset/font/Poppins-SemiBold.ttf
+        - asset: asset/font/Poppins-SemiBoldItalic.ttf
+        - asset: asset/font/Poppins-Thin.ttf
+        - asset: asset/font/Poppins-ThinItalic.ttf 
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
