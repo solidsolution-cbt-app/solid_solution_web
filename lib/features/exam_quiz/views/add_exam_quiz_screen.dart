@@ -6,24 +6,24 @@ import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/subject_quiz/view_model/subject_quiz_view_model.dart';
+import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/question_widget.dart';
 
-class AddSubjectQuizScreen extends StatefulWidget {
-  const AddSubjectQuizScreen({
+class AddExamQuizScreen extends StatefulWidget {
+  const AddExamQuizScreen({
     super.key,
   });
-  static const String routeName = "/add_subject_quiz_screen";
+  static const String routeName = "/add_exam_quiz_screen";
 
   @override
-  State<AddSubjectQuizScreen> createState() => _AddSubjectQuizScreenState();
+  State<AddExamQuizScreen> createState() => _AddExamQuizScreenState();
 }
 
-class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
+class _AddExamQuizScreenState extends State<AddExamQuizScreen> {
   @override
   Widget build(BuildContext context) {
-    return BaseView<SubjectQuizViewModel>(
+    return BaseView<ExamQuizViewModel>(
       builder: (context, model, child) {
         return BaseScreen(
           allowSubjectChange: false,
@@ -39,7 +39,7 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                     SvgPicture.asset("asset/svg/book-square outline.svg"),
                     const SizedBox(width: 15),
                     const CustomTextHeader1(
-                      text: "Subject Quiz",
+                      text: "Exam Quiz",
                       fontWeight: FontWeight.w500,
                     ),
                     const Spacer(),

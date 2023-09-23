@@ -4,8 +4,8 @@ import 'package:solidsolutionweb/components/methods/dart_methods.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 
-class QuestionCard extends StatelessWidget {
-  const QuestionCard({
+class QuestionSummaryCard extends StatelessWidget {
+  const QuestionSummaryCard({
     required this.question,
     required this.questionNumber,
     this.onTap,
@@ -47,7 +47,7 @@ class QuestionCard extends StatelessWidget {
                 CustomTextBody1(
                   text: getFirstNCharacters(
                     question.question,
-                    150,
+                    100,
                   ),
                   textAlign: TextAlign.left,
                   fontSize: 14,

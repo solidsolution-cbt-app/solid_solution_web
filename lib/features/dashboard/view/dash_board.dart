@@ -5,7 +5,7 @@ import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_preview_screen.dart';
+import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_screen.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/subject_preview_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_quiz_view.dart';
 
@@ -34,7 +34,7 @@ class DashBoard extends StatelessWidget {
               title: "Subject Quiz",
             ),
             QuizTypeCard(
-              routeName: ExamQuizPreviewScreen.routeName,
+              routeName: ExamQuizScreen.routeName,
               title: "Exam Quiz",
             )
           ],

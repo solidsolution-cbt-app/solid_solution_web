@@ -21,4 +21,3 @@ class TopicModel {
     return data.toString();
   }
 }
-

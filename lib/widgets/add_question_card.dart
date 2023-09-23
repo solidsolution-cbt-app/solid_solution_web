@@ -3,6 +3,7 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/enums/question_type_enum.dart';
+import 'package:solidsolutionweb/features/exam_quiz/views/add_exam_quiz_screen.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/add_subject_question.dart';
 
 class AddNewQuestionCard extends StatelessWidget {
@@ -20,6 +21,10 @@ class AddNewQuestionCard extends StatelessWidget {
           if (questiontype == Questiontype.subjectQuestion) {
             navigator.push(
               routeName: AddSubjectQuizScreen.routeName,
+            );
+          } else if (questiontype == Questiontype.examQuestion) {
+            navigator.push(
+              routeName: AddExamQuizScreen.routeName,
             );
           }
         },

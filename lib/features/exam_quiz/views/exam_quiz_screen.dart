@@ -7,25 +7,25 @@ import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/enums/question_type_enum.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/subject_quiz/view_model/subject_quiz_view_model.dart';
-import 'package:solidsolutionweb/features/subject_quiz/views/preview_subject_question.dart';
+import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
+import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_preview_screen.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
 import 'package:solidsolutionweb/widgets/question_summary_card.dart';
 
-class SubjectPreviewScreen extends StatefulWidget {
-  const SubjectPreviewScreen({
+class ExamQuizScreen extends StatefulWidget {
+  const ExamQuizScreen({
     super.key,
   });
-  static const String routeName = "/subject_preview";
+  static const String routeName = "/exam_quiz_preview";
 
   @override
-  State<SubjectPreviewScreen> createState() => _SubjectPreviewScreenState();
+  State<ExamQuizScreen> createState() => _ExamQuizScreenState();
 }
 
-class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
+class _ExamQuizScreenState extends State<ExamQuizScreen> {
   @override
   Widget build(BuildContext context) {
-    return BaseView<SubjectQuizViewModel>(builder: (
+    return BaseView<ExamQuizViewModel>(builder: (
       context,
       model,
       child,
@@ -43,7 +43,7 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                   SvgPicture.asset("asset/svg/book-square outline.svg"),
                   const SizedBox(width: 15),
                   const CustomTextHeader1(
-                    text: "Subject Quiz",
+                    text: "Exam Quiz",
                     fontWeight: FontWeight.w500,
                   ),
                   const Spacer(),
@@ -55,7 +55,7 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                 runSpacing: 20,
                 children: [
                   const AddNewQuestionCard(
-                    questiontype: Questiontype.subjectQuestion,
+                    questiontype: Questiontype.examQuestion,
                   ),
                   ...model
                       .getQuestions(
@@ -65,7 +65,7 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                           onTap: () {
                             model.setPreviewQuestion(question: element);
                             navigator.push(
-                              routeName: SubjectQuizPreviewScreen.routeName,
+                              routeName: ExamQuizPreviewScreen.routeName,
                             );
                           },
                           question: element,
@@ -74,7 +74,7 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                       )
                       .toList(),
                 ],
-              ),
+              )
             ],
           ),
         ),

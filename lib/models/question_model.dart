@@ -1,4 +1,5 @@
 class QuestionModel {
+  int? questionId;
   String? question;
   bool? isQuestionImage;
   String? option1;
@@ -10,6 +11,7 @@ class QuestionModel {
   String? option4;
   bool? isoption4Image;
   QuestionModel({
+    required this.questionId,
     required this.question,
     required this.isQuestionImage,
     required this.isoption1Image,
@@ -35,6 +37,7 @@ class QuestionModel {
       "isoption3Image": isoption3Image,
       "option4": option4,
       "isoption4Image": isoption4Image,
+      "questionId": questionId,
     };
     return data.toString();
   }

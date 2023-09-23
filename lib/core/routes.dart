@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/features/dashboard/view/dash_board.dart';
+import 'package:solidsolutionweb/features/exam_quiz/views/add_exam_quiz_screen.dart';
+import 'package:solidsolutionweb/features/exam_quiz/views/edit_exam_quiz_screen.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_preview_screen.dart';
+import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_screen.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/add_subject_question.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/edit_subject_question.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/preview_subject_question.dart';
@@ -39,9 +42,24 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const EditQuizPreviewScreen(),
         settings: routeSettings,
       );
+    case ExamQuizScreen.routeName:
+      return MaterialPageRoute(
+        builder: (_) => const ExamQuizScreen(),
+        settings: routeSettings,
+      );
     case ExamQuizPreviewScreen.routeName:
       return MaterialPageRoute(
         builder: (_) => const ExamQuizPreviewScreen(),
+        settings: routeSettings,
+      );
+    case EditExamQuizScreen.routeName:
+      return MaterialPageRoute(
+        builder: (_) => const EditExamQuizScreen(),
+        settings: routeSettings,
+      );
+    case AddExamQuizScreen.routeName:
+      return MaterialPageRoute(
+        builder: (_) => const AddExamQuizScreen(),
         settings: routeSettings,
       );
     case SubjectPreviewScreen.routeName:
@@ -59,11 +77,6 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const SubjectQuizPreviewScreen(),
         settings: routeSettings,
       );
-    // case BaseScreen.routeName:
-    //   return MaterialPageRoute(
-    //     builder: (_) => const BaseScreen(),
-    //     settings: routeSettings,
-    //   );
     default:
       return MaterialPageRoute(
         builder: (_) => const Scaffold(

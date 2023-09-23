@@ -6,24 +6,24 @@ import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/subject_quiz/view_model/subject_quiz_view_model.dart';
+import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/edit_question_widget.dart';
 
-class EditQuizPreviewScreen extends StatefulWidget {
-  const EditQuizPreviewScreen({
+class EditExamQuizScreen extends StatefulWidget {
+  const EditExamQuizScreen({
     super.key,
   });
-  static const String routeName = "/edit_quiz_preview";
+  static const String routeName = "/edit_exam_quiz";
 
   @override
-  State<EditQuizPreviewScreen> createState() => _EditQuizPreviewScreenState();
+  State<EditExamQuizScreen> createState() => _EditExamQuizScreenState();
 }
 
-class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
+class _EditExamQuizScreenState extends State<EditExamQuizScreen> {
   @override
   Widget build(BuildContext context) {
-    return BaseView<SubjectQuizViewModel>(builder: (
+    return BaseView<ExamQuizViewModel>(builder: (
       context,
       model,
       child,
@@ -41,7 +41,7 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                   SvgPicture.asset("asset/svg/book-square outline.svg"),
                   const SizedBox(width: 15),
                   const CustomTextHeader1(
-                    text: "Subject Quiz",
+                    text: "Exam Quiz",
                     fontWeight: FontWeight.w500,
                   ),
                   const Spacer(),
