@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solidsolutionweb/features/authentication/views/login_screen.dart';
 import 'package:solidsolutionweb/features/dashboard/view/dash_board.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/add_exam_quiz_screen.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/edit_exam_quiz_screen.dart';
@@ -18,6 +19,11 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const TestScreen(),
+      );
+    case LoginScreen.routeName:
+      return MaterialPageRoute(
+        builder: (_) => const LoginScreen(),
+        settings: routeSettings,
       );
     case DashBoard.routeName:
       return MaterialPageRoute(

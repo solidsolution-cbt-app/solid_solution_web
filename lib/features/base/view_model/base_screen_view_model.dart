@@ -1,21 +1,24 @@
 import 'package:solidsolutionweb/core/base_model.dart';
 
 class BaseScreenViewModel extends BaseModel {
-  String selectedText = "English";
+  String selectedText = "Use of English";
   setSelectedText(String text) {
     selectedText = text;
     notifyListeners();
   }
 
   List<String> subjects = [
-    "English",
-    "Chemistry",
-    "Mathematics",
+    "Use of English",
     "Physics",
+    "Chemistry",
     "Biology",
+    "Mathematics",
     "Economics",
     "Government",
     "Literature",
-    "Islamic Religious Knowledge",
+    "Christian Religious knowledge",
+    "Islamic Religious knowledge",
+    "Account",
+    "Commerce",
   ];
 }

@@ -79,10 +79,7 @@ class BaseScreen extends StatelessWidget {
                   onTapsubject: onTap ?? () {},
                 ),
                 Expanded(
-                  child: SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(),
-                    child: child,
-                  ),
+                  child: child,
                 )
               ],
             ),

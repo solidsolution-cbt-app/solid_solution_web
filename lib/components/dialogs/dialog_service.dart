@@ -7,6 +7,8 @@ import 'package:solidsolutionweb/components/dialogs/success_dialog.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/core/navigation_service.dart';
 
+DialogService dialogService = DialogService();
+
 class DialogService {
   final newContext = locatorX<NavigationService>().navigatorKey.currentContext!;
   Future<dynamic> showErrorDialog({required String errorMessage}) {
@@ -49,6 +51,7 @@ class DialogService {
 
   Future<dynamic> addTopicDialog({required String subject}) {
     return showDialog(
+        barrierDismissible: false,
         context: newContext,
         builder: (context) {
           return AddTopicDialog(

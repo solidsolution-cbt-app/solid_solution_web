@@ -23,6 +23,10 @@ dependencies:
   cached_network_image: ^3.2.3
   lottie: ^2.4.0
   math_expressions: ^2.4.0
+  shared_preferences: ^2.2.2
+  file_picker: ^6.0.0
+  syncfusion_flutter_pdfviewer: ^20.4.54
+  cloudinary: ^1.2.0
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:solidsolutionweb/constants/app_strings.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
+import 'package:solidsolutionweb/core/local_data_base.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/core/navigation_service.dart';
 import 'package:solidsolutionweb/core/routes.dart';
@@ -9,6 +10,7 @@ import 'package:solidsolutionweb/features/authentication/views/login_screen.dart
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await StorageUtil.getInstance();
   setUpLocatorX();
   runApp(const MyApp());
 }

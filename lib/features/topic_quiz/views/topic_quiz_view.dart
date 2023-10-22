@@ -30,7 +30,10 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
         },
         child: Visibility(
           visible: model
-              .getTopics(subject: locatorX<BaseScreenViewModel>().selectedText)
+              .getTopics(
+                subject: locatorX<BaseScreenViewModel>().selectedText,
+                
+              )
               .isNotEmpty,
           replacement: const TopicScreenEmptyWidget(),
           child: Container(
@@ -67,12 +70,24 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
                     ),
                   ],
                 ),
-                ...model
-                    .getTopics(
-                        subject: locatorX<BaseScreenViewModel>().selectedText)
-                    .map(
-                      (e) => QuizTopicCard(topic: e.topic),
-                    )
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: model
+                        .getTopics(
+                            subject:
+                                locatorX<BaseScreenViewModel>().selectedText)
+                        .length,
+                    itemBuilder: (context, index) {
+                      return QuizTopicCard(
+                        topic: model
+                            .getTopics(
+                                subject: locatorX<BaseScreenViewModel>()
+                                    .selectedText)[index]
+                            .topic!,
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
           ),

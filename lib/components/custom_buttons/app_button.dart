@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/constants/constants.dart';
 import 'package:solidsolutionweb/constants/styles.dart';
 
@@ -14,6 +15,7 @@ class AppButton extends StatelessWidget {
     this.leftPadding = 0,
     this.rightPadding = 0,
     this.buttonWidth = 450,
+    this.showLoader = false,
     super.key,
   });
   final Function() onTap;
@@ -26,6 +28,7 @@ class AppButton extends StatelessWidget {
   final double? elevation;
   final double leftPadding;
   final double rightPadding;
+  final bool showLoader;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -44,7 +47,12 @@ class AppButton extends StatelessWidget {
         fixedSize:
             Size(buttonWidth ?? AppConstants.screenWidth(), buttonHeight ?? 50),
       ),
-      onPressed: onTap,
+      onPressed: () {
+        if (showLoader) {
+        } else {
+          onTap();
+        }
+      },
       child: Row(
         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,12 +66,29 @@ class AppButton extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Text(
-            buttonText,
-            style: AppTextStyles.labelRegular.copyWith(
-              color: Colors.white,
-              fontSize: 16,
-            ),
+          Row(
+            children: [
+              Text(
+                buttonText,
+                style: AppTextStyles.labelRegular.copyWith(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+              Visibility(
+                visible: showLoader,
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 20),
+                  child: SizedBox(
+                    width: 30,
+                    height: 30,
+                    child: CircularProgressIndicator(
+                      color: AppColors.violet,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           const Spacer(),
           Visibility(

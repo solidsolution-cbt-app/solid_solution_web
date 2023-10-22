@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/constants/styles.dart';
@@ -13,7 +14,9 @@ class AppTextField extends StatefulWidget {
     this.buttonWidth = 500,
     this.onChanged,
     this.prefixIconPath = "",
+    this.isNumberField = false,
     this.isPassword = false,
+    this.onComplete,
     super.key,
   });
 
@@ -23,12 +26,14 @@ class AppTextField extends StatefulWidget {
   final String? hintText;
 
   final Function(String value)? onChanged;
+  final Function()? onComplete;
 
   final int? maxLines;
   final int? maxLength;
 
   final bool isPassword;
   final String prefixIconPath;
+  final bool isNumberField;
 
   @override
   State<AppTextField> createState() => _AppTextFieldState();
@@ -64,6 +69,9 @@ class _AppTextFieldState extends State<AppTextField> {
             maxLength: widget.maxLength,
             obscureText: showpassword,
             onChanged: widget.onChanged,
+            onEditingComplete: widget.onComplete,
+            inputFormatters:
+                widget.isNumberField ? [NumberInputFormatter()] : [],
             decoration: InputDecoration(
               contentPadding: const EdgeInsets.symmetric(vertical: 5),
               prefixIcon: Padding(
@@ -134,7 +142,6 @@ class AppTextField2 extends StatelessWidget {
 
   final int? maxLines;
   final int? maxLength;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -177,6 +184,20 @@ class AppTextField2 extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class NumberInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    // Use a regular expression to keep only numeric characters.
+    final newText = newValue.text.replaceAll(RegExp(r'[^0-9]'), '');
+
+    return TextEditingValue(
+      text: newText,
+      selection: TextSelection.collapsed(offset: newText.length),
     );
   }
 }
