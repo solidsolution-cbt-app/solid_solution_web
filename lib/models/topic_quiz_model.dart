@@ -12,7 +12,7 @@ class TopicModel {
   TopicModel.tojson({required TopicModel topic}) {
     dataSent = {
       "topic": topic.topic!.toLowerCase(),
-      "subject": topic.subject!.toLowerCase(),
+      "subject": getSubject(topic.subject!)
     };
   }
 
@@ -29,5 +29,19 @@ class TopicModel {
       "subject": subject,
     };
     return data.toString();
+  }
+}
+
+Map<String, String> someKnownSubjects = {
+  "Christian Religious knowledge": "crk",
+  "Islamic Religious knowledge": "irs",
+  "Government": "goverment",
+};
+
+String getSubject(String subject) {
+  if (someKnownSubjects.containsKey(subject)) {
+    return someKnownSubjects[subject]!;
+  } else {
+    return subject.toLowerCase();
   }
 }

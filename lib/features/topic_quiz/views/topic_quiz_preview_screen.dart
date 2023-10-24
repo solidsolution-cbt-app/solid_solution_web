@@ -5,6 +5,7 @@ import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/view_model/topic_view_model.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
+import 'package:solidsolutionweb/widgets/question_widget.dart';
 
 class TopicQuizPreviewScreen extends StatefulWidget {
   const TopicQuizPreviewScreen({
@@ -51,13 +52,10 @@ class _TopicQuizPreviewScreenState extends State<TopicQuizPreviewScreen> {
                 runSpacing: 20,
                 children: [
                   AddNewQuestionCard(),
-                  //   ...List.generate(
-                  //     20,
-                  //     (index) => QuestionCard(
-                  //       questionNumber: index + 1,
-                  //       question:
-                  //  ),
-                  //   ),
+                  // ...List.generate(
+                  //   20,
+                  //   (index) => QuestionCard(controller: controller)
+                  // ),
                 ],
               )
             ],

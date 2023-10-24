@@ -26,11 +26,11 @@ class TopicQuizVeiwModel extends BaseModel {
 
   addTopicLocal({required TopicModel newTopic}) {
     if (topicData.containsKey(newTopic.subject)) {
-      topicData[newTopic.subject]!.add(newTopic);
+      topicData[newTopic.subject]!.insert(0, newTopic);
     } else {
       topicData[newTopic.subject!] = [newTopic];
     }
-    notifyListeners();
+    getTopics(subject: newTopic.subject!);
   }
 
   updateTopic(String subject, List<TopicModel> newTopics) {
@@ -41,16 +41,27 @@ class TopicQuizVeiwModel extends BaseModel {
     } else {
       topicData[subject] = newTopics;
     }
+    getTopics(subject: getSubject(subject));
   }
 
-  List<TopicModel> getTopics({
+  List<TopicModel> topicToshow = [];
+  getTopics({
     required String subject,
   }) {
     if (topicData.containsKey(subject.toLowerCase())) {
-      return topicData[subject.toLowerCase()]!;
+      topicToshow = topicData[subject.toLowerCase()]!;
+    }
+    notifyListeners();
+  }
+
+  void shouldGetTopic({
+    required String subject,
+    required String pageNumber,
+  }) {
+    if (topicData.containsKey(getSubject(subject))) {
+      getTopics(subject: getSubject(subject));
     } else {
-      getTopic(subject: subject, pageNumber: "1");
-      return [];
+      getTopic(subject: getSubject(subject), pageNumber: pageNumber);
     }
   }
 
@@ -63,7 +74,7 @@ class TopicQuizVeiwModel extends BaseModel {
       topic: TopicModel(
         topic: topic,
         id: "id",
-        subject: subject,
+        subject: getSubject(subject),
       ),
     ).dataSent!;
     try {
@@ -92,27 +103,75 @@ class TopicQuizVeiwModel extends BaseModel {
     required String subject,
     required String pageNumber,
   }) async {
-    // toggleLoadTopicScreen(true);
-
+    toggleLoadTopicScreen(true);
     try {
       var data = await apiService.getTopicQuiz(
-        subject: subject.toLowerCase(),
+        subject: getSubject(subject),
         pageNumber: pageNumber,
       );
       if (data.isSuccessful) {
         List<TopicModel> newTopic = data.model as List<TopicModel>;
-        updateTopic(subject.toLowerCase(), newTopic);
+        updateTopic(getSubject(subject), newTopic);
       } else {
         dialogService.showErrorDialog(
           errorMessage: data.message,
         );
+        updateTopic(getSubject(subject), []);
       }
     } catch (e) {
       dialogService.showErrorDialog(
         errorMessage: e.toString(),
       );
+      updateTopic(getSubject(subject), []);
       //
     }
-    // toggleLoadTopicScreen(false);
+    toggleLoadTopicScreen(false);
+  }
+
+  Future<void> fetchMoreTopic({
+    required String subject,
+  }) async {
+    List<TopicModel> topics = topicData[getSubject(subject)]!;
+    print(topics.length);
+    String pageNumber = getPageNumber(currentLength: topics.length).toString();
+    if (pageNumber != "0") {
+      toggleLoadTopicScreen(true);
+      try {
+        var data = await apiService.getTopicQuiz(
+          subject: getSubject(subject),
+          pageNumber: pageNumber,
+        );
+        if (data.isSuccessful) {
+          List<TopicModel> newTopic = data.model as List<TopicModel>;
+          updateTopic(getSubject(subject), newTopic);
+        } else {
+          dialogService.showErrorDialog(
+            errorMessage: data.message,
+          );
+          updateTopic(getSubject(subject), []);
+        }
+      } catch (e) {
+        dialogService.showErrorDialog(
+          errorMessage: e.toString(),
+        );
+        updateTopic(getSubject(subject), []);
+        //
+      }
+      toggleLoadTopicScreen(false);
+    }
+  }
+}
+
+int getPageNumber({required int currentLength}) {
+  int wholeNumber = currentLength ~/ 20;
+  int remainderNumber = currentLength % 20;
+  print(remainderNumber);
+  print(wholeNumber);
+  if (wholeNumber == 0) {
+    return 0;
+  } else if (remainderNumber != 0) {
+    return 0;
+  } else {
+    return wholeNumber + 1;
   }
 }
