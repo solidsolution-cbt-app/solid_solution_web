@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
-import 'package:solidsolutionweb/components/methods/dart_methods.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 
@@ -44,11 +43,11 @@ class QuestionSummaryCard extends StatelessWidget {
                   fontSize: 18,
                 ),
                 const SizedBox(height: 10),
-                CustomTextBody1(
-                  text: getFirstNCharacters(
-                    question.question,
-                    100,
-                  ),
+                const CustomTextBody1(
+                  // text: getFirstNCharacters(
+                  //   // question.question,
+                  //   // 100,
+                  // ),
                   textAlign: TextAlign.left,
                   fontSize: 14,
                 ),

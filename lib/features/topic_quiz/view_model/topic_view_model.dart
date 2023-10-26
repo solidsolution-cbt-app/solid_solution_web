@@ -24,6 +24,20 @@ class TopicQuizVeiwModel extends BaseModel {
     notifyListeners();
   }
 
+  // add question screen loader
+
+  bool loadAddQuestion = false;
+  toggleLoadAddQuestion(bool value) {
+    loadAddQuestion = value;
+    notifyListeners();
+  }
+
+  removeTopic({required TopicModel topic}) {
+    if (topicData.containsKey(topic.subject)) {
+      topicData.removeWhere((key, value) => key == topic.subject);
+    }
+  }
+
   addTopicLocal({required TopicModel newTopic}) {
     if (topicData.containsKey(newTopic.subject)) {
       topicData[newTopic.subject]!.insert(0, newTopic);
@@ -82,9 +96,10 @@ class TopicQuizVeiwModel extends BaseModel {
         dataSent: dataSent,
       );
       if (data.isSuccessful) {
-        dialogService.hideLoaderDialog();
         TopicModel newTopic = data.model as TopicModel;
-        addTopicLocal(newTopic: newTopic);
+        removeTopic(topic: newTopic);
+        getTopic(subject: getSubject(subject), pageNumber: "1");
+        dialogService.hideLoaderDialog();
       } else {
         dialogService.showErrorDialog(
           errorMessage: data.message,
@@ -116,13 +131,12 @@ class TopicQuizVeiwModel extends BaseModel {
         dialogService.showErrorDialog(
           errorMessage: data.message,
         );
-        updateTopic(getSubject(subject), []);
       }
     } catch (e) {
       dialogService.showErrorDialog(
         errorMessage: e.toString(),
       );
-      updateTopic(getSubject(subject), []);
+
       //
     }
     toggleLoadTopicScreen(false);
@@ -132,7 +146,6 @@ class TopicQuizVeiwModel extends BaseModel {
     required String subject,
   }) async {
     List<TopicModel> topics = topicData[getSubject(subject)]!;
-    print(topics.length);
     String pageNumber = getPageNumber(currentLength: topics.length).toString();
     if (pageNumber != "0") {
       toggleLoadTopicScreen(true);
@@ -160,13 +173,36 @@ class TopicQuizVeiwModel extends BaseModel {
       toggleLoadTopicScreen(false);
     }
   }
+
+  Future<void> uploadQuestion(
+      {required String jsonData, required TopicModel topic}) async {
+    toggleLoadAddQuestion(true);
+    try {
+      var data = await apiService.addTopicQuestion(
+        dataSent: jsonData,
+        topicId: topic.id!,
+      );
+      if (data.isSuccessful) {
+        dialogService.shouldAddNewQuestion(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+    }
+    toggleLoadAddQuestion(false);
+  }
 }
 
 int getPageNumber({required int currentLength}) {
   int wholeNumber = currentLength ~/ 20;
   int remainderNumber = currentLength % 20;
-  print(remainderNumber);
-  print(wholeNumber);
   if (wholeNumber == 0) {
     return 0;
   } else if (remainderNumber != 0) {

@@ -2,15 +2,24 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:solidsolutionweb/core/local_data_base.dart';
 import 'package:solidsolutionweb/models/authentication_model/login_model.dart';
 import 'package:solidsolutionweb/models/exception_model_calss/api_errors.dart';
 import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.dart';
+import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/network_service/end_point.dart';
+import 'package:cloudinary/cloudinary.dart';
 
 ApiService apiService = ApiService();
+
+final cloudinary = Cloudinary.signedConfig(
+  apiKey: ClodinaryConstants.apiKey,
+  apiSecret: ClodinaryConstants.apiSecret,
+  cloudName: ClodinaryConstants.cloudName,
+);
 
 class ApiService {
   Future<LocalExceptionModel> login({required String dataSent}) async {
@@ -82,6 +91,7 @@ class ApiService {
         },
       );
       var data = jsonDecode(response.body);
+      // print(data);
       if (response.statusCode == 200) {
         TopicModel returnedData = TopicModel.fromjson(data: data["data"]);
         return LocalExceptionModel(
@@ -163,6 +173,226 @@ class ApiService {
       }
     } catch (e) {
       // print(e);
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> uploadImage(
+      {required Uint8List imagePath, required String filename}) async {
+    try {
+      final response = await cloudinary.upload(
+        fileBytes: imagePath,
+        resourceType: CloudinaryResourceType.image,
+        fileName: "$filename${DateTime.now().millisecondsSinceEpoch}",
+        progressCallback: (count, total) {
+          // print('Uploading image from file with progress: $count/$total');
+        },
+      );
+      if (response.isSuccessful) {
+        // print('Get your image from with ${response.secureUrl}');
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: "successful",
+          model: response.secureUrl ?? "",
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: "error",
+        );
+      }
+    } catch (e) {
+      // print(e);
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> uploadPdf(
+      {required Uint8List imagePath, required String filename}) async {
+    try {
+      final response = await cloudinary.upload(
+        fileBytes: imagePath,
+        fileName: "$filename${DateTime.now().millisecondsSinceEpoch}",
+        progressCallback: (count, total) {
+          // print('Uploading image from file with progress: $count/$total');
+        },
+      );
+      if (response.isSuccessful) {
+        // print('Get your image from with ${response.secureUrl}');
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: "successful",
+          model: response.secureUrl ?? "",
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: "error",
+        );
+      }
+    } catch (e) {
+      // print(e);
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> addTopicQuestion(
+      {required String dataSent, required String topicId}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.post(
+        Uri.parse("${EndPoints.baseUrl}${EndPoints.addTopicQuestion}$topicId"),
+        body: dataSent,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        QuestionModel question = QuestionModel.fromjson(data: data["data"]);
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getQuestions(
+      {required String topicId, required String pageNo}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.post(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.fetchTopicQuestion}$topicId&page=$pageNo",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        List<dynamic> datas = data["data"];
+        List<QuestionModel> question = datas
+            .map(
+              (e) => QuestionModel.fromjson(data: e),
+            )
+            .toList();
+        print(question);
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
       if (e is SocketException) {
         return LocalExceptionModel(
           isSuccessful: false,

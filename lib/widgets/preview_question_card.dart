@@ -12,31 +12,31 @@ class PreviewQuestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return const Column(
       children: [
-        PreviewQuestionCard(
-          isOption: false,
-          showImage: question.isQuestionImage!,
-          question: question.question!,
-        ),
-        const SizedBox(height: 20),
-        PreviewQuestionCard(
-          isCorrectOption: true,
-          showImage: question.isoption1Image!,
-          question: question.option1!,
-        ),
-        PreviewQuestionCard(
-          showImage: question.isoption2Image!,
-          question: question.option2!,
-        ),
-        PreviewQuestionCard(
-          showImage: question.isoption3Image!,
-          question: question.option3!,
-        ),
-        PreviewQuestionCard(
-          showImage: question.isoption4Image!,
-          question: question.option4!,
-        ),
+        // PreviewQuestionCard(
+        //   isOption: false,
+        //   showImage: question.isQuestionImage!,
+        //   question: question.question!,
+        // ),
+        // const SizedBox(height: 20),
+        // PreviewQuestionCard(
+        //   isCorrectOption: true,
+        //   showImage: question.isoption1Image!,
+        //   question: question.option1!,
+        // ),
+        // PreviewQuestionCard(
+        //   showImage: question.isoption2Image!,
+        //   question: question.option2!,
+        // ),
+        // PreviewQuestionCard(
+        //   showImage: question.isoption3Image!,
+        //   question: question.option3!,
+        // ),
+        // PreviewQuestionCard(
+        //   showImage: question.isoption4Image!,
+        //   question: question.option4!,
+        // ),
       ],
     );
   }

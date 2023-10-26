@@ -5,12 +5,15 @@ import 'package:solidsolutionweb/features/exam_quiz/views/add_exam_quiz_screen.d
 import 'package:solidsolutionweb/features/exam_quiz/views/edit_exam_quiz_screen.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_preview_screen.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_screen.dart';
+import 'package:solidsolutionweb/features/pdf_viewer_page.dart/pdf_viewer_page.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/add_subject_question.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/edit_subject_question.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/preview_subject_question.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/subject_preview_screen.dart';
+import 'package:solidsolutionweb/features/topic_quiz/views/add_topic_quiz_sereen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_quiz_preview_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_quiz_view.dart';
+import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/test_screen.dart';
 
 Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
@@ -31,12 +34,19 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
       );
     case TopicQuizPreviewScreen.routeName:
-      final String? topic = routeSettings.arguments as String?;
+      final TopicModel? topic = routeSettings.arguments as TopicModel?;
       return MaterialPageRoute(
         builder: (_) => TopicQuizPreviewScreen(
-          topic: topic ?? "",
+          topic: topic,
         ),
         settings: routeSettings,
+      );
+    case AddTopicQuizScreen.routeName:
+      final TopicModel? topic = routeSettings.arguments as TopicModel?;
+      return MaterialPageRoute(
+        builder: (_) => AddTopicQuizScreen(
+          topic: topic,
+        ),
       );
     case AddSubjectQuizScreen.routeName:
       return MaterialPageRoute(
@@ -82,6 +92,13 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         builder: (_) => const SubjectQuizPreviewScreen(),
         settings: routeSettings,
+      );
+    case PdfViewerPage.routeName:
+      final String pdfLink = routeSettings.arguments as String;
+      return MaterialPageRoute(
+        builder: (_) => PdfViewerPage(
+          pdfLink: pdfLink,
+        ),
       );
     default:
       return MaterialPageRoute(

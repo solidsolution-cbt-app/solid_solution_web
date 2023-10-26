@@ -5,13 +5,17 @@ import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/enums/question_type_enum.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/add_exam_quiz_screen.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/add_subject_question.dart';
+import 'package:solidsolutionweb/features/topic_quiz/views/add_topic_quiz_sereen.dart';
+import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 
 class AddNewQuestionCard extends StatelessWidget {
   const AddNewQuestionCard({
+    this.topic,
     this.questiontype = Questiontype.topicquizQuestion,
     super.key,
   });
   final Questiontype questiontype;
+  final TopicModel? topic;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,11 @@ class AddNewQuestionCard extends StatelessWidget {
           } else if (questiontype == Questiontype.examQuestion) {
             navigator.push(
               routeName: AddExamQuizScreen.routeName,
+            );
+          } else {
+            navigator.push(
+              routeName: AddTopicQuizScreen.routeName,
+              argument: topic,
             );
           }
         },

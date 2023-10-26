@@ -3,11 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
-import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
-import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
 import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
-import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/question_widget.dart';
 
 class AddExamQuizScreen extends StatefulWidget {
@@ -47,11 +44,7 @@ class _AddExamQuizScreenState extends State<AddExamQuizScreen> {
                 ),
                 const SizedBox(height: 50),
                 QuestionWidget(
-                  option1Controller: model.option1Controller,
-                  option2Controller: model.option2Controller,
-                  option3Controller: model.option3Controller,
-                  option4Controller: model.option4Controller,
-                  questionController: model.questionController,
+                  onSubmitQuestion: (value) {},
                 ),
                 const SizedBox(height: 50),
                 const CustomTextBody1(
@@ -76,23 +69,11 @@ class _AddExamQuizScreenState extends State<AddExamQuizScreen> {
                 const SizedBox(height: 80),
                 AppButton(
                   onTap: () {
-                    model.addQuestion(
-                      subject: locatorX<BaseScreenViewModel>().selectedText,
-                      question: QuestionModel(
-                        questionId: model.questionId,
-                        question: model.questionController.text,
-                        isQuestionImage: true,
-                        isoption1Image: true,
-                        isoption2Image: true,
-                        isoption3Image: true,
-                        isoption4Image: true,
-                        option1: model.option1Controller.text,
-                        option2: model.option2Controller.text,
-                        option3: model.option3Controller.text,
-                        option4: model.option4Controller.text,
-                      ),
-                    );
-                    Navigator.pop(context);
+                    // model.addQuestion(
+                    //   subject: locatorX<BaseScreenViewModel>().selectedText,
+                    //   question: QuestionModel(),
+                    // );
+                    // Navigator.pop(context);
                   },
                   buttonText: "Submit",
                 ),

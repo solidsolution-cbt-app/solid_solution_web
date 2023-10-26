@@ -15,10 +15,12 @@ class AppButton extends StatelessWidget {
     this.leftPadding = 0,
     this.rightPadding = 0,
     this.buttonWidth = 450,
+    this.isOutline = false,
     this.showLoader = false,
     super.key,
   });
   final Function() onTap;
+  final bool isOutline;
   final Color? backgroundColor;
   final double? buttonWidth;
   final double? buttonHeight;
@@ -40,9 +42,10 @@ class AppButton extends StatelessWidget {
           left: leftPadding,
           right: rightPadding,
         ),
-        backgroundColor: backgroundColor,
+        backgroundColor: isOutline ? Colors.white : backgroundColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
+          side: const BorderSide(color: AppColors.primaryColor),
         ),
         fixedSize:
             Size(buttonWidth ?? AppConstants.screenWidth(), buttonHeight ?? 50),
@@ -71,7 +74,7 @@ class AppButton extends StatelessWidget {
               Text(
                 buttonText,
                 style: AppTextStyles.labelRegular.copyWith(
-                  color: Colors.white,
+                  color: isOutline ? AppColors.primaryColor : Colors.white,
                   fontSize: 16,
                 ),
               ),

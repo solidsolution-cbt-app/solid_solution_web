@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
-import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/subject_quiz/view_model/subject_quiz_view_model.dart';
-import 'package:solidsolutionweb/features/subject_quiz/views/edit_subject_question.dart';
 import 'package:solidsolutionweb/widgets/preview_question_card.dart';
 
 class SubjectQuizPreviewScreen extends StatefulWidget {
@@ -45,18 +42,18 @@ class _SubjectQuizPreviewScreenState extends State<SubjectQuizPreviewScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                   const Spacer(),
-                  AppButton(
-                    onTap: () {
-                      model.initializeControllerValue(
-                        questionModel: model.previewQuestion,
-                      );
-                      navigator.push(
-                        routeName: EditQuizPreviewScreen.routeName,
-                      );
-                    },
-                    buttonWidth: 80,
-                    buttonText: "Edit",
-                  )
+                  // AppButton(
+                  //   onTap: () {
+                  //     model.initializeControllerValue(
+                  //       questionModel: model.previewQuestion,
+                  //     );
+                  //     navigator.push(
+                  //       routeName: EditQuizPreviewScreen.routeName,
+                  //     );
+                  //   },
+                  //   buttonWidth: 80,
+                  //   buttonText: "Edit",
+                  // )
                 ],
               ),
               const SizedBox(height: 50),
