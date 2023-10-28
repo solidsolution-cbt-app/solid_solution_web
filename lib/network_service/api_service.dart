@@ -355,14 +355,70 @@ class ApiService {
     }
   }
 
-  Future<LocalExceptionModel> getQuestions(
-      {required String topicId, required String pageNo}) async {
+  Future<LocalExceptionModel> editTopicQuestion(
+      {required String dataSent, required String questionId}) async {
     String token = StorageUtil.getString(
       key: LocalDBStrings.token,
     );
     try {
       http.Response? response;
-      response = await http.post(
+      response = await http.put(
+        Uri.parse(
+            "${EndPoints.baseUrl}${EndPoints.editTopicQuestionData}$questionId"),
+        body: dataSent,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getQuestions(
+      {required String topicId, required String pageNo}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
         Uri.parse(
           "${EndPoints.baseUrl}${EndPoints.fetchTopicQuestion}$topicId&page=$pageNo",
         ),
@@ -380,7 +436,64 @@ class ApiService {
               (e) => QuestionModel.fromjson(data: e),
             )
             .toList();
-        print(question);
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getQuestionData(
+      {required String questionId}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.fetchTopicQuestionData}$questionId",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        QuestionModel question = QuestionModel.fromjson(data: data["data"]);
         return LocalExceptionModel(
           isSuccessful: true,
           message: data["message"],

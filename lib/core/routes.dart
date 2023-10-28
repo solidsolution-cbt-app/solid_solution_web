@@ -11,10 +11,13 @@ import 'package:solidsolutionweb/features/subject_quiz/views/edit_subject_questi
 import 'package:solidsolutionweb/features/subject_quiz/views/preview_subject_question.dart';
 import 'package:solidsolutionweb/features/subject_quiz/views/subject_preview_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/add_topic_quiz_sereen.dart';
+import 'package:solidsolutionweb/features/topic_quiz/views/edit_topic_question.dart';
+import 'package:solidsolutionweb/features/topic_quiz/views/topic_question_preview_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_quiz_preview_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_quiz_view.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/test_screen.dart';
+import 'package:solidsolutionweb/widgets/preview_question_card.dart';
 
 Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -47,6 +50,24 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
         builder: (_) => AddTopicQuizScreen(
           topic: topic,
         ),
+      );
+    case TopicQuestionPreviewScreen.routeName:
+      final TopicPreviewQuestionModel topicQuestionData =
+          routeSettings.arguments as TopicPreviewQuestionModel;
+      return MaterialPageRoute(
+        builder: (_) => TopicQuestionPreviewScreen(
+          topicQuestionData: topicQuestionData,
+        ),
+        settings: routeSettings,
+      );
+    case EditTopicQuestionPreviewScreen.routeName:
+      final TopicPreviewQuestionModel topicQuestionData =
+          routeSettings.arguments as TopicPreviewQuestionModel;
+      return MaterialPageRoute(
+        builder: (_) => EditTopicQuestionPreviewScreen(
+          topicQuestionData: topicQuestionData,
+        ),
+        settings: routeSettings,
       );
     case AddSubjectQuizScreen.routeName:
       return MaterialPageRoute(

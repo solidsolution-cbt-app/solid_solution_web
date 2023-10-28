@@ -5,6 +5,9 @@ class EndPoints {
   static const String getTopic = "fetch-topics?subject";
   static const String addTopicQuestion = "add-topic-question?topicId=";
   static const String fetchTopicQuestion = "fetch-topic-questions?topicId=";
+  static const String fetchTopicQuestionData =
+      "fetch-topic-question?questionId=";
+  static const String editTopicQuestionData = "edit-topic-question?questionId=";
 }
 
 class ClodinaryConstants {

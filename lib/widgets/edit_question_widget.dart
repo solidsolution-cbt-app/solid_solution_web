@@ -1,23 +1,120 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/app_text_fields/app_text_field.dart';
+import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
+import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
+import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.dart';
+import 'package:solidsolutionweb/models/question_model.dart';
+import 'package:solidsolutionweb/network_service/api_service.dart';
+import 'package:solidsolutionweb/widgets/image_viewer.dart';
+import 'package:solidsolutionweb/widgets/selected_pdf_widget.dart';
 
-class EditQuestionWidget extends StatelessWidget {
+class EditQuestionWidget extends StatefulWidget {
   const EditQuestionWidget({
-    required this.option1Controller,
-    required this.option2Controller,
-    required this.option3Controller,
-    required this.option4Controller,
-    required this.questionController,
+    required this.onSubmitQuestion,
+    this.initialquestion,
     super.key,
   });
-  final TextEditingController questionController;
-  final TextEditingController option1Controller;
+  final Function(QuestionModel question) onSubmitQuestion;
+  final QuestionModel? initialquestion;
 
-  final TextEditingController option2Controller;
-  final TextEditingController option3Controller;
-  final TextEditingController option4Controller;
+  @override
+  State<EditQuestionWidget> createState() => _EditQuestionWidgetState();
+}
+
+class _EditQuestionWidgetState extends State<EditQuestionWidget> {
+  TextEditingController questionController = TextEditingController();
+  TextEditingController option1Controller = TextEditingController();
+  TextEditingController option2Controller = TextEditingController();
+  TextEditingController option3Controller = TextEditingController();
+  TextEditingController option4Controller = TextEditingController();
+  // clearController() {
+  //   questionController.clear();
+  //   option1Controller.clear();
+  //   option2Controller.clear();
+  //   option3Controller.clear();
+  //   option4Controller.clear();
+  //   option1Image = "";
+  //   option2Image = "";
+  //   option3Image = "";
+  //   option4Image = "";
+  //   questionImage = "";
+  //   solutionpdf = "";
+  //   setState(() {});
+  // }
+
+  initializeControllers() {
+    questionController =
+        TextEditingController(text: widget.initialquestion?.text ?? "");
+    option1Controller = TextEditingController(
+      text: widget.initialquestion?.option1?.text ?? "",
+    );
+    option2Controller = TextEditingController(
+      text: widget.initialquestion?.option2?.text ?? "",
+    );
+    option3Controller = TextEditingController(
+      text: widget.initialquestion?.option3?.text ?? "",
+    );
+    option4Controller = TextEditingController(
+      text: widget.initialquestion?.option4?.text ?? "",
+    );
+    solutionpdf = widget.initialquestion?.solutionpdf ?? "";
+    questionImage = widget.initialquestion?.image ?? "";
+    option1Image = widget.initialquestion?.option1?.image ?? "";
+    option2Image = widget.initialquestion?.option2?.image ?? "";
+    option3Image = widget.initialquestion?.option3?.image ?? "";
+    option4Image = widget.initialquestion?.option4?.image ?? "";
+    setState(() {});
+  }
+
+  String option1Image = "";
+  String option2Image = "";
+  String option3Image = "";
+  String option4Image = "";
+  String questionImage = "";
+  String solutionpdf = "";
+  String? year;
+
+  QuestionModel getQuestion() {
+    QuestionModel question = QuestionModel.tojson(
+      text: questionController.text,
+      image: questionImage,
+      year: year,
+      solutionpdf: solutionpdf,
+      option1: OptionModel.tojson(
+        text: option1Controller.text,
+        isCorrect: true,
+        image: option1Image,
+      ),
+      option2: OptionModel.tojson(
+        text: option2Controller.text,
+        // isCorrect: true
+        image: option2Image,
+      ),
+      option3: OptionModel.tojson(
+        text: option3Controller.text,
+        // isCorrect: true
+        image: option3Image,
+      ),
+      option4: OptionModel.tojson(
+        text: option4Controller.text,
+        // isCorrect: true
+        image: option4Image,
+      ),
+    );
+    return question;
+  }
+
+  @override
+  void initState() {
+    if (widget.initialquestion != null) {
+      initializeControllers();
+    }
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,21 +123,94 @@ class EditQuestionWidget extends StatelessWidget {
         QuestionCard(
           isOption: false,
           controller: questionController,
+          imagePath: questionImage,
+          delete: () {
+            questionImage = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            questionImage = value;
+            setState(() {});
+          },
         ),
         const SizedBox(height: 20),
         QuestionCard(
           controller: option1Controller,
           isCorrectOption: true,
+          imagePath: option1Image,
+          delete: () {
+            option1Image = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            option1Image = value;
+            setState(() {});
+          },
         ),
+        const SizedBox(height: 20),
         QuestionCard(
           controller: option2Controller,
+          imagePath: option2Image,
+          delete: () {
+            option2Image = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            option2Image = value;
+            setState(() {});
+          },
         ),
+        const SizedBox(height: 20),
         QuestionCard(
           controller: option3Controller,
+          imagePath: option3Image,
+          delete: () {
+            option3Image = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            option3Image = value;
+            setState(() {});
+          },
         ),
+        const SizedBox(height: 20),
         QuestionCard(
           controller: option4Controller,
+          imagePath: option4Image,
+          delete: () {
+            option4Image = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            option4Image = value;
+            setState(() {});
+          },
         ),
+        const SizedBox(height: 50),
+        SelectPdfWidget(
+          prfLink: solutionpdf,
+          setSolutionPdf: (value) {
+            solutionpdf = value;
+            setState(() {});
+          },
+        ),
+        AppButton(
+          onTap: () async {
+            QuestionModel question = getQuestion();
+            LocalExceptionModel isValidQuestion =
+                validateQuestion(question: question);
+            if (isValidQuestion.isSuccessful) {
+              await widget.onSubmitQuestion(question);
+              // clearController();
+            } else {
+              dialogService.showErrorDialog(
+                errorMessage: isValidQuestion.message,
+              );
+            }
+          },
+          buttonText: "Submit",
+        ),
+        const SizedBox(height: 100),
       ],
     );
   }
@@ -50,7 +220,10 @@ class QuestionCard extends StatefulWidget {
   const QuestionCard({
     required this.controller,
     this.title = "Enter Question",
+    required this.imagePath,
     this.isOption = true,
+    required this.setImageUrl,
+    required this.delete,
     this.isCorrectOption = false,
     super.key,
   });
@@ -59,16 +232,44 @@ class QuestionCard extends StatefulWidget {
   final String title;
   final bool isOption;
   final bool isCorrectOption;
+  final Function(String value) setImageUrl;
+  final Function() delete;
+  final String imagePath;
 
   @override
   State<QuestionCard> createState() => _QuestionCardState();
 }
 
 class _QuestionCardState extends State<QuestionCard> {
-  bool showQuestionImage = false;
-  toggleshowQuestionImage(bool value) {
-    showQuestionImage = value;
+  bool showLoader = false;
+
+  toggleshowLoader(bool value) {
+    showLoader = value;
     setState(() {});
+  }
+
+  uploadQuestionImage() async {
+    try {
+      String imagePath = "";
+      final result = await FilePicker.platform
+          .pickFiles(type: FileType.image, allowMultiple: false);
+
+      if (result != null && result.files.isNotEmpty) {
+        toggleshowLoader(true);
+        final fileBytes = result.files.first.bytes;
+        final fileName = result.files.first.name;
+        LocalExceptionModel newImagePath = await apiService.uploadImage(
+          imagePath: fileBytes!,
+          filename: fileName,
+        );
+        imagePath = newImagePath.model as String;
+        widget.setImageUrl(imagePath);
+      }
+    } catch (e) {
+      //
+    }
+
+    toggleshowLoader(false);
   }
 
   @override
@@ -104,40 +305,52 @@ class _QuestionCardState extends State<QuestionCard> {
           ],
         ),
         const SizedBox(height: 20),
-        Container(
-          margin: EdgeInsets.only(left: widget.isOption ? 60 : 0),
-          child: Material(
-            child: InkWell(
-              onTap: () {
-                toggleshowQuestionImage(true);
-              },
-              child: const SizedBox(
-                width: 230,
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.image_outlined,
-                      color: AppColors.primaryColor,
+        Visibility(
+          visible: widget.imagePath == "",
+          replacement: ImageBox(
+            imagePath: widget.imagePath,
+            onTapdelete: () {
+              widget.delete();
+            },
+          ),
+          child: Container(
+            margin: EdgeInsets.only(left: widget.isOption ? 60 : 0),
+            child: Material(
+              child: InkWell(
+                onTap: () {
+                  uploadQuestionImage();
+                },
+                child: SizedBox(
+                  width: 230,
+                  child: Visibility(
+                    visible: !showLoader,
+                    replacement: const SizedBox(
+                      width: 70,
+                      height: 70,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: AppColors.violet,
+                        ),
+                      ),
                     ),
-                    SizedBox(width: 10),
-                    CustomTextBody1(
-                      text: "click to upload diagram",
-                      textColor: AppColors.primaryColor,
-                      fontSize: 16,
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.image_outlined,
+                          color: AppColors.primaryColor,
+                        ),
+                        SizedBox(width: 10),
+                        CustomTextBody1(
+                          text: "click to upload diagram",
+                          textColor: AppColors.primaryColor,
+                          fontSize: 16,
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        Visibility(
-          visible: showQuestionImage,
-          child: ImageBox(
-            onTapdelete: () {
-              toggleshowQuestionImage(false);
-            },
           ),
         ),
         const Row()
@@ -194,33 +407,44 @@ class OptionIndicator extends StatelessWidget {
 class ImageBox extends StatelessWidget {
   const ImageBox({
     this.onTapdelete,
+    this.imagePath = "",
     super.key,
   });
   final Function()? onTapdelete;
+  final String imagePath;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 30),
-      width: 350,
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: AppColors.violet,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          IconButton(
-            onPressed: onTapdelete,
-            icon: const Icon(
-              Icons.delete_outline_rounded,
-              size: 35,
-              color: AppColors.redColor,
-            ),
-          )
-        ],
-      ),
+    return Stack(
+      children: [
+        if (imagePath != "")
+          ImageViewer(
+            urlImagePath: imagePath,
+          ),
+        SizedBox(
+          width: 350,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CircleAvatar(
+                backgroundColor: AppColors.primaryColor,
+                child: Center(
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    color: AppColors.violet,
+                    onPressed: onTapdelete,
+                    icon: const Icon(
+                      Icons.delete,
+                      size: 35,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

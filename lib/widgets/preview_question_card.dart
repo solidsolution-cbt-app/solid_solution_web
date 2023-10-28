@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
+import 'package:solidsolutionweb/models/topic_quiz_model.dart';
+import 'package:solidsolutionweb/widgets/image_viewer.dart';
+import 'package:solidsolutionweb/widgets/selected_pdf_widget.dart';
 
 class PreviewQuestionWidget extends StatelessWidget {
   const PreviewQuestionWidget({
@@ -12,41 +15,53 @@ class PreviewQuestionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        // PreviewQuestionCard(
-        //   isOption: false,
-        //   showImage: question.isQuestionImage!,
-        //   question: question.question!,
-        // ),
-        // const SizedBox(height: 20),
-        // PreviewQuestionCard(
-        //   isCorrectOption: true,
-        //   showImage: question.isoption1Image!,
-        //   question: question.option1!,
-        // ),
-        // PreviewQuestionCard(
-        //   showImage: question.isoption2Image!,
-        //   question: question.option2!,
-        // ),
-        // PreviewQuestionCard(
-        //   showImage: question.isoption3Image!,
-        //   question: question.option3!,
-        // ),
-        // PreviewQuestionCard(
-        //   showImage: question.isoption4Image!,
-        //   question: question.option4!,
-        // ),
+        PreviewQuestionCard(
+          isOption: false,
+          imagePath: question.image,
+          question: question.text!,
+        ),
+        const SizedBox(height: 20),
+        PreviewQuestionCard(
+          isCorrectOption: true,
+          imagePath: question.option1!.image,
+          question: question.option1!.text!,
+        ),
+        PreviewQuestionCard(
+          imagePath: question.option2!.image,
+          question: question.option2!.text!,
+        ),
+        PreviewQuestionCard(
+          imagePath: question.option3!.image,
+          question: question.option3!.text!,
+        ),
+        PreviewQuestionCard(
+          imagePath: question.option4!.image,
+          question: question.option4!.text!,
+        ),
+        const SizedBox(height: 50),
+        SelectPdfWidget(
+          showRemove: false,
+          prfLink: question.solutionpdf!,
+          setSolutionPdf: (value) {},
+        ),
       ],
     );
   }
+}
+
+class TopicPreviewQuestionModel {
+  TopicModel topic;
+  QuestionModel question;
+  TopicPreviewQuestionModel({required this.question, required this.topic});
 }
 
 class PreviewQuestionCard extends StatelessWidget {
   const PreviewQuestionCard({
     this.isOption = true,
     this.isCorrectOption = false,
-    required this.showImage,
+    this.imagePath = "",
     required this.question,
     super.key,
   });
@@ -54,7 +69,7 @@ class PreviewQuestionCard extends StatelessWidget {
   final String question;
   final bool isOption;
   final bool isCorrectOption;
-  final bool showImage;
+  final String? imagePath;
 
   @override
   Widget build(BuildContext context) {
@@ -99,8 +114,12 @@ class PreviewQuestionCard extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         Visibility(
-          visible: showImage,
-          child: const ImageBox(),
+          visible: imagePath != "",
+          child: imagePath != ""
+              ? ImageBox(
+                  imagePath: imagePath!,
+                )
+              : const SizedBox(),
         ),
         const Row()
       ],
@@ -155,20 +174,15 @@ class OptionIndicator extends StatelessWidget {
 
 class ImageBox extends StatelessWidget {
   const ImageBox({
-    this.onTapdelete,
+    required this.imagePath,
     super.key,
   });
-  final Function()? onTapdelete;
+
+  final String imagePath;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 30),
-      width: 350,
-      height: 200,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: AppColors.violet,
-      ),
+    return ImageViewer(
+      urlImagePath: imagePath,
     );
   }
 }
