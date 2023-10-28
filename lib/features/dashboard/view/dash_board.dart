@@ -18,26 +18,28 @@ class DashBoard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseScreen(
       isDashBoard: true,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
-        child: const Wrap(
-          spacing: 50,
-          runSpacing: 50,
-          // mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            QuizTypeCard(
-              routeName: TopicQuizScreen.routeName,
-              title: "Topic Quiz",
-            ),
-            QuizTypeCard(
-              routeName: SubjectPreviewScreen.routeName,
-              title: "Subject Quiz",
-            ),
-            QuizTypeCard(
-              routeName: ExamQuizScreen.routeName,
-              title: "Exam Quiz",
-            )
-          ],
+      child: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
+          child: const Wrap(
+            spacing: 50,
+            runSpacing: 50,
+            // mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              QuizTypeCard(
+                routeName: TopicQuizScreen.routeName,
+                title: "Topic Quiz",
+              ),
+              QuizTypeCard(
+                routeName: SubjectPreviewScreen.routeName,
+                title: "Subject Quiz",
+              ),
+              QuizTypeCard(
+                routeName: ExamQuizScreen.routeName,
+                title: "Exam Quiz",
+              )
+            ],
+          ),
         ),
       ),
     );

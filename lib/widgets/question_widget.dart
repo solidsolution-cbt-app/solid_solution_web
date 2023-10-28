@@ -166,7 +166,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 validateQuestion(question: question);
             if (isValidQuestion.isSuccessful) {
               await widget.onSubmitQuestion(question);
-              clearController();
+              // clearController();
             } else {
               dialogService.showErrorDialog(
                 errorMessage: isValidQuestion.message,

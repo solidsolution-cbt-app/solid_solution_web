@@ -10,6 +10,7 @@ import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model
 import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_preview_screen.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
+import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
 import 'package:solidsolutionweb/widgets/question_summary_card.dart';
 
 class ExamQuizScreen extends StatefulWidget {
@@ -23,62 +24,87 @@ class ExamQuizScreen extends StatefulWidget {
 }
 
 class _ExamQuizScreenState extends State<ExamQuizScreen> {
+  final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return BaseView<ExamQuizViewModel>(builder: (
-      context,
-      model,
-      child,
-    ) {
-      return BaseScreen(
-        onTap: () {
-          setState(() {});
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  SvgPicture.asset("asset/svg/book-square outline.svg"),
-                  const SizedBox(width: 15),
-                  const CustomTextHeader1(
-                    text: "Exam Quiz",
-                    fontWeight: FontWeight.w500,
-                  ),
-                  const Spacer(),
-                ],
-              ),
-              const SizedBox(height: 50),
-              Wrap(
-                spacing: 50,
-                runSpacing: 20,
-                children: [
-                  const AddNewQuestionCard(
-                    questiontype: Questiontype.examQuestion,
-                  ),
-                  ...model
-                      .getQuestions(
-                          subject: locatorX<BaseScreenViewModel>().selectedText)
-                      .mapIndexed(
-                        (index, element) => QuestionSummaryCard(
-                          onTap: () {
-                            model.setPreviewQuestion(question: element);
-                            navigator.push(
-                              routeName: ExamQuizPreviewScreen.routeName,
-                            );
-                          },
-                          question: element,
-                          questionNumber: index + 1,
-                        ),
+    return BaseView<ExamQuizViewModel>(
+      onModelReady: (model) {
+        model.shouldgetQuestions(
+          subject: locatorX<BaseScreenViewModel>().selectedText,
+        );
+        _scrollController.addListener(() {
+          if (_scrollController.position.atEdge) {
+            if (_scrollController.position.pixels == 0) {
+            } else {
+              model.fetchMoreExamQuestions(
+                  subject: locatorX<BaseScreenViewModel>().selectedText);
+            }
+          }
+        });
+      },
+      builder: (context, model, child) {
+        return Stack(
+          children: [
+            BaseScreen(
+              onTap: () {
+                model.shouldgetQuestions(
+                  subject: locatorX<BaseScreenViewModel>().selectedText,
+                );
+              },
+              child: SingleChildScrollView(
+                controller: _scrollController,
+                child: Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset("asset/svg/book-square outline.svg"),
+                          const SizedBox(width: 15),
+                          const CustomTextHeader1(
+                            text: "Exam Quiz",
+                            fontWeight: FontWeight.w500,
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
+                      const SizedBox(height: 50),
+                      Wrap(
+                        spacing: 50,
+                        runSpacing: 20,
+                        children: [
+                          const AddNewQuestionCard(
+                            questiontype: Questiontype.examQuestion,
+                          ),
+                          ...model.questionToshow
+                              .mapIndexed(
+                                (index, element) => QuestionSummaryCard(
+                                  onTap: () {
+                                    navigator.push(
+                                      routeName:
+                                          ExamQuizPreviewScreen.routeName,
+                                      argument: element,
+                                    );
+                                  },
+                                  question: element,
+                                  questionNumber: index + 1,
+                                ),
+                              )
+                              .toList()
+                        ],
                       )
-                      .toList(),
-                ],
-              )
-            ],
-          ),
-        ),
-      );
-    });
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            AppProgressIndicator(
+              showLoader: model.loadExamQuestion,
+            )
+          ],
+        );
+      },
+    );
   }
 }

@@ -29,7 +29,7 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
   Widget build(BuildContext context) {
     return BaseView<TopicQuizVeiwModel>(
       onModelReady: (model) {
-        model.getTopic(
+        model.shouldGetTopic(
           subject: locatorX<BaseScreenViewModel>().selectedText,
           pageNumber: "1",
         );
@@ -174,34 +174,36 @@ class TopicScreenEmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const SizedBox(height: 30),
-        SizedBox(
-          child: Image.asset("asset/images/empty_widget.png"),
-        ),
-        const SizedBox(height: 30),
-        const CustomTextBody1(
-          text: "No Topic Created Yet",
-          fontSize: 32,
-        ),
-        const SizedBox(height: 15),
-        const CustomTextBody1(
-          text: "Click the button below to add a Topic.",
-          fontSize: 24,
-        ),
-        const SizedBox(height: 30),
-        AppButton(
-          onTap: () {
-            DialogService().addTopicDialog(
-              subject: locatorX<BaseScreenViewModel>().selectedText,
-            );
-          },
-          buttonText: "Add Topic",
-        ),
-        const SizedBox(height: 30),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(height: 30),
+          SizedBox(
+            child: Image.asset("asset/images/empty_widget.png"),
+          ),
+          const SizedBox(height: 30),
+          const CustomTextBody1(
+            text: "No Topic Created Yet",
+            fontSize: 32,
+          ),
+          const SizedBox(height: 15),
+          const CustomTextBody1(
+            text: "Click the button below to add a Topic.",
+            fontSize: 24,
+          ),
+          const SizedBox(height: 30),
+          AppButton(
+            onTap: () {
+              DialogService().addTopicDialog(
+                subject: locatorX<BaseScreenViewModel>().selectedText,
+              );
+            },
+            buttonText: "Add Topic",
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
     );
   }
 }

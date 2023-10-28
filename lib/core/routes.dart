@@ -15,6 +15,7 @@ import 'package:solidsolutionweb/features/topic_quiz/views/edit_topic_question.d
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_question_preview_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_quiz_preview_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_quiz_view.dart';
+import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/test_screen.dart';
 import 'package:solidsolutionweb/widgets/preview_question_card.dart';
@@ -85,13 +86,21 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
       );
     case ExamQuizPreviewScreen.routeName:
+      final QuestionModel questionData =
+          routeSettings.arguments as QuestionModel;
       return MaterialPageRoute(
-        builder: (_) => const ExamQuizPreviewScreen(),
+        builder: (_) => ExamQuizPreviewScreen(
+          questionData: questionData,
+        ),
         settings: routeSettings,
       );
     case EditExamQuizScreen.routeName:
+      final QuestionModel questionData =
+          routeSettings.arguments as QuestionModel;
       return MaterialPageRoute(
-        builder: (_) => const EditExamQuizScreen(),
+        builder: (_) => EditExamQuizScreen(
+          questionData: questionData,
+        ),
         settings: routeSettings,
       );
     case AddExamQuizScreen.routeName:
