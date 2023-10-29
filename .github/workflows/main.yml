@@ -1,0 +1,44 @@
+on:
+  pull_request:
+    branches:
+      - production
+  push:
+    branches:
+      - production
+      - develop
+
+name: Build & Release
+
+jobs:
+  build:
+    name: Build & Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Dart SDK
+        uses: dart-lang/setup-dart@v1  # Use the official Dart setup action
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v1
+        # Adjust to your desired Flutter version
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # - name: Run tests
+      #   run: flutter test
+
+      - name: Build Flutter Web
+        run: flutter build web
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build/web
+          # files: "build/web/**/*" # Adjust to your build output path
+          tag: v1.0.${{ github.run_number }}
+          token: ${{ secrets.Token }}
+         
