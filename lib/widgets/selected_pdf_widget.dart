@@ -33,29 +33,29 @@ class _SelectPdfWidgetState extends State<SelectPdfWidget> {
   }
 
   void uploadFile() async {
-    // final result = await FilePicker.platform.pickFiles(
-    //   type: FileType.custom,
-    //   allowMultiple: false,
-    //   allowedExtensions: ['pdf'],
-    // );
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowMultiple: false,
+      allowedExtensions: ['pdf'],
+    );
 
-    // if (result != null && result.files.isNotEmpty) {
-    //   toggleshowLoader(true);
-    try {
-      // final fileBytes = result.files.first.bytes;
-      // final fileName = result.files.first.name;
-      // LocalExceptionModel filePath = await apiService.uploadPdf(
-      //   imagePath: fileBytes!,
-      //   filename: fileName,
-      // );
+    if (result != null && result.files.isNotEmpty) {
+      toggleshowLoader(true);
+      try {
+        final fileBytes = result.files.first.bytes;
+        final fileName = result.files.first.name;
+        LocalExceptionModel filePath = await apiService.uploadPdf(
+          imagePath: fileBytes!,
+          filename: fileName,
+        );
 
-      String pdflink =
-          "https://res.cloudinary.com/dn4d52sd1/image/upload/v1698532197/relocation_Letter.pdf1698532190292.pdf"; //filePath.model as String;
-
-      widget.setSolutionPdf(pdflink);
-    } catch (e) {
-      //
-      // }
+        // String pdflink =
+        //     "https://res.cloudinary.com/dn4d52sd1/image/upload/v1698532197/relocation_Letter.pdf1698532190292.pdf"; //filePath.model as String;
+        String pdflink = filePath.model as String;
+        widget.setSolutionPdf(pdflink);
+      } catch (e) {
+        //
+      }
 
       toggleshowLoader(false);
     }
