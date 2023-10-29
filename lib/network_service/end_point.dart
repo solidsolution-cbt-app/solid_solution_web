@@ -12,6 +12,12 @@ class EndPoints {
   static const String fetchExamQuestion = "fetch-exam-questions?subject=";
   static const String fetchExamQuestionData = "fetch-exam-question?questionId=";
   static const String editExamQuestionData = "edit-exam-question?questionId=";
+  static const String addSubject = "add-subject-question?subject=";
+  static const String fetchSubjectQuestion = "fetch-subject-questions?subject=";
+  static const String fetchSubjectQuestionData =
+      "fetch-subject-question?questionId=";
+  static const String editSubjectQuestionData =
+      "edit-subject-question?questionId=";
 }
 
 class ClodinaryConstants {

@@ -76,8 +76,12 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
       );
     case EditQuizPreviewScreen.routeName:
+      final QuestionModel questionData =
+          routeSettings.arguments as QuestionModel;
       return MaterialPageRoute(
-        builder: (_) => const EditQuizPreviewScreen(),
+        builder: (_) => EditQuizPreviewScreen(
+          questionData: questionData,
+        ),
         settings: routeSettings,
       );
     case ExamQuizScreen.routeName:
@@ -119,8 +123,12 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
       );
     case SubjectQuizPreviewScreen.routeName:
+      final QuestionModel questionData =
+          routeSettings.arguments as QuestionModel;
       return MaterialPageRoute(
-        builder: (_) => const SubjectQuizPreviewScreen(),
+        builder: (_) => SubjectQuizPreviewScreen(
+          questionData: questionData,
+        ),
         settings: routeSettings,
       );
     case PdfViewerPage.routeName:

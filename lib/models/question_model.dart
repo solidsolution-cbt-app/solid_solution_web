@@ -72,6 +72,7 @@ class QuestionModel {
     image = data["image"];
     solutionpdf = data["solution"] ?? "";
     topicId = data["topicId"] ?? "";
+    year = data["year"] ?? "";
   }
   @override
   String toString() {

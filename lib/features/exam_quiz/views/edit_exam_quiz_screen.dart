@@ -30,9 +30,8 @@ class _EditExamQuizScreenState extends State<EditExamQuizScreen> {
         return Stack(
           children: [
             BaseScreen(
-              onTap: () {
-                setState(() {});
-              },
+              allowSubjectChange: false,
+              onTap: () {},
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 30),

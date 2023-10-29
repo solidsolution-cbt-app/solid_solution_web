@@ -762,4 +762,305 @@ class ApiService {
       }
     }
   }
+
+  Future<LocalExceptionModel> addSubjectQuestion(
+      {required String dataSent,
+      required String subject,
+      required String year}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.post(
+        Uri.parse(
+            "${EndPoints.baseUrl}${EndPoints.addSubject}$subject&year=$year"),
+        body: dataSent,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        QuestionModel question = QuestionModel.fromjson(data: data["data"]);
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getSubjectQuestions(
+      {required String subject, required String pageNo}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.fetchSubjectQuestion}$subject&page=$pageNo",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        List<dynamic> datas = data["data"];
+        List<QuestionModel> question = datas
+            .map(
+              (e) => QuestionModel.fromjson(data: e),
+            )
+            .toList();
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getSubjectQuestionsFilter({
+    required String subject,
+    required String pageNo,
+    required String year,
+  }) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.fetchSubjectQuestion}$subject&page=$pageNo&year=$year",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        List<dynamic> datas = data["data"];
+        List<QuestionModel> question = datas
+            .map(
+              (e) => QuestionModel.fromjson(data: e),
+            )
+            .toList();
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getSubjectQuestionData(
+      {required String questionId}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.fetchSubjectQuestionData}$questionId",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        QuestionModel question = QuestionModel.fromjson(data: data["data"]);
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> editSubjectQuestion(
+      {required String dataSent, required String questionId}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.put(
+        Uri.parse(
+            "${EndPoints.baseUrl}${EndPoints.editSubjectQuestionData}$questionId"),
+        body: dataSent,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
 }
