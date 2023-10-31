@@ -131,6 +131,115 @@ class ApiService {
     }
   }
 
+  Future<LocalExceptionModel> deleteTopicQuiz({
+    required String topicId,
+  }) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.delete(
+        Uri.parse(EndPoints.baseUrl + EndPoints.deleteTopic + topicId),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+      // print(data);
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> deleteTopicQuestion({
+    required String questionId,
+  }) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.delete(
+        Uri.parse(
+            EndPoints.baseUrl + EndPoints.deleteTopicQuestion + questionId),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+      // print(data);
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
   Future<LocalExceptionModel> getTopicQuiz({
     required String subject,
     required String pageNumber,
@@ -531,6 +640,61 @@ class ApiService {
     }
   }
 
+  Future<LocalExceptionModel> deleteSubjectQuestion({
+    required String questionId,
+  }) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.delete(
+        Uri.parse(
+            EndPoints.baseUrl + EndPoints.deleteSubjectQuestion + questionId),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+      // print(data);
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
   Future<LocalExceptionModel> addExamQuestion(
       {required String dataSent, required String subject}) async {
     String token = StorageUtil.getString(
@@ -789,6 +953,61 @@ class ApiService {
           isSuccessful: true,
           message: data["message"],
           model: question,
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> deleteExamQuestion({
+    required String questionId,
+  }) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+    try {
+      http.Response? response;
+      response = await http.delete(
+        Uri.parse(
+            EndPoints.baseUrl + EndPoints.deleteExamQuestion + questionId),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+      // print(data);
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
         );
       } else {
         return LocalExceptionModel(

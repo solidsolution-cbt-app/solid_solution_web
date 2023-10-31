@@ -108,6 +108,35 @@ class ExamQuizViewModel extends BaseModel {
     toggleLoadAddExamQuestion(false);
   }
 
+  Future<void> deleteExamQuestion({
+    required QuestionModel questionModel,
+    required String subject,
+  }) async {
+    dialogService.hideLoaderDialog();
+    toggleLoadExamQuestion(true);
+    try {
+      var data =
+          await apiService.deleteExamQuestion(questionId: questionModel.id!);
+      if (data.isSuccessful) {
+        removeQuestion(subject: getSubject(subject));
+        await getExamQuestion(subject: getSubject(subject), pageNumber: "1");
+        dialogService.showSuccessDialog(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+      //
+    }
+    toggleLoadExamQuestion(false);
+  }
+
   Future<void> getExamQuestion({
     required String subject,
     required String pageNumber,

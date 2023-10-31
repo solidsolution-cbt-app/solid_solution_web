@@ -55,24 +55,28 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
                 controller: _scrollController,
                 child: Container(
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset("asset/svg/book-square outline.svg"),
-                          const SizedBox(width: 15),
-                          const CustomTextHeader1(
-                            text: "Exam Quiz",
-                            fontWeight: FontWeight.w500,
-                          ),
-                          const Spacer(),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                                "asset/svg/book-square outline.svg"),
+                            const SizedBox(width: 15),
+                            const CustomTextHeader1(
+                              text: "Exam Quiz",
+                              fontWeight: FontWeight.w500,
+                            ),
+                            const Spacer(),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 50),
                       Wrap(
                         spacing: 50,
-                        runSpacing: 20,
+                        runSpacing: 50,
                         children: [
                           const AddNewQuestionCard(
                             questiontype: Questiontype.examQuestion,
@@ -80,6 +84,13 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
                           ...model.questionToshow
                               .mapIndexed(
                                 (index, element) => QuestionSummaryCard(
+                                  onTapDelete: () {
+                                    model.deleteExamQuestion(
+                                      questionModel: element,
+                                      subject: locatorX<BaseScreenViewModel>()
+                                          .selectedText,
+                                    );
+                                  },
                                   onTap: () {
                                     navigator.push(
                                       routeName:

@@ -130,6 +130,35 @@ class SubjectQuizViewModel extends BaseModel {
     toggleLoadAddSubjectQuestion(false);
   }
 
+  Future<void> deleteSubjectQuestion({
+    required QuestionModel questionModel,
+    required String subject,
+  }) async {
+    dialogService.hideLoaderDialog();
+    toggleLoadSubjectQuestion(true);
+    try {
+      var data =
+          await apiService.deleteSubjectQuestion(questionId: questionModel.id!);
+      if (data.isSuccessful) {
+        removeQuestion(subject: getSubject(subject));
+        await getSubjectQuestion(subject: getSubject(subject), pageNumber: "1");
+        dialogService.showSuccessDialog(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+      //
+    }
+    toggleLoadSubjectQuestion(false);
+  }
+
   Future<void> getSubjectQuestion({
     required String subject,
     required String pageNumber,

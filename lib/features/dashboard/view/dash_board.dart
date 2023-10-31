@@ -24,7 +24,6 @@ class DashBoard extends StatelessWidget {
           child: const Wrap(
             spacing: 50,
             runSpacing: 50,
-            // mainAxisAlignment: MainAxisAlignment.start,
             children: [
               QuizTypeCard(
                 routeName: TopicQuizScreen.routeName,

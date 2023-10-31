@@ -193,6 +193,34 @@ class TopicQuizVeiwModel extends BaseModel {
     toggleLoadAddTopic(false);
   }
 
+  Future<void> deleteTopic({
+    required TopicModel topic,
+    required String subject,
+  }) async {
+    dialogService.hideLoaderDialog();
+    toggleLoadTopicScreen(true);
+    try {
+      var data = await apiService.deleteTopicQuiz(topicId: topic.id!);
+      if (data.isSuccessful) {
+        removeTopic(topic: topic);
+        getTopic(subject: getSubject(subject), pageNumber: "1");
+        dialogService.showSuccessDialog(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+      //
+    }
+    toggleLoadTopicScreen(false);
+  }
+
   Future<void> getTopic({
     required String subject,
     required String pageNumber,
@@ -337,6 +365,35 @@ class TopicQuizVeiwModel extends BaseModel {
       );
     }
     toggleLoadAddQuestion(false);
+  }
+
+  Future<void> deleteTopicQuestion(
+      {required QuestionModel questionModel,
+      required String subject,
+      required TopicModel topic}) async {
+    dialogService.hideLoaderDialog();
+    toggleLoadTopicQuestionScreen(true);
+    try {
+      var data =
+          await apiService.deleteTopicQuestion(questionId: questionModel.id!);
+      if (data.isSuccessful) {
+        removeQuestion(topic: topic);
+        await getQuestion(topic: topic, pageNumber: "1");
+        dialogService.showSuccessDialog(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+      //
+    }
+    toggleLoadTopicScreen(false);
   }
 
   Future<void> getTopicQuestionData({

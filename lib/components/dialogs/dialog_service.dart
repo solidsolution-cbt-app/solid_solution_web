@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/dialogs/add_topic_dialog.dart';
+import 'package:solidsolutionweb/components/dialogs/delete_dialog.dart';
 import 'package:solidsolutionweb/components/dialogs/error_dialog.dart';
 import 'package:solidsolutionweb/components/dialogs/logout_dialog.dart';
 import 'package:solidsolutionweb/components/dialogs/preview_pdf.dart';
@@ -44,7 +45,6 @@ class DialogService {
   Future<dynamic> showScreenLoader() {
     return showDialog(
       context: newContext,
-      // barrierDismissible: false,
       builder: (context) {
         return const ScreenLoader();
       },
@@ -58,6 +58,20 @@ class DialogService {
         builder: (context) {
           return AddTopicDialog(
             subject: subject,
+          );
+        });
+  }
+
+  Future<dynamic> showDeleteDialog({
+    required String deleteMessage,
+    required Function() onTapDelete,
+  }) {
+    return showDialog(
+        context: newContext,
+        builder: (context) {
+          return DeleteDialog(
+            deleteMessage: deleteMessage,
+            onTapDelete: onTapDelete,
           );
         });
   }

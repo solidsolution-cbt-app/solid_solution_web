@@ -6,6 +6,7 @@ import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/enums/question_type_enum.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
+import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
 import 'package:solidsolutionweb/features/topic_quiz/view_model/topic_view_model.dart';
 import 'package:solidsolutionweb/features/topic_quiz/views/topic_question_preview_screen.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
@@ -53,24 +54,27 @@ class _TopicQuizPreviewScreenState extends State<TopicQuizPreviewScreen> {
               controller: _scrollController,
               child: Container(
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset("asset/svg/book-square outline.svg"),
-                        const SizedBox(width: 15),
-                        CustomTextHeader1(
-                          text: widget.topic!.topic,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        const Spacer(),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Row(
+                        children: [
+                          SvgPicture.asset("asset/svg/book-square outline.svg"),
+                          const SizedBox(width: 15),
+                          CustomTextHeader1(
+                            text: widget.topic!.topic,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          const Spacer(),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 50),
                     Wrap(
                       spacing: 50,
-                      runSpacing: 20,
+                      runSpacing: 50,
                       children: [
                         AddNewQuestionCard(
                           topic: widget.topic,
@@ -79,6 +83,14 @@ class _TopicQuizPreviewScreenState extends State<TopicQuizPreviewScreen> {
                         ...model.questionToshow
                             .mapIndexed(
                               (index, element) => QuestionSummaryCard(
+                                onTapDelete: () {
+                                  model.deleteTopicQuestion(
+                                    questionModel: element,
+                                    subject: locatorX<BaseScreenViewModel>()
+                                        .selectedText,
+                                    topic: widget.topic!,
+                                  );
+                                },
                                 onTap: () {
                                   navigator.push(
                                     routeName:

@@ -84,14 +84,14 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
                         ],
                       ),
                       const SizedBox(height: 50),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          CustomTextBody1(
-                            text: "${model.topicToshow.length} Quiz",
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     CustomTextBody1(
+                      //       text: "${model.topicToshow.length}+ Quiz",
+                      //     ),
+                      //   ],
+                      // ),
                       Expanded(
                         child: ListView.builder(
                           controller: _scrollController,
@@ -99,6 +99,13 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
                           itemBuilder: (context, index) {
                             return QuizTopicCard(
                               topic: model.topicToshow[index],
+                              onDeleteTopic: (value) {
+                                model.deleteTopic(
+                                  topic: model.topicToshow[index],
+                                  subject: locatorX<BaseScreenViewModel>()
+                                      .selectedText,
+                                );
+                              },
                             );
                           },
                         ),
@@ -121,9 +128,11 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
 class QuizTopicCard extends StatelessWidget {
   const QuizTopicCard({
     required this.topic,
+    required this.onDeleteTopic,
     super.key,
   });
   final TopicModel topic;
+  final Function(TopicModel topic) onDeleteTopic;
 
   @override
   Widget build(BuildContext context) {
@@ -154,10 +163,39 @@ class QuizTopicCard extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              const Icon(
-                Icons.chevron_right,
-                size: 30,
-                color: AppColors.primaryColor,
+              Material(
+                child: InkWell(
+                  onTap: () {
+                    dialogService.showDeleteDialog(
+                      deleteMessage:
+                          "Are you sure you want to delete the topic ?",
+                      onTapDelete: () {
+                        onDeleteTopic(topic);
+                      },
+                    );
+                  },
+                  child: const Icon(
+                    Icons.delete_outline,
+                    size: 30,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 30),
+              Material(
+                child: InkWell(
+                  onTap: () {
+                    navigator.push(
+                      routeName: TopicQuizPreviewScreen.routeName,
+                      argument: topic,
+                    );
+                  },
+                  child: const Icon(
+                    Icons.chevron_right,
+                    size: 30,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
               )
             ],
           ),

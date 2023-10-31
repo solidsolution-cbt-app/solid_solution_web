@@ -64,37 +64,41 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
               child: SingleChildScrollView(
                 child: Container(
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                   child: Column(
                     children: [
-                      Row(
-                        children: [
-                          SvgPicture.asset("asset/svg/book-square outline.svg"),
-                          const SizedBox(width: 15),
-                          const CustomTextHeader1(
-                            text: "Subject Quiz",
-                            fontWeight: FontWeight.w500,
-                          ),
-                          const Spacer(),
-                          YearFilter(
-                            onChangeyear: (year) {
-                              model.resetQuestionData();
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                                "asset/svg/book-square outline.svg"),
+                            const SizedBox(width: 15),
+                            const CustomTextHeader1(
+                              text: "Subject Quiz",
+                              fontWeight: FontWeight.w500,
+                            ),
+                            const Spacer(),
+                            YearFilter(
+                              onChangeyear: (year) {
+                                model.resetQuestionData();
 
-                              model.onChangeYear(year);
-                              model.shouldgetQuestions(
-                                subject: locatorX<BaseScreenViewModel>()
-                                    .selectedText,
-                                selectedYear: model.selectedYear,
-                              );
-                            },
-                            selectedYear: model.selectedYear,
-                          )
-                        ],
+                                model.onChangeYear(year);
+                                model.shouldgetQuestions(
+                                  subject: locatorX<BaseScreenViewModel>()
+                                      .selectedText,
+                                  selectedYear: model.selectedYear,
+                                );
+                              },
+                              selectedYear: model.selectedYear,
+                            )
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 50),
                       Wrap(
                         spacing: 50,
-                        runSpacing: 20,
+                        runSpacing: 50,
                         children: [
                           const AddNewQuestionCard(
                             questiontype: Questiontype.subjectQuestion,
@@ -102,6 +106,13 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                           ...model.questionToshow
                               .mapIndexed(
                                 (index, element) => QuestionSummaryCard(
+                                  onTapDelete: () {
+                                    model.deleteSubjectQuestion(
+                                      questionModel: element,
+                                      subject: locatorX<BaseScreenViewModel>()
+                                          .selectedText,
+                                    );
+                                  },
                                   onTap: () {
                                     navigator.push(
                                       routeName:

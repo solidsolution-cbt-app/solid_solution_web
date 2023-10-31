@@ -4,6 +4,8 @@ class EndPoints {
   static const String addTopic = "add-topic";
   static const String getTopic = "fetch-topics?subject";
   static const String addTopicQuestion = "add-topic-question?topicId=";
+  static const String deleteTopic = "delete-topic?topicId=";
+  static const String deleteTopicQuestion = "delete-topic-question?questionId=";
   static const String fetchTopicQuestion = "fetch-topic-questions?topicId=";
   static const String fetchTopicQuestionData =
       "fetch-topic-question?questionId=";
@@ -16,8 +18,12 @@ class EndPoints {
   static const String fetchSubjectQuestion = "fetch-subject-questions?subject=";
   static const String fetchSubjectQuestionData =
       "fetch-subject-question?questionId=";
+
+  static const String deleteSubjectQuestion =
+      "delete-subject-question?questionId=";
   static const String editSubjectQuestionData =
       "edit-subject-question?questionId=";
+  static const String deleteExamQuestion = "delete-exam-question?questionId=";
 }
 
 class ClodinaryConstants {
