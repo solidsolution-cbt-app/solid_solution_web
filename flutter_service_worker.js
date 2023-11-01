@@ -3,10 +3,10 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"main.dart.js": "076e83cc79819bf23d7cf4a72353fb87",
+const RESOURCES = {"main.dart.js": "a47314d6b0e6113d5b706b660a98dad3",
 "assets/AssetManifest.json": "b1f53d47d4b0b61477d056f42514a8db",
 "assets/AssetManifest.bin": "cd0f2685376200359f286799bf837a2a",
-"assets/fonts/MaterialIcons-Regular.otf": "4115ad25e06b428241f833a0dcbddb1d",
+"assets/fonts/MaterialIcons-Regular.otf": "36cbc1f5dea9a2346af2d83204ee607f",
 "assets/asset/lottie_animation/error_2.json": "813262d171bb3ab5a51fe5ddd461dcdd",
 "assets/asset/lottie_animation/error_lottie.json": "863034ec7c7435cfd7e4a2ea00254815",
 "assets/asset/lottie_animation/animation_loader.json": "0c2b668aa479882eadf547fcab69c818",
@@ -42,8 +42,8 @@ const RESOURCES = {"main.dart.js": "076e83cc79819bf23d7cf4a72353fb87",
 "assets/NOTICES": "e694e463ad6c387580118015414a39bb",
 "assets/shaders/ink_sparkle.frag": "f8b80e740d33eb157090be4e995febdf",
 "manifest.json": "e5e448b126d6f6c89b33b7afb09425ef",
-"index.html": "a572d000833968923dd4487ff9ec3a4f",
-"/": "a572d000833968923dd4487ff9ec3a4f",
+"index.html": "8b548bec5363a1951d4aca1c580aa7b5",
+"/": "8b548bec5363a1951d4aca1c580aa7b5",
 "icons/Icon-maskable-512.png": "4d6465c1a1b499a1671f5f2daab6bf23",
 "icons/Icon-512.png": "4d6465c1a1b499a1671f5f2daab6bf23",
 "icons/Icon-192.png": "90181c40c1344b1152210dea7fce4ab5",
