@@ -122,3 +122,36 @@ Future<void> showYearDropDown({
     // print(result);
   }
 }
+
+Future<void> showDropDown({
+  required BuildContext context,
+  required List<String> items,
+  required Function(String item) onSelectItem,
+  required final double leftPosition,
+  required final double righttPosition,
+}) async {
+  final result = await showMenu<String>(
+    context: context,
+    position: RelativeRect.fromLTRB(
+      leftPosition,
+      120,
+      righttPosition,
+      0,
+    ), // Size of the button
+    // Offset.zero & overlay.size,
+
+    items: items.map((String item) {
+      return PopupMenuItem<String>(
+        value: item,
+        child: CustomTextBody1(
+          text: item,
+        ),
+      );
+    }).toList(),
+  );
+
+  if (result != null) {
+    onSelectItem(result);
+    // print(result);
+  }
+}

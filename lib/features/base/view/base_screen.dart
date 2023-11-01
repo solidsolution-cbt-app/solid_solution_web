@@ -4,8 +4,10 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
+import 'package:solidsolutionweb/features/authentication/views/login_screen.dart';
 import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
 import 'package:solidsolutionweb/features/dashboard/view/dash_board.dart';
+import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
 class BaseScreen extends StatelessWidget {
   const BaseScreen({
@@ -60,11 +62,31 @@ class BaseScreen extends StatelessWidget {
                       const SizedBox(width: 20),
                       const CustomTextBody1(
                         text: "Solidsolution",
-                      )
+                      ),
                     ],
                   ),
                 ),
                 const Spacer(),
+                IconButton(
+                  onPressed: () {
+                    showDropDown(
+                      context: context,
+                      items: ["logout"],
+                      onSelectItem: (item) {
+                        navigator.pushAndRemoveUntil(
+                          routeName: LoginScreen.routeName,
+                        );
+                      },
+                      leftPosition: MediaQuery.of(context).size.width - 100,
+                      righttPosition: 0,
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.person_outline,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                const SizedBox(width: 20)
               ],
             ),
           ),
