@@ -30,20 +30,20 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
   TextEditingController option2Controller = TextEditingController();
   TextEditingController option3Controller = TextEditingController();
   TextEditingController option4Controller = TextEditingController();
-  // clearController() {
-  //   questionController.clear();
-  //   option1Controller.clear();
-  //   option2Controller.clear();
-  //   option3Controller.clear();
-  //   option4Controller.clear();
-  //   option1Image = "";
-  //   option2Image = "";
-  //   option3Image = "";
-  //   option4Image = "";
-  //   questionImage = "";
-  //   solutionpdf = "";
-  //   setState(() {});
-  // }
+  clearController() {
+    questionController.clear();
+    option1Controller.clear();
+    option2Controller.clear();
+    option3Controller.clear();
+    option4Controller.clear();
+    option1Image = "";
+    option2Image = "";
+    option3Image = "";
+    option4Image = "";
+    questionImage = "";
+    solutionpdf = "";
+    setState(() {});
+  }
 
   initializeControllers() {
     questionController =
@@ -201,7 +201,7 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
                 validateQuestion(question: question);
             if (isValidQuestion.isSuccessful) {
               await widget.onSubmitQuestion(question);
-              // clearController();
+              clearController();
             } else {
               dialogService.showErrorDialog(
                 errorMessage: isValidQuestion.message,
@@ -250,7 +250,6 @@ class _QuestionCardState extends State<QuestionCard> {
 
   uploadQuestionImage() async {
     try {
-      String imagePath = "";
       final result = await FilePicker.platform
           .pickFiles(type: FileType.image, allowMultiple: false);
 
@@ -262,14 +261,30 @@ class _QuestionCardState extends State<QuestionCard> {
           imagePath: fileBytes!,
           filename: fileName,
         );
-        imagePath = newImagePath.model as String;
-        widget.setImageUrl(imagePath);
+        ClaodinaryClassModel imagePath =
+            newImagePath.model as ClaodinaryClassModel;
+        widget.setImageUrl(imagePath.fileLink);
+        setInitialImage(imagePath.fileLink);
       }
     } catch (e) {
       //
     }
 
     toggleshowLoader(false);
+  }
+
+  String initialImage = "";
+  setInitialImage(String value) {
+    initialImage = value;
+  }
+
+  @override
+  void initState() {
+    if (initialImage == "") {
+      setInitialImage(widget.imagePath);
+      setState(() {});
+    }
+    super.initState();
   }
 
   @override
@@ -306,11 +321,12 @@ class _QuestionCardState extends State<QuestionCard> {
         ),
         const SizedBox(height: 20),
         Visibility(
-          visible: widget.imagePath == "",
+          visible: initialImage == "",
           replacement: ImageBox(
-            imagePath: widget.imagePath,
+            imagePath: initialImage,
             onTapdelete: () {
               widget.delete();
+              setInitialImage("");
             },
           ),
           child: Container(

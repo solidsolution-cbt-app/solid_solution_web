@@ -51,8 +51,9 @@ class _SelectPdfWidgetState extends State<SelectPdfWidget> {
 
         // String pdflink =
         //     "https://res.cloudinary.com/dn4d52sd1/image/upload/v1698532197/relocation_Letter.pdf1698532190292.pdf"; //filePath.model as String;
-        String pdflink = filePath.model as String;
-        widget.setSolutionPdf(pdflink);
+        ClaodinaryClassModel pdflink = filePath.model as ClaodinaryClassModel;
+        widget.setSolutionPdf(pdflink.fileId);
+        setPdfLink(pdflink.fileLink);
       } catch (e) {
         //
       }
@@ -61,14 +62,28 @@ class _SelectPdfWidgetState extends State<SelectPdfWidget> {
     }
   }
 
+  String initialpdfLink = "";
+  setPdfLink(String value) {
+    initialpdfLink = value;
+  }
+
+  @override
+  void initState() {
+    if (initialpdfLink == "") {
+      setPdfLink(widget.prfLink);
+      setState(() {});
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: widget.prfLink == "",
+      visible: initialpdfLink == "",
       replacement: Column(
         children: [
           CustomTextBody1(
-            text: extractPdfFilename(widget.prfLink),
+            text: extractPdfFilename(initialpdfLink),
             fontSize: 14,
           ),
           const SizedBox(height: 20),
@@ -77,7 +92,7 @@ class _SelectPdfWidgetState extends State<SelectPdfWidget> {
             onTap: () {
               navigator.push(
                 routeName: PdfViewerPage.routeName,
-                argument: widget.prfLink,
+                argument: initialpdfLink,
               );
             },
             buttonText: "Open pdf",
@@ -88,6 +103,7 @@ class _SelectPdfWidgetState extends State<SelectPdfWidget> {
             child: AppTextButton(
               onTap: () {
                 widget.setSolutionPdf("");
+                setPdfLink("");
               },
               buttontext: "remove",
             ),

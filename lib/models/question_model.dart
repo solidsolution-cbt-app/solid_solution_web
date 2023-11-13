@@ -94,8 +94,6 @@ class QuestionModel {
   }
 }
 
-extension QuestionValidator on QuestionModel {}
-
 validateQuestion({required QuestionModel question}) {
   if (question.text!.isEmpty ||
       question.option1!.text!.isEmpty ||
@@ -106,11 +104,6 @@ validateQuestion({required QuestionModel question}) {
       isSuccessful: false,
       message:
           "Ensure all questions and options fields are filled before you proceed",
-    );
-  } else if (question.solutionpdf!.isEmpty) {
-    return LocalExceptionModel(
-      isSuccessful: false,
-      message: "Kindly upload a solution pdf before you proceed",
     );
   } else {
     return LocalExceptionModel(

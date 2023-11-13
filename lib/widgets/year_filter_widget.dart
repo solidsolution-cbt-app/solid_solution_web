@@ -137,9 +137,7 @@ Future<void> showDropDown({
       120,
       righttPosition,
       0,
-    ), // Size of the button
-    // Offset.zero & overlay.size,
-
+    ),
     items: items.map((String item) {
       return PopupMenuItem<String>(
         value: item,
@@ -152,6 +150,5 @@ Future<void> showDropDown({
 
   if (result != null) {
     onSelectItem(result);
-    // print(result);
   }
 }

@@ -226,14 +226,30 @@ class _QuestionCardState extends State<QuestionCard> {
           imagePath: fileBytes!,
           filename: fileName,
         );
-        String imagePath = newImagePath.model as String;
-        widget.setImageUrl(imagePath);
+        ClaodinaryClassModel imagePath =
+            newImagePath.model as ClaodinaryClassModel;
+        widget.setImageUrl(imagePath.fileId);
+        setInitialImage(imagePath.fileLink);
       }
     } catch (e) {
       //
     }
 
     toggleshowLoader(false);
+  }
+
+  String initialImage = "";
+  setInitialImage(String value) {
+    initialImage = value;
+  }
+
+  @override
+  void initState() {
+    if (initialImage=="") {
+  setInitialImage(widget.imagePath);
+  setState(() {});
+}
+    super.initState();
   }
 
   @override
@@ -270,11 +286,12 @@ class _QuestionCardState extends State<QuestionCard> {
         ),
         const SizedBox(height: 20),
         Visibility(
-          visible: widget.imagePath == "",
+          visible: initialImage == "",
           replacement: ImageBox(
-            imagePath: widget.imagePath,
+            imagePath: initialImage,
             onTapdelete: () {
               widget.delete();
+              setInitialImage("");
             },
           ),
           child: Container(

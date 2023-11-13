@@ -323,7 +323,10 @@ class ApiService {
         return LocalExceptionModel(
           isSuccessful: true,
           message: "successful",
-          model: response.secureUrl ?? "",
+          model: ClaodinaryClassModel(
+            fileId: response.publicId ?? "",
+            fileLink: response.secureUrl ?? "",
+          ),
         );
       } else {
         return LocalExceptionModel(
@@ -373,7 +376,10 @@ class ApiService {
         return LocalExceptionModel(
           isSuccessful: true,
           message: "successful",
-          model: response.secureUrl ?? "",
+          model: ClaodinaryClassModel(
+            fileId: response.publicId ?? "",
+            fileLink: response.secureUrl ?? "",
+          ),
         );
       } else {
         return LocalExceptionModel(
@@ -1188,7 +1194,6 @@ class ApiService {
         },
       );
       var data = jsonDecode(response.body);
-
       if (response.statusCode == 200) {
         QuestionModel question = QuestionModel.fromjson(data: data["data"]);
         return LocalExceptionModel(
@@ -1282,4 +1287,10 @@ class ApiService {
       }
     }
   }
+}
+
+class ClaodinaryClassModel {
+  String fileLink;
+  String fileId;
+  ClaodinaryClassModel({required this.fileId, required this.fileLink});
 }
