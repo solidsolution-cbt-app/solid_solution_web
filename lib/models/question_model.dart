@@ -133,7 +133,7 @@ class OptionModel {
     createdAt = data["createdAt"];
     updatedAt = data["updatedAt"];
     text = data["text"];
-    image = data["image"];
+    image = data["image"] ?? "";
     isCorrect = data["isCorrect"];
     questionId = data["questionId"];
   }
