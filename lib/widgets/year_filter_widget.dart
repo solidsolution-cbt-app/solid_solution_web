@@ -82,7 +82,7 @@ class _YearFilterState extends State<YearFilter> {
 
 List<String> getYear() {
   List<String> years = ["all"];
-  int currentYear = DateTime.now().year;
+  int currentYear = DateTime.now().year+1;
   int startYear = 2010;
   for (int i = startYear; i <= currentYear; i++) {
     years.add(i.toString());
