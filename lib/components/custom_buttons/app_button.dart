@@ -6,7 +6,7 @@ import 'package:solidsolutionweb/constants/styles.dart';
 class AppButton extends StatelessWidget {
   const AppButton({
     required this.onTap,
-    this.backgroundColor,
+    this.backgroundColor = AppColors.primaryColor,
     this.buttonText = "button text",
     this.showIconLeft = false,
     this.showIconRight = false,
