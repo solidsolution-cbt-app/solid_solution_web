@@ -19,7 +19,7 @@ class YearFilter extends StatefulWidget {
 }
 
 class _YearFilterState extends State<YearFilter> {
-  String currentYear = "all";
+  String currentYear = "select year";
   changeYear(String year) {
     currentYear = year;
     setState(() {});
@@ -81,8 +81,8 @@ class _YearFilterState extends State<YearFilter> {
 }
 
 List<String> getYear() {
-  List<String> years = ["all"];
-  int currentYear = DateTime.now().year+1;
+  List<String> years = [];
+  int currentYear = DateTime.now().year + 1;
   int startYear = 2010;
   for (int i = startYear; i <= currentYear; i++) {
     years.add(i.toString());
@@ -104,9 +104,7 @@ Future<void> showYearDropDown({
       120,
       righttPosition,
       0,
-    ), // Size of the button
-    // Offset.zero & overlay.size,
-
+    ),
     items: years.map((String year) {
       return PopupMenuItem<String>(
         value: year,
@@ -119,7 +117,6 @@ Future<void> showYearDropDown({
 
   if (result != null) {
     onSelectYear(result);
-    // print(result);
   }
 }
 

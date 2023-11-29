@@ -245,10 +245,10 @@ class _QuestionCardState extends State<QuestionCard> {
 
   @override
   void initState() {
-    if (initialImage=="") {
-  setInitialImage(widget.imagePath);
-  setState(() {});
-}
+    if (initialImage == "") {
+      setInitialImage(widget.imagePath);
+      setState(() {});
+    }
     super.initState();
   }
 
@@ -287,12 +287,14 @@ class _QuestionCardState extends State<QuestionCard> {
         const SizedBox(height: 20),
         Visibility(
           visible: initialImage == "",
-          replacement: ImageBox(
-            imagePath: initialImage,
-            onTapdelete: () {
-              widget.delete();
-              setInitialImage("");
-            },
+          replacement: Center(
+            child: ImageBox(
+              imagePath: initialImage,
+              onTapdelete: () {
+                widget.delete();
+                setInitialImage("");
+              },
+            ),
           ),
           child: Container(
             margin: EdgeInsets.only(left: widget.isOption ? 60 : 0),
@@ -402,7 +404,7 @@ class ImageBox extends StatelessWidget {
             urlImagePath: imagePath,
           ),
         SizedBox(
-          width: 350,
+          width: 400,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,

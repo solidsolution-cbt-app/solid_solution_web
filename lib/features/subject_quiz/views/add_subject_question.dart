@@ -22,7 +22,7 @@ class AddSubjectQuizScreen extends StatefulWidget {
   State<AddSubjectQuizScreen> createState() => _AddSubjectQuizScreenState();
 }
 
-String selectedYear = "all";
+String selectedYear = "select year";
 setSelectedYear(String year) {
   selectedYear = year;
 }
@@ -66,32 +66,9 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                         ],
                       ),
                       const SizedBox(height: 50),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.start,
-                      //   children: [
-                      //     ConstrainedBox(
-                      //       constraints: const BoxConstraints(
-                      //         maxWidth: 180,
-                      //         minWidth: 80,
-                      //       ),
-                      //       child: YearFilter(
-                      //         positionFromLeft: 300,
-                      //         rightPosition:
-                      //             MediaQuery.of(context).size.width - 350,
-                      //         onChangeyear: (year) {
-                      //           model.onChangeYear(year);
-                      //         },
-                      //         selectedYear: model.selectedYear == "all"
-                      //             ? "select year"
-                      //             : model.selectedYear,
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
-                      const SizedBox(height: 50),
                       QuestionWidget(
                         onSubmitQuestion: (value) {
-                          if (selectedYear != "all") {
+                          if (selectedYear != "select year") {
                             QuestionModel newQuestion = QuestionModel.tojson(
                               text: value.text,
                               option1: value.option1,

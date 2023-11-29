@@ -13,8 +13,8 @@ class ImageViewer extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: urlImagePath,
       imageBuilder: (context, imageProvider) => Container(
-        width: 350,
-        height: 350,
+        width: 400,
+        height: 400,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imageProvider,
