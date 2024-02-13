@@ -337,7 +337,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   uploadQuestionImage();
                 },
                 child: SizedBox(
-                  width: 230,
+                  width: 250,
                   child: Visibility(
                     visible: !showLoader,
                     replacement: const SizedBox(

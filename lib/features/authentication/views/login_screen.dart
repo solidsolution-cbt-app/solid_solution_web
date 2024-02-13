@@ -16,54 +16,55 @@ class LoginScreen extends StatelessWidget {
         builder: (context, model, child) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const CustomTextHeader1(
-                    text: "Login",
-                  ),
-                  const SizedBox(height: 10),
-                  const CustomTextBody1(
-                    text: "Welcome back! Please input your details",
-                  ),
-                  const SizedBox(height: 30),
-                  AppTextField(
-                    isNumberField: true,
-                    controller: model.phoneNumberController,
-                    fieldLabel: "Phone number",
-                    maxLength: 11,
-                    prefixIconPath: "asset/svg/call.svg",
-                  ),
-                  const SizedBox(height: 10),
-                  AppTextField(
-                    controller: model.passwordController,
-                    fieldLabel: "Password",
-                    prefixIconPath: "asset/svg/lock.svg",
-                    isPassword: true,
-                    onComplete: () {
-                      model.login();
-                    },
-                  ),
-                  const SizedBox(height: 30),
-                  AppButton(
-                    showLoader: model.showLoader,
-                    buttonWidth: 500,
-                    onTap: () {
-                      model.login();
-                    },
-                    buttonText: "Login",
-                  ),
-                ],
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5 - 100,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CustomTextHeader1(
+                      text: "Login",
+                    ),
+                    const SizedBox(height: 10),
+                    const CustomTextBody1(
+                      text: "Welcome back! Please input your details",
+                    ),
+                    const SizedBox(height: 30),
+                    AppTextField(
+                      isNumberField: true,
+                      controller: model.phoneNumberController,
+                      fieldLabel: "Phone number",
+                      maxLength: 11,
+                      prefixIconPath: "asset/svg/call.svg",
+                    ),
+                    const SizedBox(height: 10),
+                    AppTextField(
+                      controller: model.passwordController,
+                      fieldLabel: "Password",
+                      prefixIconPath: "asset/svg/lock.svg",
+                      isPassword: true,
+                      onComplete: () {
+                        model.login();
+                      },
+                    ),
+                    const SizedBox(height: 30),
+                    AppButton(
+                      buttonWidth: 400,
+                      showLoader: model.showLoader,
+                      onTap: () {
+                        model.login();
+                      },
+                      buttonText: "Login",
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(width: 100),
               Container(
                 margin: const EdgeInsets.only(top: 100),
-                width: 500,
                 height: 500,
+                width: MediaQuery.of(context).size.width * 0.5 - 100,
                 child: Image.asset("asset/images/login.png"),
-              )
+              ),
             ],
           );
         },

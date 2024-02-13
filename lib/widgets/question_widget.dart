@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tex/flutter_tex.dart';
 import 'package:solidsolutionweb/components/app_text_fields/app_text_field.dart';
 import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
@@ -64,17 +65,14 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       ),
       option2: OptionModel.tojson(
         text: option2Controller.text,
-        // isCorrect: true
         image: option2Image,
       ),
       option3: OptionModel.tojson(
         text: option3Controller.text,
-        // isCorrect: true
         image: option3Image,
       ),
       option4: OptionModel.tojson(
         text: option4Controller.text,
-        // isCorrect: true
         image: option4Image,
       ),
     );
@@ -83,8 +81,14 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
+    String expression = "\\frac{ax^{2}+bx+c}{kx}";
+    String latexExpression = r'$$' + expression + r'$$';
     return Column(
       children: [
+        TeXView(
+          child: TeXViewDocument(latexExpression),
+          renderingEngine: const TeXViewRenderingEngine.katex(),
+        ),
         QuestionCard(
           isOption: false,
           controller: questionController,
@@ -175,7 +179,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           },
           buttonText: "Submit",
         ),
-        const SizedBox(height: 100),
+        const SizedBox(height: 200),
       ],
     );
   }
@@ -275,10 +279,8 @@ class _QuestionCardState extends State<QuestionCard> {
                 isCorrect: widget.isCorrectOption,
               ),
             ),
-            Expanded(
-              child: AppTextField2(
-                controller: widget.controller,
-                maxLines: 4,
+            const Expanded(
+              child: MathInputField(
                 hintText: "Type...",
               ),
             ),
@@ -304,7 +306,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   uploadQuestionImage();
                 },
                 child: SizedBox(
-                  width: 230,
+                  width: 250,
                   child: Visibility(
                     visible: !showLoader,
                     replacement: const SizedBox(

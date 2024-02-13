@@ -84,14 +84,6 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
                         ],
                       ),
                       const SizedBox(height: 50),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.start,
-                      //   children: [
-                      //     CustomTextBody1(
-                      //       text: "${model.topicToshow.length}+ Quiz",
-                      //     ),
-                      //   ],
-                      // ),
                       Expanded(
                         child: ListView.builder(
                           controller: _scrollController,
