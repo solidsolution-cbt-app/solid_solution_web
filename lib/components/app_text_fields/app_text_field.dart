@@ -210,6 +210,7 @@ class MathInputField extends StatelessWidget {
     this.fieldLabel,
     this.hintText,
     this.buttonWidth = 500,
+    required this.onChange,
     super.key,
   });
 
@@ -217,15 +218,16 @@ class MathInputField extends StatelessWidget {
   final MathFieldEditingController? controller;
   final String? fieldLabel;
   final String? hintText;
+  final Function(String value) onChange;
 
   @override
   Widget build(BuildContext context) {
     return MathField(
-      controller: controller,
       onChanged: (value) {
         if (kDebugMode) {
           print(value);
         }
+        onChange(value);
       },
       decoration: InputDecoration(
         contentPadding:

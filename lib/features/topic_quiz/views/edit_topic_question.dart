@@ -5,8 +5,8 @@ import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/view_model/topic_view_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/edit_question_widget.dart';
 import 'package:solidsolutionweb/widgets/preview_question_card.dart';
+import 'package:solidsolutionweb/widgets/question_widget.dart';
 
 class EditTopicQuestionPreviewScreen extends StatefulWidget {
   const EditTopicQuestionPreviewScreen(
@@ -53,7 +53,7 @@ class _EditTopicQuestionPreviewScreenState
                             ],
                           ),
                           const SizedBox(height: 50),
-                          EditQuestionWidget(
+                          QuestionWidget(
                             onSubmitQuestion: (value) async {
                               await model.editQuestion(
                                 topic: widget.topicQuestionData.topic,
@@ -62,9 +62,8 @@ class _EditTopicQuestionPreviewScreenState
                                     widget.topicQuestionData.question.id!,
                               );
                             },
-                            initialquestion: widget.topicQuestionData.question,
                           ),
-                          const SizedBox(height: 50),
+                          const SizedBox(height: 100),
                         ],
                       ),
                     ),
