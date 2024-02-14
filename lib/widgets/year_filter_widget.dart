@@ -49,32 +49,46 @@ class _YearFilterState extends State<YearFilter> {
             },
           );
         },
-        child: Container(
-          height: 40,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          decoration: BoxDecoration(
-            border: Border.all(
+        child: YearWidget(currentYear: currentYear),
+      ),
+    );
+  }
+}
+
+class YearWidget extends StatelessWidget {
+  const YearWidget({
+    super.key,
+    required this.currentYear,
+  });
+
+  final String currentYear;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.primaryColor,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomTextBody1(text: currentYear),
+          const SizedBox(width: 20),
+          const Padding(
+            padding: EdgeInsets.only(top: 2),
+            child: Icon(
+              Icons.keyboard_arrow_down,
+              size: 25,
               color: AppColors.primaryColor,
             ),
-            borderRadius: BorderRadius.circular(10),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomTextBody1(text: currentYear),
-              const SizedBox(width: 20),
-              const Padding(
-                padding: EdgeInsets.only(top: 2),
-                child: Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 25,
-                  color: AppColors.primaryColor,
-                ),
-              ),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }

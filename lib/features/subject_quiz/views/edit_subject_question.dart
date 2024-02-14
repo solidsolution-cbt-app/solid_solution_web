@@ -9,7 +9,7 @@ import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model
 import 'package:solidsolutionweb/features/subject_quiz/view_model/subject_quiz_view_model.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/edit_question_widget.dart';
+import 'package:solidsolutionweb/widgets/question_widget.dart';
 
 class EditQuizPreviewScreen extends StatefulWidget {
   const EditQuizPreviewScreen({
@@ -57,16 +57,10 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                           const Spacer(),
-                          // YearFilter(
-                          //   onChangeyear: (year) {
-                          //     setSelectedYear(year);
-                          //   },
-                          //   selectedYear: selectedYear,
-                          // )
                         ],
                       ),
                       const SizedBox(height: 50),
-                      EditQuestionWidget(
+                      QuestionWidget(
                         onSubmitQuestion: (value) {
                           if (selectedYear != "all") {
                             QuestionModel newQuestion = QuestionModel.tojson(
@@ -92,9 +86,8 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                             );
                           }
                         },
-                        initialquestion: widget.questionData,
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),

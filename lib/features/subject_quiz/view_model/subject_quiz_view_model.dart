@@ -6,7 +6,7 @@ import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/network_service/api_service.dart';
 
 class SubjectQuizViewModel extends BaseModel {
-  String selectedYear = "select year";
+  String selectedYear = "2010";
   onChangeYear(String year) {
     selectedYear = year;
   }

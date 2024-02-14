@@ -23,23 +23,20 @@ class QuestionWidget extends StatefulWidget {
 }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
-  final TextEditingController questionController = TextEditingController();
-  final TextEditingController option1Controller = TextEditingController();
-  final TextEditingController option2Controller = TextEditingController();
-  final TextEditingController option3Controller = TextEditingController();
-  final TextEditingController option4Controller = TextEditingController();
   clearController() {
-    questionController.clear();
-    option1Controller.clear();
-    option2Controller.clear();
-    option3Controller.clear();
-    option4Controller.clear();
+    question = "";
+    option1 = "";
+    option2 = "";
+    option3 = "";
+    option4 = "";
     option1Image = "";
     option2Image = "";
     option3Image = "";
     option4Image = "";
     questionImage = "";
     solutionpdf = "";
+    solutionImage = "";
+    solutionText = "";
     setState(() {});
   }
 
@@ -49,36 +46,67 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   String option4Image = "";
   String questionImage = "";
   String solutionpdf = "";
+  String solutionText = "";
+  String solutionImage = "";
+  String question = "";
+  String option1 = "";
+  String option2 = "";
+  String option3 = "";
+  String option4 = "";
+
+  setQuestion(String text) {
+    question = text;
+  }
+
+  setOption1(String text) {
+    option1 = text;
+  }
+
+  setOption2(String text) {
+    option2 = text;
+  }
+
+  setOption3(String text) {
+    option3 = text;
+  }
+
+  setOption4(String text) {
+    option4 = text;
+  }
+
+  setSolutionText(String text) {
+    solutionText = text;
+  }
+
   String? year;
 
   QuestionModel getQuestion() {
-    QuestionModel question = QuestionModel.tojson(
-      text: questionController.text,
+    QuestionModel newQuestion = QuestionModel.tojson(
+      text: question,
       image: questionImage,
       year: year,
       solutionpdf: solutionpdf,
+      solutionImage: solutionImage,
+      solutionText: solutionText,
       option1: OptionModel.tojson(
-        text: option1Controller.text,
+        text: option1,
         isCorrect: true,
         image: option1Image,
       ),
       option2: OptionModel.tojson(
-        text: option2Controller.text,
-        // isCorrect: true
+        text: option2,
         image: option2Image,
       ),
       option3: OptionModel.tojson(
-        text: option3Controller.text,
-        // isCorrect: true
+        text: option3,
         image: option3Image,
       ),
       option4: OptionModel.tojson(
-        text: option4Controller.text,
-        // isCorrect: true
+        text: option4,
         image: option4Image,
       ),
     );
-    return question;
+    return newQuestion;
   }
 
   @override
@@ -86,8 +114,11 @@ class _QuestionWidgetState extends State<QuestionWidget> {
     return Column(
       children: [
         QuestionCard(
+          setQuestion: (text) {
+            question = text;
+            setState(() {});
+          },
           isOption: false,
-          controller: questionController,
           imagePath: questionImage,
           delete: () {
             questionImage = "";
@@ -100,7 +131,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         ),
         const SizedBox(height: 20),
         QuestionCard(
-          controller: option1Controller,
+          setQuestion: (text) {
+            option1 = text;
+            setState(() {});
+          },
           isCorrectOption: true,
           imagePath: option1Image,
           delete: () {
@@ -114,7 +148,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         ),
         const SizedBox(height: 20),
         QuestionCard(
-          controller: option2Controller,
+          setQuestion: (text) {
+            option2 = text;
+            setState(() {});
+          },
           imagePath: option2Image,
           delete: () {
             option2Image = "";
@@ -127,7 +164,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         ),
         const SizedBox(height: 20),
         QuestionCard(
-          controller: option3Controller,
+          setQuestion: (text) {
+            option3 = text;
+            setState(() {});
+          },
           imagePath: option3Image,
           delete: () {
             option3Image = "";
@@ -140,7 +180,10 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         ),
         const SizedBox(height: 20),
         QuestionCard(
-          controller: option4Controller,
+          setQuestion: (text) {
+            option4 = text;
+            setState(() {});
+          },
           imagePath: option4Image,
           delete: () {
             option4Image = "";
@@ -148,6 +191,24 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           },
           setImageUrl: (value) {
             option4Image = value;
+            setState(() {});
+          },
+        ),
+        const SizedBox(height: 30),
+        QuestionCard(
+          setQuestion: (text) {
+            solutionText = text;
+            setState(() {});
+          },
+          title: "Solution",
+          isOption: false,
+          imagePath: solutionImage,
+          delete: () {
+            solutionImage = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            questionImage = value;
             setState(() {});
           },
         ),
@@ -166,7 +227,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 validateQuestion(question: question);
             if (isValidQuestion.isSuccessful) {
               await widget.onSubmitQuestion(question);
-              // clearController();
+              clearController();
             } else {
               dialogService.showErrorDialog(
                 errorMessage: isValidQuestion.message,
@@ -175,7 +236,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           },
           buttonText: "Submit",
         ),
-        const SizedBox(height: 100),
+        const SizedBox(height: 500),
       ],
     );
   }
@@ -183,17 +244,17 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
 class QuestionCard extends StatefulWidget {
   const QuestionCard({
-    required this.controller,
     this.title = "Enter Question",
     required this.imagePath,
     this.isOption = true,
     required this.setImageUrl,
     required this.delete,
     this.isCorrectOption = false,
+    required this.setQuestion,
     super.key,
   });
 
-  final TextEditingController controller;
+  final Function(String text) setQuestion;
   final String title;
   final bool isOption;
   final bool isCorrectOption;
@@ -276,10 +337,9 @@ class _QuestionCardState extends State<QuestionCard> {
               ),
             ),
             Expanded(
-              child: AppTextField2(
-                controller: widget.controller,
-                maxLines: 4,
+              child: MathInputField(
                 hintText: "Type...",
+                onChange: widget.setQuestion,
               ),
             ),
           ],
@@ -304,7 +364,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   uploadQuestionImage();
                 },
                 child: SizedBox(
-                  width: 230,
+                  width: 250,
                   child: Visibility(
                     visible: !showLoader,
                     replacement: const SizedBox(

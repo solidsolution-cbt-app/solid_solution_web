@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.dart';
 
 class QuestionModel {
@@ -11,6 +10,8 @@ class QuestionModel {
   String? updatedAt;
   String? topicId;
   String? solutionpdf;
+  String? solutionText;
+  String? solutionImage;
   OptionModel? option1;
   OptionModel? option2;
   OptionModel? option3;
@@ -22,6 +23,8 @@ class QuestionModel {
     this.image = "",
     this.year = "",
     this.solutionpdf = "",
+    this.solutionText = "",
+    this.solutionImage = "",
     required this.option1,
     required this.option2,
     required this.option3,
@@ -30,9 +33,11 @@ class QuestionModel {
     Map<String, dynamic> questiondata = {};
     if (year != "") {
       questiondata = {
-        "text": text,
+        "text": " $text",
         "image": image,
-        "solution": solutionpdf,
+        "solution_pdf": solutionpdf,
+        "solution_image": solutionImage,
+        "solution_text": " $solutionText",
         "options": [
           option1!.optionjson,
           option2!.optionjson,
@@ -42,10 +47,12 @@ class QuestionModel {
       };
     } else {
       questiondata = {
-        "text": text,
+        "text": " $text",
         "image": image,
         "year": year,
-        "solution": solutionpdf,
+        "solution_pdf": solutionpdf,
+        "solution_image": solutionImage,
+        "solution_text": " $solutionText",
         "options": [
           option1!.optionjson,
           option2!.optionjson,
@@ -64,13 +71,14 @@ class QuestionModel {
       option3 = OptionModel.fromjson(data: options[2]);
       option4 = OptionModel.fromjson(data: options[3]);
     }
-
     text = data["text"];
     id = data["id"];
     createdAt = data["createdAt"] ?? "";
     updatedAt = data["updatedAt"] ?? "";
     image = data["image"];
-    solutionpdf = data["solution"] ?? "";
+    solutionpdf = data["solution_pdf"] ?? "";
+    solutionText = data["solution_text"] ?? "";
+    solutionImage = data["solution_image"] ?? "";
     topicId = data["topicId"] ?? "";
     year = data["year"] ?? "";
   }
@@ -80,7 +88,6 @@ class QuestionModel {
       "text": text,
       "image": image,
       "year": year,
-      "solutionpdf": solutionpdf,
       "id": id,
       "createdAt": createdAt,
       "updatedAt": updatedAt,
@@ -89,6 +96,9 @@ class QuestionModel {
       "option2": option2,
       "option3": option3,
       "option4": option4,
+      "solution_pdf": solutionpdf,
+      "solution_image": solutionImage,
+      "solution_text": solutionText,
     };
     return data.toString();
   }
@@ -132,7 +142,7 @@ class OptionModel {
     id = data["id"];
     createdAt = data["createdAt"];
     updatedAt = data["updatedAt"];
-    text = data["text"];
+    text = " ${data["text"]}";
     image = data["image"] ?? "";
     isCorrect = data["isCorrect"];
     questionId = data["questionId"];
