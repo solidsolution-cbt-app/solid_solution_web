@@ -337,9 +337,9 @@ class _QuestionCardState extends State<QuestionCard> {
               ),
             ),
             Expanded(
-              child: MathInputField(
+              child: AppTextField2(
                 hintText: "Type...",
-                onChange: widget.setQuestion,
+                onChanged: widget.setQuestion,
               ),
             ),
           ],
