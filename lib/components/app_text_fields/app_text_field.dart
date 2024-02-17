@@ -11,7 +11,7 @@ class AppTextField extends StatefulWidget {
     this.hintText,
     this.maxLength,
     this.maxLines,
-    this.buttonWidth = 300,
+    this.buttonWidth = 400,
     this.onChanged,
     this.prefixIconPath = "",
     this.isNumberField = false,

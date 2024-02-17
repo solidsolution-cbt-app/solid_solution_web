@@ -71,6 +71,8 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                               option4: value.option4,
                               image: value.image,
                               solutionpdf: value.solutionpdf,
+                              solutionImage: value.solutionImage,
+                              solutionText: value.solutionText,
                               year: model.selectedYear,
                             );
                             model.editSubjectQuestion(

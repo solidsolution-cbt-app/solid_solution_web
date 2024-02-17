@@ -10,8 +10,8 @@ class QuestionModel {
   String? updatedAt;
   String? topicId;
   String? solutionpdf;
-  String? solutionText;
   String? solutionImage;
+  String? solutionText;
   OptionModel? option1;
   OptionModel? option2;
   OptionModel? option3;
@@ -23,8 +23,8 @@ class QuestionModel {
     this.image = "",
     this.year = "",
     this.solutionpdf = "",
-    this.solutionText = "",
     this.solutionImage = "",
+    this.solutionText = "",
     required this.option1,
     required this.option2,
     required this.option3,
@@ -37,7 +37,7 @@ class QuestionModel {
         "image": image,
         "solution_pdf": solutionpdf,
         "solution_image": solutionImage,
-        "solution_text": " $solutionText",
+        "solution_text": solutionText,
         "options": [
           option1!.optionjson,
           option2!.optionjson,
@@ -50,9 +50,9 @@ class QuestionModel {
         "text": " $text",
         "image": image,
         "year": year,
-        "solution_pdf": solutionpdf,
+        "solution": solutionpdf,
         "solution_image": solutionImage,
-        "solution_text": " $solutionText",
+        "solution_text": solutionText,
         "options": [
           option1!.optionjson,
           option2!.optionjson,
@@ -72,13 +72,13 @@ class QuestionModel {
       option4 = OptionModel.fromjson(data: options[3]);
     }
     text = data["text"];
+    solutionImage = data["solution_image"];
+    solutionText = data["solution_text"];
     id = data["id"];
     createdAt = data["createdAt"] ?? "";
     updatedAt = data["updatedAt"] ?? "";
     image = data["image"];
     solutionpdf = data["solution_pdf"] ?? "";
-    solutionText = data["solution_text"] ?? "";
-    solutionImage = data["solution_image"] ?? "";
     topicId = data["topicId"] ?? "";
     year = data["year"] ?? "";
   }
@@ -88,6 +88,9 @@ class QuestionModel {
       "text": text,
       "image": image,
       "year": year,
+      "solutionpdf": solutionpdf,
+      "solution_image": solutionImage,
+      "solution_text": solutionText,
       "id": id,
       "createdAt": createdAt,
       "updatedAt": updatedAt,
@@ -97,8 +100,6 @@ class QuestionModel {
       "option3": option3,
       "option4": option4,
       "solution_pdf": solutionpdf,
-      "solution_image": solutionImage,
-      "solution_text": solutionText,
     };
     return data.toString();
   }
