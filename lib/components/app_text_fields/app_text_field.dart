@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/constants/styles.dart';
-import 'package:custom_math_keyboard/custom_math_keyboard.dart';
 
 class AppTextField extends StatefulWidget {
   const AppTextField({
@@ -200,48 +199,6 @@ class NumberInputFormatter extends TextInputFormatter {
     return TextEditingValue(
       text: newText,
       selection: TextSelection.collapsed(offset: newText.length),
-    );
-  }
-}
-
-class MathInputField extends StatelessWidget {
-  const MathInputField({
-    this.controller,
-    this.fieldLabel,
-    this.hintText,
-    this.buttonWidth = 500,
-    super.key,
-  });
-
-  final double buttonWidth;
-  final MathFieldEditingController? controller;
-  final String? fieldLabel;
-  final String? hintText;
-
-  @override
-  Widget build(BuildContext context) {
-    return MathField(
-      controller: controller,
-      onChanged: (value) {
-        if (kDebugMode) {
-          print(value);
-        }
-      },
-      decoration: InputDecoration(
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        hintText: hintText ?? '',
-        hintStyle: AppTextStyles.labelMedium.copyWith(
-          color: AppColors.dartArsh,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: AppColors.dartArsh,
-            width: 1,
-          ),
-        ),
-      ),
     );
   }
 }
