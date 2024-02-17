@@ -57,11 +57,8 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                           const Spacer(),
-                          YearFilter(
-                            onChangeyear: (year) {
-                              setSelectedYear(year);
-                            },
-                            selectedYear: selectedYear,
+                          YearWidget(
+                            currentYear: selectedYear,
                           )
                         ],
                       ),
@@ -95,7 +92,7 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                           }
                         },
                       ),
-                      const SizedBox(height: 100),
+                      const SizedBox(height: 300),
                     ],
                   ),
                 ),

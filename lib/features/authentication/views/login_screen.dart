@@ -16,7 +16,6 @@ class LoginScreen extends StatelessWidget {
         builder: (context, model, child) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                 width: 400,
                 height: 400,
                 child: Image.asset("asset/images/login.png"),
-              )
+              ),
             ],
           );
         },

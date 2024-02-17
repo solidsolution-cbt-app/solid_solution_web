@@ -15,18 +15,20 @@ dependencies:
   provider: ^6.0.5
   get_it: ^7.6.0
   collection: ^1.15.0
-  flutter_svg: ^1.1.6
+  flutter_svg: ^2.0.0+1
   font_awesome_flutter: ^10.4.0
   http: ^0.13.4
   image_picker: ^1.0.0
   http_parser: ^4.0.2
   cached_network_image: ^3.3.0
   lottie: ^2.4.0
-  math_expressions: ^2.4.0
   shared_preferences: ^2.2.2
   file_picker: ^6.0.0
   syncfusion_flutter_pdfviewer: ^20.4.54
   cloudinary: ^1.2.0
+  # custom_math_keyboard: ^0.2.3
+  flutter_tex: ^4.0.6
+  # math_keyboard: ^0.2.1
 
 dev_dependencies:
   flutter_test:

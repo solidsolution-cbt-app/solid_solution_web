@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.dart';
 
 class QuestionModel {
@@ -34,7 +33,7 @@ class QuestionModel {
     Map<String, dynamic> questiondata = {};
     if (year != "") {
       questiondata = {
-        "text": text,
+        "text": " $text",
         "image": image,
         "solution_pdf": solutionpdf,
         "solution_image": solutionImage,
@@ -48,7 +47,7 @@ class QuestionModel {
       };
     } else {
       questiondata = {
-        "text": text,
+        "text": " $text",
         "image": image,
         "year": year,
         "solution": solutionpdf,
@@ -72,7 +71,6 @@ class QuestionModel {
       option3 = OptionModel.fromjson(data: options[2]);
       option4 = OptionModel.fromjson(data: options[3]);
     }
-
     text = data["text"];
     solutionImage = data["solution_image"];
     solutionText = data["solution_text"];
@@ -101,6 +99,7 @@ class QuestionModel {
       "option2": option2,
       "option3": option3,
       "option4": option4,
+      "solution_pdf": solutionpdf,
     };
     return data.toString();
   }
@@ -144,7 +143,7 @@ class OptionModel {
     id = data["id"];
     createdAt = data["createdAt"];
     updatedAt = data["updatedAt"];
-    text = data["text"];
+    text = " ${data["text"]}";
     image = data["image"] ?? "";
     isCorrect = data["isCorrect"];
     questionId = data["questionId"];

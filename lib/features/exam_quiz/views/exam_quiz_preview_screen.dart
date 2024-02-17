@@ -76,6 +76,7 @@ class _ExamQuizPreviewScreenState extends State<ExamQuizPreviewScreen> {
                         PreviewQuestionWidget(
                           question: model.previewQuestionData!,
                         ),
+                      const SizedBox(height: 50),
                     ],
                   ),
                 ),

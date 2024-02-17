@@ -201,3 +201,47 @@ class NumberInputFormatter extends TextInputFormatter {
     );
   }
 }
+
+// class MathInputField extends StatelessWidget {
+//   const MathInputField({
+//     this.controller,
+//     this.fieldLabel,
+//     this.hintText,
+//     this.buttonWidth = 500,
+//     required this.onChange,
+//     super.key,
+//   });
+
+//   final double buttonWidth;
+//   final MathFieldEditingController? controller;
+//   final String? fieldLabel;
+//   final String? hintText;
+//   final Function(String value) onChange;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MathField(
+//       onChanged: (value) {
+//         if (kDebugMode) {
+//           print(value);
+//         }
+//         onChange(value);
+//       },
+//       decoration: InputDecoration(
+//         contentPadding:
+//             const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+//         hintText: hintText ?? '',
+//         hintStyle: AppTextStyles.labelMedium.copyWith(
+//           color: AppColors.dartArsh,
+//         ),
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(8),
+//           borderSide: const BorderSide(
+//             color: AppColors.dartArsh,
+//             width: 1,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
