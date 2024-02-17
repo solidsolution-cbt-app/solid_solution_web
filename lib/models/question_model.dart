@@ -11,6 +11,8 @@ class QuestionModel {
   String? updatedAt;
   String? topicId;
   String? solutionpdf;
+  String? solutionImage;
+  String? solutionText;
   OptionModel? option1;
   OptionModel? option2;
   OptionModel? option3;
@@ -22,6 +24,8 @@ class QuestionModel {
     this.image = "",
     this.year = "",
     this.solutionpdf = "",
+    this.solutionImage = "",
+    this.solutionText = "",
     required this.option1,
     required this.option2,
     required this.option3,
@@ -32,7 +36,9 @@ class QuestionModel {
       questiondata = {
         "text": text,
         "image": image,
-        "solution": solutionpdf,
+        "solution_pdf": solutionpdf,
+        "solution_image": solutionImage,
+        "solution_text": solutionText,
         "options": [
           option1!.optionjson,
           option2!.optionjson,
@@ -46,6 +52,8 @@ class QuestionModel {
         "image": image,
         "year": year,
         "solution": solutionpdf,
+        "solution_image": solutionImage,
+        "solution_text": solutionText,
         "options": [
           option1!.optionjson,
           option2!.optionjson,
@@ -66,11 +74,13 @@ class QuestionModel {
     }
 
     text = data["text"];
+    solutionImage = data["solution_image"];
+    solutionText = data["solution_text"];
     id = data["id"];
     createdAt = data["createdAt"] ?? "";
     updatedAt = data["updatedAt"] ?? "";
     image = data["image"];
-    solutionpdf = data["solution"] ?? "";
+    solutionpdf = data["solution_pdf"] ?? "";
     topicId = data["topicId"] ?? "";
     year = data["year"] ?? "";
   }
@@ -81,6 +91,8 @@ class QuestionModel {
       "image": image,
       "year": year,
       "solutionpdf": solutionpdf,
+      "solution_image": solutionImage,
+      "solution_text": solutionText,
       "id": id,
       "createdAt": createdAt,
       "updatedAt": updatedAt,

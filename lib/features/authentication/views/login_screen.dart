@@ -49,19 +49,19 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 30),
                   AppButton(
                     showLoader: model.showLoader,
-                    buttonWidth: 500,
+                    buttonWidth: 400,
                     onTap: () {
                       model.login();
                     },
-                    buttonText: "Login",
+                    buttonText: "Login", 
                   ),
                 ],
               ),
               const SizedBox(width: 100),
               Container(
                 margin: const EdgeInsets.only(top: 100),
-                width: 500,
-                height: 500,
+                width: 400,
+                height: 400,
                 child: Image.asset("asset/images/login.png"),
               )
             ],

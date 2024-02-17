@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
+import 'package:solidsolutionweb/constants/constants.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
@@ -55,9 +56,13 @@ class _TopicQuestionPreviewScreenState
                         children: [
                           SvgPicture.asset("asset/svg/book-square outline.svg"),
                           const SizedBox(width: 15),
-                          CustomTextHeader1(
-                            text: widget.topicQuestionData.topic.topic ?? "",
-                            fontWeight: FontWeight.w500,
+                          SizedBox(
+                            width: AppConstants.screenWidth() * 0.5,
+                            child: CustomTextHeader1(
+                              text: widget.topicQuestionData.topic.topic ?? "",
+                              fontWeight: FontWeight.w500,
+                              textAlign: TextAlign.start,
+                            ),
                           ),
                           const Spacer(),
                           AppButton(

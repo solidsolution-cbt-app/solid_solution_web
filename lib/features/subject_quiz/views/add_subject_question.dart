@@ -70,6 +70,8 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                         onSubmitQuestion: (value) {
                           if (selectedYear != "select year") {
                             QuestionModel newQuestion = QuestionModel.tojson(
+                              solutionImage: value.solutionImage,
+                              solutionText: value.solutionText,
                               text: value.text,
                               option1: value.option1,
                               option2: value.option2,

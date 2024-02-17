@@ -30,24 +30,30 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
   TextEditingController option2Controller = TextEditingController();
   TextEditingController option3Controller = TextEditingController();
   TextEditingController option4Controller = TextEditingController();
+  TextEditingController solutionController = TextEditingController();
+
   clearController() {
     questionController.clear();
     option1Controller.clear();
     option2Controller.clear();
     option3Controller.clear();
     option4Controller.clear();
+    solutionController.clear();
     option1Image = "";
     option2Image = "";
     option3Image = "";
     option4Image = "";
     questionImage = "";
     solutionpdf = "";
+    solutionImage = "";
     setState(() {});
   }
 
   initializeControllers() {
     questionController =
         TextEditingController(text: widget.initialquestion?.text ?? "");
+    solutionController =
+        TextEditingController(text: widget.initialquestion?.solutionText ?? "");
     option1Controller = TextEditingController(
       text: widget.initialquestion?.option1?.text ?? "",
     );
@@ -61,6 +67,7 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
       text: widget.initialquestion?.option4?.text ?? "",
     );
     solutionpdf = widget.initialquestion?.solutionpdf ?? "";
+    solutionImage = widget.initialquestion?.solutionImage ?? "";
     questionImage = widget.initialquestion?.image ?? "";
     option1Image = widget.initialquestion?.option1?.image ?? "";
     option2Image = widget.initialquestion?.option2?.image ?? "";
@@ -74,6 +81,7 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
   String option3Image = "";
   String option4Image = "";
   String questionImage = "";
+  String solutionImage = "";
   String solutionpdf = "";
   String? year;
 
@@ -83,6 +91,8 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
       image: questionImage,
       year: year,
       solutionpdf: solutionpdf,
+      solutionText: solutionController.text,
+      solutionImage: solutionImage,
       option1: OptionModel.tojson(
         text: option1Controller.text,
         isCorrect: true,
@@ -90,17 +100,14 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
       ),
       option2: OptionModel.tojson(
         text: option2Controller.text,
-        // isCorrect: true
         image: option2Image,
       ),
       option3: OptionModel.tojson(
         text: option3Controller.text,
-        // isCorrect: true
         image: option3Image,
       ),
       option4: OptionModel.tojson(
         text: option4Controller.text,
-        // isCorrect: true
         image: option4Image,
       ),
     );
@@ -183,6 +190,20 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
           },
           setImageUrl: (value) {
             option4Image = value;
+            setState(() {});
+          },
+        ),
+        const SizedBox(height: 20),
+        QuestionCard(
+          isOption: false,
+          controller: solutionController,
+          imagePath: solutionImage,
+          delete: () {
+            solutionImage = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            solutionImage = value;
             setState(() {});
           },
         ),
@@ -337,7 +358,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   uploadQuestionImage();
                 },
                 child: SizedBox(
-                  width: 230,
+                  width: 300,
                   child: Visibility(
                     visible: !showLoader,
                     replacement: const SizedBox(
