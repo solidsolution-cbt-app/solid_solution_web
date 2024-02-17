@@ -33,10 +33,12 @@ class _TopicQuizPreviewScreenState extends State<TopicQuizPreviewScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseView<TopicQuizVeiwModel>(onModelReady: (model) {
-      model.getQuestion(
-        topic: widget.topic!,
-        pageNumber: "1",
-      );
+      if (model.questionToshow.isEmpty) {
+        model.getQuestion(
+          topic: widget.topic!,
+          pageNumber: "1",
+        );
+      }
       _scrollController.addListener(() {
         if (_scrollController.position.atEdge) {
           if (_scrollController.position.pixels == 0) {

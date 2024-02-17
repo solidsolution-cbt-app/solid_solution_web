@@ -4,6 +4,7 @@ import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/widgets/image_viewer.dart';
+import 'package:solidsolutionweb/widgets/selected_pdf_widget.dart';
 
 class PreviewQuestionWidget extends StatelessWidget {
   const PreviewQuestionWidget({
@@ -47,6 +48,14 @@ class PreviewQuestionWidget extends StatelessWidget {
           question: question.solutionText ?? "",
         ),
         const SizedBox(height: 50),
+        Visibility(
+          visible: question.solutionpdf != "",
+          child: SelectPdfWidget(
+            prfLink: question.solutionpdf ?? "",
+            showRemove: false,
+            setSolutionPdf: (value) {},
+          ),
+        ),
       ],
     );
   }
