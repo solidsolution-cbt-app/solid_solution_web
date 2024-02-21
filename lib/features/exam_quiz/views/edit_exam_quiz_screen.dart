@@ -8,7 +8,7 @@ import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model
 import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/question_widget.dart';
+import 'package:solidsolutionweb/widgets/edit_question_widget.dart';
 
 class EditExamQuizScreen extends StatefulWidget {
   const EditExamQuizScreen({
@@ -51,7 +51,8 @@ class _EditExamQuizScreenState extends State<EditExamQuizScreen> {
                         ],
                       ),
                       const SizedBox(height: 50),
-                      QuestionWidget(
+                      EditQuestionWidget(
+                        initialquestion: widget.questionData,
                         onSubmitQuestion: (value) {
                           model.editExamQuestion(
                             jsonData: value.dataSent!,

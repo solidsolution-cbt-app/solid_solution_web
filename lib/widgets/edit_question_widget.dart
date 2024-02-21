@@ -87,27 +87,27 @@ class _EditQuestionWidgetState extends State<EditQuestionWidget> {
 
   QuestionModel getQuestion() {
     QuestionModel question = QuestionModel.tojson(
-      text: questionController.text,
+      text: questionController.text.trim(),
       image: questionImage,
       year: year,
       solutionpdf: solutionpdf,
-      solutionText: solutionController.text,
+      solutionText: solutionController.text.trim(),
       solutionImage: solutionImage,
       option1: OptionModel.tojson(
-        text: option1Controller.text,
+        text: option1Controller.text.trim(),
         isCorrect: true,
         image: option1Image,
       ),
       option2: OptionModel.tojson(
-        text: option2Controller.text,
+        text: option2Controller.text.trim(),
         image: option2Image,
       ),
       option3: OptionModel.tojson(
-        text: option3Controller.text,
+        text: option3Controller.text.trim(),
         image: option3Image,
       ),
       option4: OptionModel.tojson(
-        text: option4Controller.text,
+        text: option4Controller.text.trim(),
         image: option4Image,
       ),
     );
