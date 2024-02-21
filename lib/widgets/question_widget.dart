@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tex/flutter_tex.dart';
 import 'package:solidsolutionweb/components/app_text_fields/app_text_field.dart';
 import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
@@ -29,18 +28,23 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   final TextEditingController option2Controller = TextEditingController();
   final TextEditingController option3Controller = TextEditingController();
   final TextEditingController option4Controller = TextEditingController();
+  final TextEditingController solutionController = TextEditingController();
+
   clearController() {
     questionController.clear();
     option1Controller.clear();
     option2Controller.clear();
     option3Controller.clear();
     option4Controller.clear();
+    solutionController.clear();
     option1Image = "";
     option2Image = "";
     option3Image = "";
     option4Image = "";
     questionImage = "";
     solutionpdf = "";
+    solutionImage = "";
+
     setState(() {});
   }
 
@@ -50,6 +54,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   String option4Image = "";
   String questionImage = "";
   String solutionpdf = "";
+  String solutionImage = "";
+
   String? year;
 
   QuestionModel getQuestion() {
@@ -58,6 +64,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       image: questionImage,
       year: year,
       solutionpdf: solutionpdf,
+      solutionImage: solutionImage,
+      solutionText: solutionController.text,
       option1: OptionModel.tojson(
         text: option1Controller.text,
         isCorrect: true,
@@ -81,14 +89,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    String expression = "\\frac{ax^{2}+bx+c}{kx}";
-    String latexExpression = r'$$' + expression + r'$$';
     return Column(
       children: [
-        TeXView(
-          child: TeXViewDocument(latexExpression),
-          renderingEngine: const TeXViewRenderingEngine.katex(),
-        ),
         QuestionCard(
           isOption: false,
           controller: questionController,
@@ -155,6 +157,21 @@ class _QuestionWidgetState extends State<QuestionWidget> {
             setState(() {});
           },
         ),
+        const SizedBox(height: 20),
+        QuestionCard(
+          isOption: false,
+          controller: solutionController,
+          imagePath: solutionImage,
+          title: "Solution",
+          delete: () {
+            solutionImage = "";
+            setState(() {});
+          },
+          setImageUrl: (value) {
+            solutionImage = value;
+            setState(() {});
+          },
+        ),
         const SizedBox(height: 50),
         SelectPdfWidget(
           prfLink: solutionpdf,
@@ -170,7 +187,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                 validateQuestion(question: question);
             if (isValidQuestion.isSuccessful) {
               await widget.onSubmitQuestion(question);
-              // clearController();
+              clearController();
             } else {
               dialogService.showErrorDialog(
                 errorMessage: isValidQuestion.message,
@@ -179,7 +196,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           },
           buttonText: "Submit",
         ),
-        const SizedBox(height: 200),
+        const SizedBox(height: 100),
       ],
     );
   }
@@ -279,8 +296,10 @@ class _QuestionCardState extends State<QuestionCard> {
                 isCorrect: widget.isCorrectOption,
               ),
             ),
-            const Expanded(
-              child: MathInputField(
+            Expanded(
+              child: AppTextField2(
+                controller: widget.controller,
+                maxLines: 4,
                 hintText: "Type...",
               ),
             ),
@@ -306,7 +325,7 @@ class _QuestionCardState extends State<QuestionCard> {
                   uploadQuestionImage();
                 },
                 child: SizedBox(
-                  width: 250,
+                  width: 300,
                   child: Visibility(
                     visible: !showLoader,
                     replacement: const SizedBox(

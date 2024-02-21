@@ -20,8 +20,9 @@ class DashBoard extends StatelessWidget {
       isDashBoard: true,
       child: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 100, vertical: 50),
+          margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 50),
           child: const Wrap(
+            alignment: WrapAlignment.center,
             spacing: 50,
             runSpacing: 50,
             children: [
@@ -71,7 +72,7 @@ class QuizTypeCard extends StatelessWidget {
         },
         child: Container(
           height: 300,
-          width: 400,
+          width: 350,
           decoration: BoxDecoration(
             color: AppColors.violet.withOpacity(0.5),
             borderRadius: BorderRadius.circular(5),

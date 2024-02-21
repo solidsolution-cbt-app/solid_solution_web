@@ -57,11 +57,8 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                           const Spacer(),
-                          YearFilter(
-                            onChangeyear: (year) {
-                              setSelectedYear(year);
-                            },
-                            selectedYear: selectedYear,
+                          YearWidget(
+                            currentYear: selectedYear,
                           )
                         ],
                       ),
@@ -70,6 +67,8 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                         onSubmitQuestion: (value) {
                           if (selectedYear != "select year") {
                             QuestionModel newQuestion = QuestionModel.tojson(
+                              solutionImage: value.solutionImage,
+                              solutionText: value.solutionText,
                               text: value.text,
                               option1: value.option1,
                               option2: value.option2,
@@ -93,7 +92,7 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                           }
                         },
                       ),
-                      const SizedBox(height: 100),
+                      const SizedBox(height: 300),
                     ],
                   ),
                 ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
-import 'package:solidsolutionweb/constants/constants.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/features/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/topic_quiz/view_model/topic_view_model.dart';
@@ -9,8 +8,8 @@ import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
 import 'package:solidsolutionweb/widgets/question_widget.dart';
 
-class AddTopicQuizScreen extends StatefulWidget {
-  const AddTopicQuizScreen({
+class AddTopicQuestionScreen extends StatefulWidget {
+  const AddTopicQuestionScreen({
     this.topic,
     super.key,
   });
@@ -18,10 +17,10 @@ class AddTopicQuizScreen extends StatefulWidget {
   final TopicModel? topic;
 
   @override
-  State<AddTopicQuizScreen> createState() => _AddTopicQuizScreenState();
+  State<AddTopicQuestionScreen> createState() => _AddTopicQuizScreenState();
 }
 
-class _AddTopicQuizScreenState extends State<AddTopicQuizScreen> {
+class _AddTopicQuizScreenState extends State<AddTopicQuestionScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseView<TopicQuizVeiwModel>(
@@ -44,13 +43,9 @@ class _AddTopicQuizScreenState extends State<AddTopicQuizScreen> {
                         children: [
                           SvgPicture.asset("asset/svg/book-square outline.svg"),
                           const SizedBox(width: 15),
-                          SizedBox(
-                            width: AppConstants.screenWidth() * 0.5,
-                            child: CustomTextHeader1(
-                              text: widget.topic?.topic ?? "",
-                              fontWeight: FontWeight.w500,
-                              textAlign: TextAlign.start,
-                            ),
+                          CustomTextHeader1(
+                            text: widget.topic?.topic ?? "",
+                            fontWeight: FontWeight.w500,
                           ),
                           const Spacer(),
                         ],
@@ -64,6 +59,7 @@ class _AddTopicQuizScreenState extends State<AddTopicQuizScreen> {
                           );
                         },
                       ),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),

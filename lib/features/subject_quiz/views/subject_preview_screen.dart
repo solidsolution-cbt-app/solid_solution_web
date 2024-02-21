@@ -82,7 +82,6 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                             YearFilter(
                               onChangeyear: (year) {
                                 model.resetQuestionData();
-
                                 model.onChangeYear(year);
                                 model.shouldgetQuestions(
                                   subject: locatorX<BaseScreenViewModel>()

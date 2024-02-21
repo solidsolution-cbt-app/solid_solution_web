@@ -4,6 +4,7 @@ import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/widgets/image_viewer.dart';
+import 'package:solidsolutionweb/widgets/selected_pdf_widget.dart';
 
 class PreviewQuestionWidget extends StatelessWidget {
   const PreviewQuestionWidget({
@@ -19,27 +20,42 @@ class PreviewQuestionWidget extends StatelessWidget {
         PreviewQuestionCard(
           isOption: false,
           imagePath: question.image,
-          question: question.text!,
+          question: question.text ?? "",
         ),
         const SizedBox(height: 20),
         PreviewQuestionCard(
           isCorrectOption: true,
-          imagePath: question.option1!.image,
-          question: question.option1!.text!,
+          imagePath: question.option1?.image,
+          question: question.option1?.text ?? "",
         ),
         PreviewQuestionCard(
-          imagePath: question.option2!.image,
-          question: question.option2!.text!,
+          imagePath: question.option2?.image,
+          question: question.option2?.text ?? "",
         ),
         PreviewQuestionCard(
-          imagePath: question.option3!.image,
-          question: question.option3!.text!,
+          imagePath: question.option3?.image,
+          question: question.option3?.text ?? "",
         ),
         PreviewQuestionCard(
-          imagePath: question.option4!.image,
-          question: question.option4!.text!,
+          imagePath: question.option4?.image,
+          question: question.option4?.text ?? "",
+        ),
+        const SizedBox(height: 20),
+        PreviewQuestionCard(
+          isOption: false,
+          title: "Solution",
+          imagePath: question.solutionImage ?? "",
+          question: question.solutionText ?? "",
         ),
         const SizedBox(height: 50),
+        Visibility(
+          visible: question.solutionpdf != "",
+          child: SelectPdfWidget(
+            prfLink: question.solutionpdf ?? "",
+            showRemove: false,
+            setSolutionPdf: (value) {},
+          ),
+        ),
       ],
     );
   }
@@ -56,11 +72,13 @@ class PreviewQuestionCard extends StatelessWidget {
     this.isOption = true,
     this.isCorrectOption = false,
     this.imagePath = "",
+    this.title,
     required this.question,
     super.key,
   });
 
   final String question;
+  final String? title;
   final bool isOption;
   final bool isCorrectOption;
   final String? imagePath;
@@ -73,9 +91,10 @@ class PreviewQuestionCard extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(left: isOption ? 60 : 0),
           child: CustomTextBody1(
-            text: isOption
-                ? (isCorrectOption ? "Option (Correct)" : "Option")
-                : "Question",
+            text: title ??
+                (isOption
+                    ? (isCorrectOption ? "Option (Correct)" : "Option")
+                    : "Question"),
             fontSize: 16,
           ),
         ),

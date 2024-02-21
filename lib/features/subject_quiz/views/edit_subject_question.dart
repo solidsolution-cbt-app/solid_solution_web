@@ -57,16 +57,11 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                           const Spacer(),
-                          // YearFilter(
-                          //   onChangeyear: (year) {
-                          //     setSelectedYear(year);
-                          //   },
-                          //   selectedYear: selectedYear,
-                          // )
                         ],
                       ),
                       const SizedBox(height: 50),
                       EditQuestionWidget(
+                        initialquestion: widget.questionData,
                         onSubmitQuestion: (value) {
                           if (selectedYear != "all") {
                             QuestionModel newQuestion = QuestionModel.tojson(
@@ -77,6 +72,8 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                               option4: value.option4,
                               image: value.image,
                               solutionpdf: value.solutionpdf,
+                              solutionImage: value.solutionImage,
+                              solutionText: value.solutionText,
                               year: model.selectedYear,
                             );
                             model.editSubjectQuestion(
@@ -92,9 +89,8 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                             );
                           }
                         },
-                        initialquestion: widget.questionData,
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),

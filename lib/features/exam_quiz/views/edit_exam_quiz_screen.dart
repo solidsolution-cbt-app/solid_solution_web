@@ -52,6 +52,7 @@ class _EditExamQuizScreenState extends State<EditExamQuizScreen> {
                       ),
                       const SizedBox(height: 50),
                       EditQuestionWidget(
+                        initialquestion: widget.questionData,
                         onSubmitQuestion: (value) {
                           model.editExamQuestion(
                             jsonData: value.dataSent!,
@@ -60,9 +61,8 @@ class _EditExamQuizScreenState extends State<EditExamQuizScreen> {
                                 locatorX<BaseScreenViewModel>().selectedText,
                           );
                         },
-                        initialquestion: widget.questionData,
                       ),
-                      const SizedBox(height: 50),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),

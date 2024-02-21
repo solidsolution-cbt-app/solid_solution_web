@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
+import 'package:solidsolutionweb/constants/constants.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/enums/question_type_enum.dart';
@@ -32,10 +33,11 @@ class _TopicQuizPreviewScreenState extends State<TopicQuizPreviewScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseView<TopicQuizVeiwModel>(onModelReady: (model) {
-      model.getQuestion(
+      model.shouldGetTopicQuestions(
         topic: widget.topic!,
         pageNumber: "1",
       );
+
       _scrollController.addListener(() {
         if (_scrollController.position.atEdge) {
           if (_scrollController.position.pixels == 0) {
@@ -63,11 +65,14 @@ class _TopicQuizPreviewScreenState extends State<TopicQuizPreviewScreen> {
                         children: [
                           SvgPicture.asset("asset/svg/book-square outline.svg"),
                           const SizedBox(width: 15),
-                          CustomTextHeader1(
-                            text: widget.topic!.topic,
-                            fontWeight: FontWeight.w500,
+                          SizedBox(
+                            width: AppConstants.screenWidth() * 0.6,
+                            child: CustomTextHeader1(
+                              text: widget.topic!.topic,
+                              fontWeight: FontWeight.w500,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                          const Spacer(),
                         ],
                       ),
                     ),
