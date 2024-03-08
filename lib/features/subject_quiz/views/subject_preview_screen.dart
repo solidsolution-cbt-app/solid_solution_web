@@ -34,7 +34,6 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
           subject: locatorX<BaseScreenViewModel>().selectedText,
           selectedYear: model.selectedYear,
         );
-
         _scrollController.addListener(() {
           if (_scrollController.position.atEdge) {
             if (_scrollController.position.pixels == 0) {
@@ -62,6 +61,7 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                 );
               },
               child: SingleChildScrollView(
+                controller: _scrollController,
                 child: Container(
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 30),

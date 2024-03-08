@@ -25,9 +25,12 @@ class _BaseViewState<T extends BaseModel> extends State<BaseView<T>> {
   void initState() {
     super.initState();
     if (widget.onModelReady != null) {
-      setState(() {
-        widget.onModelReady!(model);
-      });
+      Future.delayed(
+        Duration.zero,
+        () {
+          widget.onModelReady!(model);
+        },
+      );
     }
   }
 
