@@ -250,6 +250,7 @@ class SubjectQuizViewModel extends BaseModel {
     required String year,
   }) async {
     List<QuestionModel> questions = subjectQuestions[getSubject(subject)]!;
+    print("====> called");
     String pageNumber =
         getPageNumber(currentLength: questions.length).toString();
     if (pageNumber != "0") {
