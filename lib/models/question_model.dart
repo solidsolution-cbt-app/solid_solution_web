@@ -112,7 +112,7 @@ validateQuestion({required QuestionModel question}) {
       question.option3!.text!.isEmpty ||
       question.option4!.text!.isEmpty) {
     return LocalExceptionModel(
-      isSuccessful: false,
+      isSuccessful: true,
       message:
           "Ensure all questions and options fields are filled before you proceed",
     );
