@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/app_text_fields/app_text_field.dart';
 import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
@@ -5,6 +6,7 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/features/authentication/view_model/auth_view_model.dart';
 
+@RoutePage()
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
   static const String routeName = "/loginScreen";

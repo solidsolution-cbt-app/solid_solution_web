@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:logman/logman.dart';
 import 'package:solidsolutionweb/constants/app_strings.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/local_data_base.dart';
 import 'package:solidsolutionweb/core/locator.dart';
-import 'package:solidsolutionweb/core/navigation_service.dart';
-import 'package:solidsolutionweb/core/routes.dart';
-import 'package:solidsolutionweb/features/authentication/views/login_screen.dart';
+import 'package:solidsolutionweb/core/route_service/route.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
         oversroll.disallowIndicator();
         return true;
       },
-      child: MaterialApp(
+      child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         title: AppString.companyName,
         theme: ThemeData(
@@ -50,9 +49,14 @@ class MyApp extends StatelessWidget {
             primary: AppColors.primaryColor,
           ),
         ),
-        navigatorKey: locatorX<NavigationService>().navigatorKey,
-        onGenerateRoute: (settings) => generateRoute(settings),
-        home: const LoginScreen(),
+        routerConfig: AppRouter().config(
+          deepLinkBuilder: (deepLink) {
+            return deepLink;
+          },
+          navigatorObservers: () => [
+            LogmanNavigatorObserver(),
+          ],
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solidsolutionweb/features/authentication/views/category_screen.dart';
 import 'package:solidsolutionweb/features/authentication/views/login_screen.dart';
 import 'package:solidsolutionweb/features/dashboard/view/dash_board.dart';
 import 'package:solidsolutionweb/features/exam_quiz/views/add_exam_quiz_screen.dart';
@@ -138,6 +139,11 @@ Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
           pdfLink: pdfLink,
         ),
       );
+    case CategoryScreen.routeName:
+      return MaterialPageRoute(
+        builder: (_) => const CategoryScreen(),
+      );
+
     default:
       return MaterialPageRoute(
         builder: (_) => const Scaffold(

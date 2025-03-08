@@ -3,7 +3,7 @@ import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/core/base_model.dart';
 import 'package:solidsolutionweb/core/local_data_base.dart';
 import 'package:solidsolutionweb/core/locator.dart';
-import 'package:solidsolutionweb/features/dashboard/view/dash_board.dart';
+import 'package:solidsolutionweb/features/authentication/views/category_screen.dart';
 import 'package:solidsolutionweb/models/authentication_model/login_model.dart';
 import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.dart';
 import 'package:solidsolutionweb/network_service/api_service.dart';
@@ -72,7 +72,9 @@ class AuthenticationViewModel extends BaseModel {
             key: LocalDBStrings.token,
             value: token,
           );
-          navigator.pushAndRemoveUntil(routeName: DashBoard.routeName);
+          navigator.push(
+            routeName: CategoryScreen.routeName,
+          );
         } else {
           dialogService.showErrorDialog(errorMessage: login.message);
         }

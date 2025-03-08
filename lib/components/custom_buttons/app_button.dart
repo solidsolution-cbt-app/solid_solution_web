@@ -57,7 +57,6 @@ class AppButton extends StatelessWidget {
         }
       },
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Visibility(
@@ -71,15 +70,15 @@ class AppButton extends StatelessWidget {
           const Spacer(),
           Row(
             children: [
-              Text(
-                buttonText,
-                style: AppTextStyles.labelRegular.copyWith(
-                  color: isOutline ? AppColors.primaryColor : Colors.white,
-                  fontSize: 16,
-                ),
-              ),
               Visibility(
                 visible: showLoader,
+                replacement: Text(
+                  buttonText,
+                  style: AppTextStyles.labelRegular.copyWith(
+                    color: isOutline ? AppColors.primaryColor : Colors.white,
+                    fontSize: 16,
+                  ),
+                ),
                 child: const Padding(
                   padding: EdgeInsets.only(left: 20),
                   child: SizedBox(

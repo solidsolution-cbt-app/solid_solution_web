@@ -8,9 +8,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
-
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
   get_it: ^7.6.0
@@ -26,8 +23,13 @@ dependencies:
   file_picker: ^6.0.0
   syncfusion_flutter_pdfviewer: ^20.4.54
   cloudinary: ^1.2.0
+  auto_route: ^7.8.4
+  flutter_hooks: ^0.20.3
+  logman: ^0.0.21
 
 dev_dependencies:
+  auto_route_generator: ^7.3.2
+  build_runner: ^2.4.6
   flutter_test:
     sdk: flutter
 
