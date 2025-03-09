@@ -5,9 +5,9 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/constants/constants.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
-import 'package:solidsolutionweb/features/base/view/base_screen.dart';
-import 'package:solidsolutionweb/features/topic_quiz/view_model/topic_view_model.dart';
-import 'package:solidsolutionweb/features/topic_quiz/views/edit_topic_question.dart';
+import 'package:solidsolutionweb/features/utme/base/view/base_screen.dart';
+import 'package:solidsolutionweb/features/utme/topic_quiz/view_model/topic_view_model.dart';
+import 'package:solidsolutionweb/features/utme/topic_quiz/views/edit_topic_question.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
 import 'package:solidsolutionweb/widgets/preview_question_card.dart';
 

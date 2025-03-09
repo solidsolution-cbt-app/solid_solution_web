@@ -1,6 +1,6 @@
 import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/core/base_model.dart';
-import 'package:solidsolutionweb/features/topic_quiz/view_model/topic_view_model.dart';
+import 'package:solidsolutionweb/features/utme/topic_quiz/view_model/topic_view_model.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/network_service/api_service.dart';

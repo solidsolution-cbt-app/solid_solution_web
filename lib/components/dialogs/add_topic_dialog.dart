@@ -4,7 +4,7 @@ import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
-import 'package:solidsolutionweb/features/topic_quiz/view_model/topic_view_model.dart';
+import 'package:solidsolutionweb/features/utme/topic_quiz/view_model/topic_view_model.dart';
 
 class AddTopicDialog extends StatelessWidget {
   const AddTopicDialog({

@@ -5,39 +5,47 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/enums/question_type_enum.dart';
-import 'package:solidsolutionweb/features/base/view/base_screen.dart';
-import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
-import 'package:solidsolutionweb/features/exam_quiz/views/exam_quiz_preview_screen.dart';
+import 'package:solidsolutionweb/features/utme/base/view/base_screen.dart';
+import 'package:solidsolutionweb/features/utme/base/view_model/base_screen_view_model.dart';
+import 'package:solidsolutionweb/features/utme/subject_quiz/view_model/subject_quiz_view_model.dart';
+import 'package:solidsolutionweb/features/utme/subject_quiz/views/preview_subject_question.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
 import 'package:solidsolutionweb/widgets/question_summary_card.dart';
+import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
-class ExamQuizScreen extends StatefulWidget {
-  const ExamQuizScreen({
+class SubjectPreviewScreen extends StatefulWidget {
+  const SubjectPreviewScreen({
     super.key,
   });
-  static const String routeName = "/exam_quiz_preview";
+  static const String routeName = "/subject_preview";
 
   @override
-  State<ExamQuizScreen> createState() => _ExamQuizScreenState();
+  State<SubjectPreviewScreen> createState() => _SubjectPreviewScreenState();
 }
 
-class _ExamQuizScreenState extends State<ExamQuizScreen> {
+class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
   final ScrollController _scrollController = ScrollController();
   @override
   Widget build(BuildContext context) {
-    return BaseView<ExamQuizViewModel>(
+    return BaseView<SubjectQuizViewModel>(
       onModelReady: (model) {
         model.shouldgetQuestions(
           subject: locatorX<BaseScreenViewModel>().selectedText,
+          selectedYear: model.selectedYear,
         );
         _scrollController.addListener(() {
           if (_scrollController.position.atEdge) {
             if (_scrollController.position.pixels == 0) {
             } else {
-              model.fetchMoreExamQuestions(
-                  subject: locatorX<BaseScreenViewModel>().selectedText);
+              if (model.selectedYear == "all") {
+                model.fetchMoreSubjectQuestions(
+                    subject: locatorX<BaseScreenViewModel>().selectedText);
+              } else {
+                model.fetchMoreSubjectQuestionsFilter(
+                    year: model.selectedYear,
+                    subject: locatorX<BaseScreenViewModel>().selectedText);
+              }
             }
           }
         });
@@ -48,6 +56,7 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
             BaseScreen(
               onTap: () {
                 model.shouldgetQuestions(
+                  selectedYear: model.selectedYear,
                   subject: locatorX<BaseScreenViewModel>().selectedText,
                 );
               },
@@ -66,10 +75,22 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
                                 "asset/svg/book-square outline.svg"),
                             const SizedBox(width: 15),
                             const CustomTextHeader1(
-                              text: "Exam Quiz",
+                              text: "Subject Quiz",
                               fontWeight: FontWeight.w500,
                             ),
                             const Spacer(),
+                            YearFilter(
+                              onChangeyear: (year) {
+                                model.resetQuestionData();
+                                model.onChangeYear(year);
+                                model.shouldgetQuestions(
+                                  subject: locatorX<BaseScreenViewModel>()
+                                      .selectedText,
+                                  selectedYear: model.selectedYear,
+                                );
+                              },
+                              selectedYear: model.selectedYear,
+                            )
                           ],
                         ),
                       ),
@@ -79,13 +100,13 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
                         runSpacing: 50,
                         children: [
                           const AddNewQuestionCard(
-                            questiontype: Questiontype.examQuestion,
+                            questiontype: Questiontype.subjectQuestion,
                           ),
                           ...model.questionToshow
                               .mapIndexed(
                                 (index, element) => QuestionSummaryCard(
                                   onTapDelete: () {
-                                    model.deleteExamQuestion(
+                                    model.deleteSubjectQuestion(
                                       questionModel: element,
                                       subject: locatorX<BaseScreenViewModel>()
                                           .selectedText,
@@ -94,7 +115,7 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
                                   onTap: () {
                                     navigator.push(
                                       routeName:
-                                          ExamQuizPreviewScreen.routeName,
+                                          SubjectQuizPreviewScreen.routeName,
                                       argument: element,
                                     );
                                   },
@@ -104,14 +125,14 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
                               )
                               .toList()
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
             AppProgressIndicator(
-              showLoader: model.loadExamQuestion,
+              showLoader: model.loadSubjectQuestion,
             )
           ],
         );

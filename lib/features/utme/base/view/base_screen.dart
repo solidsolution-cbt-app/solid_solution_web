@@ -5,8 +5,8 @@ import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/authentication/views/login_screen.dart';
-import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/dashboard/view/dash_board.dart';
+import 'package:solidsolutionweb/features/utme/base/view_model/base_screen_view_model.dart';
+import 'package:solidsolutionweb/features/utme/dashboard/view/dash_board.dart';
 import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
 class BaseScreen extends StatelessWidget {

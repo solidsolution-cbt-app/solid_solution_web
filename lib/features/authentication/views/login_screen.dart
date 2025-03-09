@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
                     prefixIconPath: "asset/svg/lock.svg",
                     isPassword: true,
                     onComplete: () {
-                      model.login();
+                      model.login(context);
                     },
                   ),
                   const SizedBox(height: 30),
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                     showLoader: model.showLoader,
                     buttonWidth: 400,
                     onTap: () {
-                      model.login();
+                      model.login(context);
                     },
                     buttonText: "Login", 
                   ),

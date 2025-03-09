@@ -1,9 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/core/base_model.dart';
 import 'package:solidsolutionweb/core/local_data_base.dart';
-import 'package:solidsolutionweb/core/locator.dart';
-import 'package:solidsolutionweb/features/authentication/views/category_screen.dart';
+import 'package:solidsolutionweb/core/route_service/route.gr.dart';
 import 'package:solidsolutionweb/models/authentication_model/login_model.dart';
 import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.dart';
 import 'package:solidsolutionweb/network_service/api_service.dart';
@@ -48,7 +48,7 @@ class AuthenticationViewModel extends BaseModel {
     }
   }
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     toggleShowLoader(true);
     LocalExceptionModel isValidLoginCredentials = validateLoginCredentials();
     if (isValidLoginCredentials.isSuccessful) {
@@ -72,9 +72,11 @@ class AuthenticationViewModel extends BaseModel {
             key: LocalDBStrings.token,
             value: token,
           );
-          navigator.push(
-            routeName: CategoryScreen.routeName,
-          );
+          if (context.mounted) {
+            context.pushRoute(
+              const CategoryRoute(),
+            );
+          }
         } else {
           dialogService.showErrorDialog(errorMessage: login.message);
         }

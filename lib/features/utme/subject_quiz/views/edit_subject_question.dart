@@ -4,44 +4,44 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/locator.dart';
-import 'package:solidsolutionweb/features/base/view/base_screen.dart';
-import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/subject_quiz/view_model/subject_quiz_view_model.dart';
+import 'package:solidsolutionweb/features/utme/base/view/base_screen.dart';
+import 'package:solidsolutionweb/features/utme/base/view_model/base_screen_view_model.dart';
+import 'package:solidsolutionweb/features/utme/subject_quiz/view_model/subject_quiz_view_model.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/question_widget.dart';
-import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
+import 'package:solidsolutionweb/widgets/edit_question_widget.dart';
 
-class AddSubjectQuizScreen extends StatefulWidget {
-  const AddSubjectQuizScreen({
+class EditQuizPreviewScreen extends StatefulWidget {
+  const EditQuizPreviewScreen({
+    required this.questionData,
     super.key,
   });
-  static const String routeName = "/add_subject_quiz_screen";
+  final QuestionModel questionData;
+  static const String routeName = "/edit_quiz_preview";
 
   @override
-  State<AddSubjectQuizScreen> createState() => _AddSubjectQuizScreenState();
+  State<EditQuizPreviewScreen> createState() => _EditQuizPreviewScreenState();
 }
 
-String selectedYear = "select year";
-setSelectedYear(String year) {
-  selectedYear = year;
-}
+class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
+  String selectedYear = "all";
+  setSelectedYear(String value) {
+    selectedYear = value;
+    // setState(() {});
+  }
 
-class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseView<SubjectQuizViewModel>(
       onModelReady: (model) {
-        setSelectedYear(model.selectedYear);
+        setSelectedYear(widget.questionData.year ?? "all");
       },
       builder: (context, model, child) {
         return Stack(
           children: [
             BaseScreen(
               allowSubjectChange: false,
-              onTap: () {
-                setState(() {});
-              },
+              onTap: () {},
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
@@ -57,18 +57,14 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                             fontWeight: FontWeight.w500,
                           ),
                           const Spacer(),
-                          YearWidget(
-                            currentYear: selectedYear,
-                          )
                         ],
                       ),
                       const SizedBox(height: 50),
-                      QuestionWidget(
+                      EditQuestionWidget(
+                        initialquestion: widget.questionData,
                         onSubmitQuestion: (value) {
-                          if (selectedYear != "select year") {
+                          if (selectedYear != "all") {
                             QuestionModel newQuestion = QuestionModel.tojson(
-                              solutionImage: value.solutionImage,
-                              solutionText: value.solutionText,
                               text: value.text,
                               option1: value.option1,
                               option2: value.option2,
@@ -76,11 +72,13 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                               option4: value.option4,
                               image: value.image,
                               solutionpdf: value.solutionpdf,
+                              solutionImage: value.solutionImage,
+                              solutionText: value.solutionText,
                               year: model.selectedYear,
                             );
-                            model.uploadSubjectQuestion(
-                              year: selectedYear,
+                            model.editSubjectQuestion(
                               jsonData: newQuestion.dataSent!,
+                              questionId: widget.questionData.id!,
                               subject:
                                   locatorX<BaseScreenViewModel>().selectedText,
                             );
@@ -92,14 +90,14 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                           }
                         },
                       ),
-                      const SizedBox(height: 300),
+                      const SizedBox(height: 100),
                     ],
                   ),
                 ),
               ),
             ),
             AppProgressIndicator(
-              showLoader: model.loadAddSubjectQuestion,
+              showLoader: model.loadEditQuestion,
             )
           ],
         );

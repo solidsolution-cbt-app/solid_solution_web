@@ -2,45 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
-import 'package:solidsolutionweb/core/locator.dart';
-import 'package:solidsolutionweb/features/base/view/base_screen.dart';
-import 'package:solidsolutionweb/features/base/view_model/base_screen_view_model.dart';
-import 'package:solidsolutionweb/features/exam_quiz/view_model/exam_quiz_view_model.dart';
+import 'package:solidsolutionweb/features/utme/base/view/base_screen.dart';
+import 'package:solidsolutionweb/features/utme/topic_quiz/view_model/topic_view_model.dart';
+import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
 import 'package:solidsolutionweb/widgets/question_widget.dart';
 
-class AddExamQuizScreen extends StatefulWidget {
-  const AddExamQuizScreen({
+class AddTopicQuestionScreen extends StatefulWidget {
+  const AddTopicQuestionScreen({
+    this.topic,
     super.key,
   });
-  static const String routeName = "/add_exam_quiz_screen";
+  static const String routeName = "/add_topic_quiz_screen";
+  final TopicModel? topic;
 
   @override
-  State<AddExamQuizScreen> createState() => _AddExamQuizScreenState();
+  State<AddTopicQuestionScreen> createState() => _AddTopicQuizScreenState();
 }
 
-class _AddExamQuizScreenState extends State<AddExamQuizScreen> {
+class _AddTopicQuizScreenState extends State<AddTopicQuestionScreen> {
   @override
   Widget build(BuildContext context) {
-    return BaseView<ExamQuizViewModel>(
+    return BaseView<TopicQuizVeiwModel>(
       builder: (context, model, child) {
         return Stack(
           children: [
             BaseScreen(
               allowSubjectChange: false,
-              onTap: () {},
+              onTap: () {
+                setState(() {});
+              },
               child: Container(
                 margin:
                     const EdgeInsets.symmetric(horizontal: 50, vertical: 30),
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     children: [
                       Row(
                         children: [
                           SvgPicture.asset("asset/svg/book-square outline.svg"),
                           const SizedBox(width: 15),
-                          const CustomTextHeader1(
-                            text: "Exam Quiz",
+                          CustomTextHeader1(
+                            text: widget.topic?.topic ?? "",
                             fontWeight: FontWeight.w500,
                           ),
                           const Spacer(),
@@ -48,11 +52,10 @@ class _AddExamQuizScreenState extends State<AddExamQuizScreen> {
                       ),
                       const SizedBox(height: 50),
                       QuestionWidget(
-                        onSubmitQuestion: (value) {
-                          model.uploadExamQuestion(
+                        onSubmitQuestion: (value) async {
+                          await model.uploadQuestion(
                             jsonData: value.dataSent!,
-                            subject:
-                                locatorX<BaseScreenViewModel>().selectedText,
+                            topic: widget.topic!,
                           );
                         },
                       ),
@@ -63,7 +66,7 @@ class _AddExamQuizScreenState extends State<AddExamQuizScreen> {
               ),
             ),
             AppProgressIndicator(
-              showLoader: model.loadAddExamQuestion,
+              showLoader: model.loadAddQuestion,
             )
           ],
         );
