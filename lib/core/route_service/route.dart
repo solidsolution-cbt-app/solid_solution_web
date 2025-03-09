@@ -11,9 +11,29 @@ class AppRouter extends $AppRouter {
           page: LoginRoute.page,
         ),
         AutoRoute(
-          path: "/category",
-          page: CategoryRoute.page,
+          path: "/select-category",
+          page: SelectCategoryRoute.page,
+          children: [
+            AutoRoute(
+              initial: true,
+              path: "category",
+              page: CategoryRoute.page,
+            ),
+            AutoRoute(
+              path: "blog-screen",
+              page: BlogRoute.page,
+            ),
+            AutoRoute(
+              path: "utme-screen",
+              page: UtmeBaseRoute.page,
+            ),
+            AutoRoute(
+              path: "postutme-screen",
+              page: PostUtmeBaseRoute.page,
+            ),
+          ],
         ),
+
         //Jamb Dashboard Route
         // CustomRoute(
         //   page: AuthenticationBaseRoute.page,

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-
+import 'package:solidsolutionweb/core/route_service/route.gr.dart';
+import 'package:solidsolutionweb/widgets/category_card.dart';
 
 @RoutePage()
 class CategoryScreen extends StatelessWidget {
@@ -8,16 +9,40 @@ class CategoryScreen extends StatelessWidget {
   static const String routeName = "/category";
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      spacing: 50,
+      runSpacing: 50,
+      crossAxisAlignment: WrapCrossAlignment.center,
+      alignment: WrapAlignment.center,
+      runAlignment: WrapAlignment.center,
       children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: Image.asset(
-            "asset/images/app_logo.png",
-          ),
+        CategoryCard(
+          title: "Upload Solid Solution Jamb Questions",
+          imagePath: "asset/svg/computer.svg",
+          onTap: () {
+            context.router.navigate(
+              const UtmeBaseRoute(),
+            );
+          },
         ),
-        const Divider(),
+        CategoryCard(
+          title: "Upload Solid Solution Post UTME Questions",
+          imagePath: "asset/svg/computer.svg",
+          onTap: () {
+            context.router.navigate(
+              const PostUtmeBaseRoute(),
+            );
+          },
+        ),
+        CategoryCard(
+          title: "Upload on Blog Page",
+          imagePath: "asset/svg/file.svg",
+          onTap: () {
+            context.router.navigate(
+              const BlogRoute(),
+            );
+          },
+        ),
       ],
     );
   }

@@ -73,8 +73,8 @@ class AuthenticationViewModel extends BaseModel {
             value: token,
           );
           if (context.mounted) {
-            context.pushRoute(
-              const CategoryRoute(),
+            context.replaceRoute(
+              const SelectCategoryRoute(),
             );
           }
         } else {

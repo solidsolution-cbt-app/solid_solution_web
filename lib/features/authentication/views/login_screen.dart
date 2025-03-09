@@ -52,9 +52,12 @@ class LoginScreen extends StatelessWidget {
                     showLoader: model.showLoader,
                     buttonWidth: 400,
                     onTap: () {
-                      model.login(context);
+                      if (model.passwordController.text.isNotEmpty &&
+                          model.phoneNumberController.text.isNotEmpty) {
+                        model.login(context);
+                      }
                     },
-                    buttonText: "Login", 
+                    buttonText: "Login",
                   ),
                 ],
               ),

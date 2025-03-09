@@ -58,49 +58,41 @@ class AppButton extends StatelessWidget {
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Visibility(
-            visible: showIconLeft,
-            child: const Icon(
+          if (showIconLeft) ...[
+            const Icon(
               Icons.chevron_left,
               color: Colors.white,
               size: 30,
             ),
-          ),
-          const Spacer(),
-          Row(
-            children: [
-              Visibility(
-                visible: showLoader,
-                replacement: Text(
-                  buttonText,
-                  style: AppTextStyles.labelRegular.copyWith(
-                    color: isOutline ? AppColors.primaryColor : Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 20),
-                  child: SizedBox(
-                    width: 30,
-                    height: 30,
-                    child: CircularProgressIndicator(
-                      color: AppColors.violet,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
+            const Spacer(),
+          ],
           Visibility(
-            visible: showIconRight,
-            child: const Icon(
+            visible: showLoader,
+            replacement: Text(
+              buttonText,
+              style: AppTextStyles.labelRegular.copyWith(
+                color: isOutline ? AppColors.primaryColor : Colors.white,
+                fontSize: 16,
+              ),
+            ),
+            child: const SizedBox(
+              width: 30,
+              height: 30,
+              child: CircularProgressIndicator(
+                color: AppColors.violet,
+              ),
+            ),
+          ),
+          if (showIconRight) ...[
+            const Spacer(),
+            const Icon(
               Icons.chevron_right,
               color: Colors.white,
               size: 30,
             ),
-          ),
+          ]
         ],
       ),
     );
