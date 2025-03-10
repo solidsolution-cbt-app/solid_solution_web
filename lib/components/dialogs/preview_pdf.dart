@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:solidsolutionweb/features/pdf_viewer_page.dart/pdf_viewer_page.dart';
 
 class PreviewPdfDialog extends StatelessWidget {
   const PreviewPdfDialog({
@@ -15,14 +15,7 @@ class PreviewPdfDialog extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
-      child: Scaffold(
-        body: SfPdfViewer.network(
-          pdfLink,
-          canShowPaginationDialog: true,
-          canShowScrollHead: true,
-          canShowScrollStatus: true,
-        ),
-      ),
+      child: PdfViewerPage(pdfLink: pdfLink),
     );
   }
 }

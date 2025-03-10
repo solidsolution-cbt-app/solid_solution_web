@@ -77,6 +77,7 @@ class _EditQuizPreviewScreenState extends State<EditQuizPreviewScreen> {
                               year: model.selectedYear,
                             );
                             model.editSubjectQuestion(
+                              context,
                               jsonData: newQuestion.dataSent!,
                               questionId: widget.questionData.id!,
                               subject:

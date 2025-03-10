@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/core/base_model.dart';
 import 'package:solidsolutionweb/features/utme/pages/topic_quiz/view_model/topic_view_model.dart';
@@ -100,7 +101,7 @@ class SubjectQuizViewModel extends BaseModel {
     getSubjectQuestions(subject: subject);
   }
 
-  Future<void> uploadSubjectQuestion(
+  Future<void> uploadSubjectQuestion(BuildContext context,
       {required String jsonData,
       required String subject,
       required String year}) async {
@@ -114,9 +115,12 @@ class SubjectQuizViewModel extends BaseModel {
       if (data.isSuccessful) {
         removeQuestion(subject: getSubject(subject));
         await getSubjectQuestion(subject: getSubject(subject), pageNumber: "1");
-        dialogService.shouldAddNewQuestion(
-          successMessage: data.message,
-        );
+        if (context.mounted) {
+          dialogService.shouldAddNewQuestion(
+            context,
+            successMessage: data.message,
+          );
+        }
       } else {
         dialogService.showErrorDialog(
           errorMessage: data.message,
@@ -130,11 +134,12 @@ class SubjectQuizViewModel extends BaseModel {
     toggleLoadAddSubjectQuestion(false);
   }
 
-  Future<void> deleteSubjectQuestion({
+  Future<void> deleteSubjectQuestion(
+    BuildContext context, {
     required QuestionModel questionModel,
     required String subject,
   }) async {
-    dialogService.hideLoaderDialog();
+    dialogService.hideLoaderDialog(context);
     toggleLoadSubjectQuestion(true);
     try {
       var data =
@@ -300,7 +305,8 @@ class SubjectQuizViewModel extends BaseModel {
     }
   }
 
-  Future<void> editSubjectQuestion({
+  Future<void> editSubjectQuestion(
+    BuildContext context, {
     required String jsonData,
     required String questionId,
     required String subject,
@@ -316,7 +322,9 @@ class SubjectQuizViewModel extends BaseModel {
         await getSubjectQuestion(subject: getSubject(subject), pageNumber: "1");
         removeQuestionData(questionId: questionId);
         resetPreview();
-        dialogService.hideLoaderDialog();
+        if (context.mounted) {
+          dialogService.hideLoaderDialog(context);
+        }
       } else {
         dialogService.showErrorDialog(
           errorMessage: data.message,

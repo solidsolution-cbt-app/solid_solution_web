@@ -56,7 +56,7 @@ class SHouldAddNewQuestionWidget extends StatelessWidget {
                   isOutline: true,
                   onTap: () {
                     Navigator.pop(context);
-                    dialogService.hideLoaderDialog();
+                    dialogService.hideLoaderDialog(context);
                   },
                   buttonText: "No",
                 ),

@@ -79,6 +79,7 @@ class _AddSubjectQuizScreenState extends State<AddSubjectQuizScreen> {
                               year: model.selectedYear,
                             );
                             model.uploadSubjectQuestion(
+                              context,
                               year: selectedYear,
                               jsonData: newQuestion.dataSent!,
                               subject:

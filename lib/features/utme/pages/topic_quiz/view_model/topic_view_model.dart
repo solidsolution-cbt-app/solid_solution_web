@@ -158,7 +158,8 @@ class TopicQuizVeiwModel extends BaseModel {
     }
   }
 
-  Future<void> addTopic({
+  Future<void> addTopic(
+    BuildContext context, {
     required String subject,
     required String topic,
   }) async {
@@ -178,7 +179,9 @@ class TopicQuizVeiwModel extends BaseModel {
         TopicModel newTopic = data.model as TopicModel;
         removeTopic(topic: newTopic);
         getTopic(subject: getSubject(subject), pageNumber: "1");
-        dialogService.hideLoaderDialog();
+        if (context.mounted) {
+          dialogService.hideLoaderDialog(context);
+        }
       } else {
         dialogService.showErrorDialog(
           errorMessage: data.message,
@@ -193,11 +196,12 @@ class TopicQuizVeiwModel extends BaseModel {
     toggleLoadAddTopic(false);
   }
 
-  Future<void> deleteTopic({
+  Future<void> deleteTopic(
+    BuildContext context, {
     required TopicModel topic,
     required String subject,
   }) async {
-    dialogService.hideLoaderDialog();
+    dialogService.hideLoaderDialog(context);
     toggleLoadTopicScreen(true);
     try {
       var data = await apiService.deleteTopicQuiz(topicId: topic.id!);
@@ -340,7 +344,7 @@ class TopicQuizVeiwModel extends BaseModel {
     }
   }
 
-  Future<void> uploadQuestion(
+  Future<void> uploadQuestion(BuildContext context,
       {required String jsonData, required TopicModel topic}) async {
     toggleLoadAddQuestion(true);
     try {
@@ -351,9 +355,12 @@ class TopicQuizVeiwModel extends BaseModel {
       if (data.isSuccessful) {
         removeQuestion(topic: topic);
         await getQuestion(topic: topic, pageNumber: "1");
-        dialogService.shouldAddNewQuestion(
-          successMessage: data.message,
-        );
+        if (context.mounted) {
+          dialogService.shouldAddNewQuestion(
+            context,
+            successMessage: data.message,
+          );
+        }
       } else {
         dialogService.showErrorDialog(
           errorMessage: data.message,
@@ -367,11 +374,11 @@ class TopicQuizVeiwModel extends BaseModel {
     toggleLoadAddQuestion(false);
   }
 
-  Future<void> deleteTopicQuestion(
+  Future<void> deleteTopicQuestion(BuildContext context,
       {required QuestionModel questionModel,
       required String subject,
       required TopicModel topic}) async {
-    dialogService.hideLoaderDialog();
+    dialogService.hideLoaderDialog(context);
     toggleLoadTopicQuestionScreen(true);
     try {
       var data =
@@ -419,7 +426,8 @@ class TopicQuizVeiwModel extends BaseModel {
     }
   }
 
-  Future<void> editQuestion({
+  Future<void> editQuestion(
+    BuildContext context, {
     required String jsonData,
     required String questionId,
     required TopicModel topic,
@@ -435,7 +443,9 @@ class TopicQuizVeiwModel extends BaseModel {
         await getQuestion(topic: topic, pageNumber: "1");
         removeQuestionData(questionId: questionId);
         resetPreview();
-        dialogService.hideLoaderDialog();
+        if (context.mounted) {
+          dialogService.hideLoaderDialog(context);
+        }
       } else {
         dialogService.showErrorDialog(
           errorMessage: data.message,

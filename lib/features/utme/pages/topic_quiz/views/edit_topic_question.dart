@@ -62,6 +62,7 @@ class _EditTopicQuestionPreviewScreenState
                             initialquestion: widget.topicQuestionData.question,
                             onSubmitQuestion: (value) async {
                               await model.editQuestion(
+                                context,
                                 topic: widget.topicQuestionData.topic,
                                 jsonData: value.dataSent!,
                                 questionId:

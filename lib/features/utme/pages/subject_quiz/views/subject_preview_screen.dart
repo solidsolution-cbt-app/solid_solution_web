@@ -107,6 +107,7 @@ class _SubjectPreviewScreenState extends State<SubjectPreviewScreen> {
                                 (index, element) => QuestionSummaryCard(
                                   onTapDelete: () {
                                     model.deleteSubjectQuestion(
+                                      context,
                                       questionModel: element,
                                       subject: locatorX<BaseScreenViewModel>()
                                           .selectedText,

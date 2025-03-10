@@ -67,6 +67,7 @@ class QuestionSummaryCard extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           dialogService.showDeleteDialog(
+                            context,
                             deleteMessage:
                                 "Are you sure you want to delete the question",
                             onTapDelete: onTapDelete ?? () {},

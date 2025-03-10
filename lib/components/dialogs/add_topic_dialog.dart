@@ -78,7 +78,7 @@ class AddTopicDialog extends StatelessWidget {
                       buttonWidth: 600,
                       onTap: () async {
                         if (model.topicController.text.isNotEmpty) {
-                          model.addTopic(
+                          model.addTopic(context,
                               subject: subject,
                               topic: model.topicController.text);
                         }

@@ -55,6 +55,7 @@ class _EditExamQuizScreenState extends State<EditExamQuizScreen> {
                         initialquestion: widget.questionData,
                         onSubmitQuestion: (value) {
                           model.editExamQuestion(
+                            context,
                             jsonData: value.dataSent!,
                             questionId: widget.questionData.id!,
                             subject:

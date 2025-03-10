@@ -90,6 +90,7 @@ class _TopicQuizPreviewScreenState extends State<TopicQuizPreviewScreen> {
                               (index, element) => QuestionSummaryCard(
                                 onTapDelete: () {
                                   model.deleteTopicQuestion(
+                                    context,
                                     questionModel: element,
                                     subject: locatorX<BaseScreenViewModel>()
                                         .selectedText,

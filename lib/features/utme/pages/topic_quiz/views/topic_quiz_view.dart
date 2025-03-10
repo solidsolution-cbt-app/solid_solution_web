@@ -76,6 +76,7 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
                             buttonWidth: 200,
                             onTap: () {
                               DialogService().addTopicDialog(
+                                context,
                                 subject: locatorX<BaseScreenViewModel>()
                                     .selectedText,
                               );
@@ -93,6 +94,7 @@ class _TopicQuizScreenState extends State<TopicQuizScreen> {
                               topic: model.topicToshow[index],
                               onDeleteTopic: (value) {
                                 model.deleteTopic(
+                                  context,
                                   topic: model.topicToshow[index],
                                   subject: locatorX<BaseScreenViewModel>()
                                       .selectedText,
@@ -159,6 +161,7 @@ class QuizTopicCard extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     dialogService.showDeleteDialog(
+                      context,
                       deleteMessage:
                           "Are you sure you want to delete the topic ?",
                       onTapDelete: () {
@@ -226,6 +229,7 @@ class TopicScreenEmptyWidget extends StatelessWidget {
           AppButton(
             onTap: () {
               DialogService().addTopicDialog(
+                context,
                 subject: locatorX<BaseScreenViewModel>().selectedText,
               );
             },

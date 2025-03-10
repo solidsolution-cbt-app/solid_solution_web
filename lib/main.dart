@@ -6,6 +6,8 @@ import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/local_data_base.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/core/route_service/route.dart';
+import 'package:toastification/toastification.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,32 +32,34 @@ class MyApp extends StatelessWidget {
         oversroll.disallowIndicator();
         return true;
       },
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: AppString.companyName,
-        theme: ThemeData(
-          canvasColor: Colors.transparent,
-          appBarTheme: AppBarTheme(
-            systemOverlayStyle: SystemUiOverlayStyle(
-                statusBarColor: AppColors.dartArsh.withOpacity(0.5)),
-            color: Colors.transparent,
-            elevation: 0,
-            iconTheme: const IconThemeData(
-              color: Colors.black,
+      child: ToastificationWrapper(
+        child: MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          title: AppString.companyName,
+          theme: ThemeData(
+            canvasColor: Colors.transparent,
+            appBarTheme: AppBarTheme(
+              systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarColor: AppColors.dartArsh.withOpacity(0.5)),
+              color: Colors.transparent,
+              elevation: 0,
+              iconTheme: const IconThemeData(
+                color: Colors.black,
+              ),
+            ),
+            scaffoldBackgroundColor: Colors.white,
+            colorScheme: const ColorScheme.light(
+              primary: AppColors.primaryColor,
             ),
           ),
-          scaffoldBackgroundColor: Colors.white,
-          colorScheme: const ColorScheme.light(
-            primary: AppColors.primaryColor,
+          routerConfig: AppRouter().config(
+            deepLinkBuilder: (deepLink) {
+              return deepLink;
+            },
+            navigatorObservers: () => [
+              LogmanNavigatorObserver(),
+            ],
           ),
-        ),
-        routerConfig: AppRouter().config(
-          deepLinkBuilder: (deepLink) {
-            return deepLink;
-          },
-          navigatorObservers: () => [
-            LogmanNavigatorObserver(),
-          ],
         ),
       ),
     );

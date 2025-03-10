@@ -50,6 +50,7 @@ class _AddExamQuizScreenState extends State<AddExamQuizScreen> {
                       QuestionWidget(
                         onSubmitQuestion: (value) {
                           model.uploadExamQuestion(
+                            context,
                             jsonData: value.dataSent!,
                             subject:
                                 locatorX<BaseScreenViewModel>().selectedText,

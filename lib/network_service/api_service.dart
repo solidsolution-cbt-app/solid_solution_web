@@ -48,7 +48,6 @@ class ApiService {
         );
       }
     } catch (e) {
-      // print(e);
       if (e is SocketException) {
         return LocalExceptionModel(
           isSuccessful: false,

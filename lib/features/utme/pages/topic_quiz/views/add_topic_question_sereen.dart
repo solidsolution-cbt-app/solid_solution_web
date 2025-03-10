@@ -54,6 +54,7 @@ class _AddTopicQuizScreenState extends State<AddTopicQuestionScreen> {
                       QuestionWidget(
                         onSubmitQuestion: (value) async {
                           await model.uploadQuestion(
+                            context,
                             jsonData: value.dataSent!,
                             topic: widget.topic!,
                           );

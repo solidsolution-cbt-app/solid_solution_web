@@ -1,7 +1,8 @@
+import 'package:easy_pdf_viewer/easy_pdf_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class PdfViewerPage extends StatelessWidget {
+class PdfViewerPage extends HookWidget {
   const PdfViewerPage({
     super.key,
     required this.pdfLink,
@@ -12,12 +13,24 @@ class PdfViewerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final pdfDoc = useState<PDFDocument?>(null);
+    useEffect(() {
+      WidgetsFlutterBinding().addPostFrameCallback(
+        (valur) async {
+          pdfDoc.value = await PDFDocument.fromURL(pdfLink);
+        },
+      );
+      return;
+    });
     return Scaffold(
       appBar: AppBar(),
-      body: SfPdfViewer.network(
-        pdfLink,
-        initialZoomLevel: 2,
-      ),
+      body: pdfDoc.value == null
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : PDFViewer(
+              document: pdfDoc.value!,
+            ),
     );
   }
 }

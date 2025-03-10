@@ -86,6 +86,7 @@ class _ExamQuizScreenState extends State<ExamQuizScreen> {
                                 (index, element) => QuestionSummaryCard(
                                   onTapDelete: () {
                                     model.deleteExamQuestion(
+                                      context,
                                       questionModel: element,
                                       subject: locatorX<BaseScreenViewModel>()
                                           .selectedText,

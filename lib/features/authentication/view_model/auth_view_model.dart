@@ -64,7 +64,6 @@ class AuthenticationViewModel extends BaseModel {
         LocalExceptionModel login = await apiService.login(
           dataSent: LoginModel.tojson(loginModel: loginData).dataSent!,
         );
-
         if (login.isSuccessful) {
           LoginModel returnedData = login.model as LoginModel;
           token = returnedData.token!;

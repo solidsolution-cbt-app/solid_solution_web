@@ -11,7 +11,8 @@ class AppTextField extends StatefulWidget {
     this.hintText,
     this.maxLength,
     this.maxLines,
-    this.buttonWidth = 400,
+    this.width = 400,
+    this.padding,
     this.onChanged,
     this.prefixIconPath = "",
     this.isNumberField = false,
@@ -20,17 +21,15 @@ class AppTextField extends StatefulWidget {
     super.key,
   });
 
-  final double buttonWidth;
+  final double width;
   final TextEditingController? controller;
   final String? fieldLabel;
   final String? hintText;
-
   final Function(String value)? onChanged;
   final Function()? onComplete;
-
   final int? maxLines;
   final int? maxLength;
-
+  final EdgeInsetsGeometry? padding;
   final bool isPassword;
   final String prefixIconPath;
   final bool isNumberField;
@@ -49,7 +48,7 @@ class _AppTextFieldState extends State<AppTextField> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: widget.buttonWidth,
+      width: widget.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,23 +67,27 @@ class _AppTextFieldState extends State<AppTextField> {
             controller: widget.controller,
             maxLength: widget.maxLength,
             obscureText: showpassword,
+            maxLines: widget.maxLines,
             onChanged: widget.onChanged,
             onEditingComplete: widget.onComplete,
             inputFormatters:
                 widget.isNumberField ? [NumberInputFormatter()] : [],
             decoration: InputDecoration(
-              contentPadding: const EdgeInsets.symmetric(vertical: 5),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(10),
-                child: ClipRRect(
-                  child: SizedBox(
-                    width: 5,
-                    child: SvgPicture.asset(
-                      widget.prefixIconPath,
-                    ),
-                  ),
-                ),
-              ),
+              contentPadding:
+                  widget.padding ?? const EdgeInsets.symmetric(vertical: 5),
+              prefixIcon: widget.prefixIconPath != ""
+                  ? Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: ClipRRect(
+                        child: SizedBox(
+                          width: 5,
+                          child: SvgPicture.asset(
+                            widget.prefixIconPath,
+                          ),
+                        ),
+                      ),
+                    )
+                  : null,
               suffix: widget.isPassword
                   ? IconButton(
                       padding:
@@ -101,7 +104,7 @@ class _AppTextFieldState extends State<AppTextField> {
                         color: AppColors.dartArsh,
                       ),
                     )
-                  : const SizedBox(),
+                  : const SizedBox.shrink(),
               hintText: widget.hintText ?? '',
               hintStyle: AppTextStyles.labelMedium.copyWith(
                 color: AppColors.dartArsh,
@@ -201,47 +204,3 @@ class NumberInputFormatter extends TextInputFormatter {
     );
   }
 }
-
-// class MathInputField extends StatelessWidget {
-//   const MathInputField({
-//     this.controller,
-//     this.fieldLabel,
-//     this.hintText,
-//     this.buttonWidth = 500,
-//     required this.onChange,
-//     super.key,
-//   });
-
-//   final double buttonWidth;
-//   final MathFieldEditingController? controller;
-//   final String? fieldLabel;
-//   final String? hintText;
-//   final Function(String value) onChange;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MathField(
-//       onChanged: (value) {
-//         if (kDebugMode) {
-//           print(value);
-//         }
-//         onChange(value);
-//       },
-//       decoration: InputDecoration(
-//         contentPadding:
-//             const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-//         hintText: hintText ?? '',
-//         hintStyle: AppTextStyles.labelMedium.copyWith(
-//           color: AppColors.dartArsh,
-//         ),
-//         border: OutlineInputBorder(
-//           borderRadius: BorderRadius.circular(8),
-//           borderSide: const BorderSide(
-//             color: AppColors.dartArsh,
-//             width: 1,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

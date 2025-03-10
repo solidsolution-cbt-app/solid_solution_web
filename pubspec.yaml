@@ -21,11 +21,13 @@ dependencies:
   lottie: ^2.4.0
   shared_preferences: ^2.2.2
   file_picker: ^6.0.0
-  syncfusion_flutter_pdfviewer: ^20.4.54
+  # syncfusion_flutter_pdfviewer: ^20.4.54
   cloudinary: ^1.2.0
   auto_route: ^7.8.4
   flutter_hooks: ^0.20.3
   logman: ^0.0.21
+  toastification: ^2.3.0
+  easy_pdf_viewer: ^1.0.8
 
 dev_dependencies:
   auto_route_generator: ^7.3.2

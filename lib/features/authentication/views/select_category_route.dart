@@ -22,7 +22,7 @@ class SelectCategoryScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           body: Column(
             children: [
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
               Row(
                 children: [
                   const SizedBox(width: 50),
@@ -35,13 +35,14 @@ class SelectCategoryScreen extends StatelessWidget {
                   const CustomTextHeader1(
                     text: "Solid Solutions",
                     fontSize: 25,
-                    textColor: AppColors.dartArsh,
+                    textColor: AppColors.greyColor,
                   ),
                 ],
               ),
               const SizedBox(height: 10),
-              const Divider(
-                color: AppColors.grey400Color,
+               Divider(
+                color: AppColors.grey400Color.withOpacity(.1),
+                thickness: 5,
               ),
               Expanded(child: child),
             ],
