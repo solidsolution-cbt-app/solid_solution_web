@@ -116,10 +116,8 @@ class SubjectQuizViewModel extends BaseModel {
         removeQuestion(subject: getSubject(subject));
         await getSubjectQuestion(subject: getSubject(subject), pageNumber: "1");
         if (context.mounted) {
-          dialogService.shouldAddNewQuestion(
-            context,
-            successMessage: data.message,
-          );
+          dialogService.shouldAddNewQuestion(context,
+              successMessage: data.message, onrejectAddNewQuestion: () {});
         }
       } else {
         dialogService.showErrorDialog(

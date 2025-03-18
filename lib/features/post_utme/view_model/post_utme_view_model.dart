@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/core/base_model.dart';
+import 'package:solidsolutionweb/core/route_service/route.gr.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/network_service/api_service.dart';
 
@@ -18,6 +21,7 @@ class PostUtmeViewModel extends BaseModel {
   bool loadGetSubjects = false;
   bool loadUploadQuestion = false;
   bool loadGetSchoolSubjectQuestion = false;
+  bool loadGetQuestionById = false;
 
   toggleLoadGetUniversities(bool value) {
     loadGetUniversities = value;
@@ -39,6 +43,10 @@ class PostUtmeViewModel extends BaseModel {
     notifyListeners();
   }
 
+  toggleloadGetQuestionById(bool value) {
+    loadGetQuestionById = value;
+    notifyListeners();
+  }
 ///////
 
   /// Ui return datas and calls
@@ -137,12 +145,101 @@ class PostUtmeViewModel extends BaseModel {
   }
 
   Future<void> uploadQuestion({
+    required BuildContext context,
     required QuestionModel value,
   }) async {
     toggleloadUploadQuestion(true);
     try {
       var data = await apiService.uploadPostUtmeQuestionBySubject(
         dataSent: value.dataSent!,
+      );
+      if (data.isSuccessful) {
+        // removeQuestion(subject: getSubject(subject));
+        await getPostUtmeSchoolSubjectQuestion(
+          school: value.school!,
+          subject: value.subject!,
+        );
+
+        if (context.mounted) {
+          dialogService.shouldAddNewQuestion(context,
+              successMessage: data.message, onrejectAddNewQuestion: () {
+            context.pushRoute(
+              const PostUtmeQuestionsRoute(),
+            );
+          });
+        }
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+    }
+    toggleloadUploadQuestion(false);
+  }
+
+  Future<void> deleteQuestion({
+    required QuestionModel value,
+  }) async {
+    try {
+      var data = await apiService.deletePostUtmeQuestion(
+        questionId: value.id ?? "",
+      );
+      if (data.isSuccessful) {
+        // removeQuestion(subject: getSubject(subject));
+        await getPostUtmeSchoolSubjectQuestion(
+          school: selectedschool,
+          subject: selectedSubject,
+        );
+        dialogService.showSuccessDialog(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
+  Future<QuestionModel?> getQuestionById({
+    required QuestionModel value,
+  }) async {
+    toggleloadGetQuestionById(true);
+    try {
+      var data = await apiService.getPostUtmeQuestionById(
+        questionId: value.id ?? "",
+      );
+      if (data.isSuccessful) {
+        QuestionModel question = data.model as QuestionModel;
+        toggleloadGetQuestionById(false);
+        return question;
+      } else {
+        toggleloadGetQuestionById(false);
+        return null;
+      }
+    } catch (e) {
+      toggleloadGetQuestionById(false);
+      return null;
+    }
+  }
+
+  Future<void> updateQuestion({
+    required String questionId,
+    required QuestionModel value,
+  }) async {
+    toggleloadUploadQuestion(true);
+    try {
+      var data = await apiService.updatePostUtmeQuestionBySubject(
+        dataSent: value.dataSent!,
+        questionId: questionId,
       );
       if (data.isSuccessful) {
         // removeQuestion(subject: getSubject(subject));
@@ -164,35 +261,5 @@ class PostUtmeViewModel extends BaseModel {
       );
     }
     toggleloadUploadQuestion(false);
-  }
-
-  Future<void> deleteQuestion({
-    required QuestionModel value,
-  }) async {
-    toggleloadGetSchoolSubjectQuestion(true);
-    try {
-      var data = await apiService.uploadPostUtmeQuestionBySubject(
-        dataSent: value.dataSent!,
-      );
-      if (data.isSuccessful) {
-        // removeQuestion(subject: getSubject(subject));
-        await getPostUtmeSchoolSubjectQuestion(
-          school: value.school!,
-          subject: value.subject!,
-        );
-        dialogService.showSuccessDialog(
-          successMessage: data.message,
-        );
-      } else {
-        dialogService.showErrorDialog(
-          errorMessage: data.message,
-        );
-      }
-    } catch (e) {
-      dialogService.showErrorDialog(
-        errorMessage: e.toString(),
-      );
-    }
-    toggleloadGetSchoolSubjectQuestion(false);
   }
 }

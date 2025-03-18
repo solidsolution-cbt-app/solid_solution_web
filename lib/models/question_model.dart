@@ -104,6 +104,8 @@ class QuestionModel {
       "option3": option3,
       "option4": option4,
       "solution_pdf": solutionpdf,
+      "subject": subject,
+      "school": school,
     };
     return data.toString();
   }

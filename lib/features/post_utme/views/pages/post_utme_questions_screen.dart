@@ -1,25 +1,25 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/constants/app_strings.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/route_service/route.gr.dart';
 import 'package:solidsolutionweb/features/post_utme/view_model/post_utme_view_model.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
 import 'package:solidsolutionweb/widgets/question_diaplay_card.dart';
+import 'package:solidsolutionweb/widgets/should_delete_question.dart';
 
 @RoutePage()
-class PostUtmeQuestionList extends StatelessWidget {
-  const PostUtmeQuestionList({
+class PostUtmeQuestionsScreen extends StatelessWidget {
+  const PostUtmeQuestionsScreen({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return BaseView<PostUtmeViewModel>(onModelReady: (model) async {
-      await Future.delayed(const Duration(seconds: 1)).then((value) {
-        // model.getPostUtmeSchoolSubjectQuestion();
-      });
+      await Future.delayed(const Duration(seconds: 1)).then((value) {});
     }, builder: (context, model, child) {
       return model.loadGetSchoolSubjectQuestion
           ? const Center(
@@ -51,14 +51,24 @@ class PostUtmeQuestionList extends StatelessWidget {
                           onSelect: (value) {
                             if (value == AppString.editQuestion) {
                               model.setQuestionToView(e);
-                              context.router.navigate(
+                              context.pushRoute(
                                 const PostUtmeEditQuestionRoute(),
                               );
                             }
                             if (value == AppString.viewQuestion) {
                               model.setQuestionToView(e);
-                              context.router.navigate(
-                                const PostUtmeQuestionViewRoute(),
+                              context.pushRoute(
+                                const PostUtmeQuestionDisplayRoute(),
+                              );
+                            }
+                            if (value == AppString.delete) {
+                              dialogService.showCustomDialog(
+                                context,
+                                dialogWidget: ShouldDeleteQuestion(
+                                  onDelete: () async {
+                                    await model.deleteQuestion(value: e);
+                                  },
+                                ),
                               );
                             }
                           },

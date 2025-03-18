@@ -8,75 +8,77 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i15;
-import 'package:flutter/material.dart' as _i16;
+import 'package:auto_route/auto_route.dart' as _i16;
+import 'package:flutter/material.dart' as _i17;
 import 'package:solidsolutionweb/features/authentication/views/category_screen.dart'
     as _i3;
 import 'package:solidsolutionweb/features/authentication/views/login_screen.dart'
     as _i4;
 import 'package:solidsolutionweb/features/authentication/views/select_category_route.dart'
-    as _i12;
-import 'package:solidsolutionweb/features/blog/model/blog_model.dart' as _i17;
+    as _i13;
+import 'package:solidsolutionweb/features/blog/model/blog_model.dart' as _i18;
 import 'package:solidsolutionweb/features/blog/views/blog_base_screen.dart'
     as _i1;
 import 'package:solidsolutionweb/features/blog/views/pages/blog_screen.dart'
     as _i2;
 import 'package:solidsolutionweb/features/blog/views/pages/preview_blog_screen.dart'
-    as _i11;
+    as _i12;
 import 'package:solidsolutionweb/features/blog/views/pages/upload_blog_screen.dart'
-    as _i13;
+    as _i14;
 import 'package:solidsolutionweb/features/post_utme/views/pages/post_utme_add_question_screen.dart'
     as _i5;
 import 'package:solidsolutionweb/features/post_utme/views/pages/post_utme_edit_question_screen.dart'
     as _i8;
-import 'package:solidsolutionweb/features/post_utme/views/pages/post_utme_question_list.dart'
+import 'package:solidsolutionweb/features/post_utme/views/pages/post_utme_list_screen.dart'
     as _i9;
-import 'package:solidsolutionweb/features/post_utme/views/pages/post_utme_question_view_screen.dart'
+import 'package:solidsolutionweb/features/post_utme/views/pages/post_utme_question_display_screen.dart'
     as _i10;
+import 'package:solidsolutionweb/features/post_utme/views/pages/post_utme_questions_screen.dart'
+    as _i11;
 import 'package:solidsolutionweb/features/post_utme/views/post_utme_base_route.dart'
     as _i6;
 import 'package:solidsolutionweb/features/post_utme/views/post_utme_dashboard.dart'
     as _i7;
 import 'package:solidsolutionweb/features/utme/views/utme_base_route.dart'
-    as _i14;
+    as _i15;
 
-abstract class $AppRouter extends _i15.RootStackRouter {
+abstract class $AppRouter extends _i16.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i15.PageFactory> pagesMap = {
+  final Map<String, _i16.PageFactory> pagesMap = {
     BlogBaseRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.BlogBaseScreen(),
       );
     },
     BlogRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i2.BlogScreen(),
       );
     },
     CategoryRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.CategoryScreen(),
       );
     },
     LoginRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i4.LoginScreen(),
       );
     },
     PostUtmeAddQuestionRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i5.PostUtmeAddQuestionScreen(),
       );
     },
     PostUtmeBaseRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i6.PostUtmeBaseRoute(),
       );
@@ -86,7 +88,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
       final args = routeData.argsAs<PostUtmeDashBoardArgs>(
           orElse: () =>
               PostUtmeDashBoardArgs(school: pathParams.getString('school')));
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i7.PostUtmeDashBoard(
           school: args.school,
@@ -95,55 +97,61 @@ abstract class $AppRouter extends _i15.RootStackRouter {
       );
     },
     PostUtmeEditQuestionRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i8.PostUtmeEditQuestionScreen(),
       );
     },
-    PostUtmeQuestionList.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+    PostUtmeListRoute.name: (routeData) {
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.PostUtmeQuestionList(),
+        child: const _i9.PostUtmeListScreen(),
       );
     },
-    PostUtmeQuestionViewRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+    PostUtmeQuestionDisplayRoute.name: (routeData) {
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.PostUtmeQuestionViewScreen(),
+        child: const _i10.PostUtmeQuestionDisplayScreen(),
+      );
+    },
+    PostUtmeQuestionsRoute.name: (routeData) {
+      return _i16.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i11.PostUtmeQuestionsScreen(),
       );
     },
     PreviewBlogRoute.name: (routeData) {
       final args = routeData.argsAs<PreviewBlogRouteArgs>(
           orElse: () => const PreviewBlogRouteArgs());
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.PreviewBlogScreen(
+        child: _i12.PreviewBlogScreen(
           blog: args.blog,
           key: args.key,
         ),
       );
     },
     SelectCategoryRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.SelectCategoryScreen(),
+        child: const _i13.SelectCategoryScreen(),
       );
     },
     UploadBlogRoute.name: (routeData) {
       final args = routeData.argsAs<UploadBlogRouteArgs>(
           orElse: () => const UploadBlogRouteArgs());
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.UploadBlogScreen(
+        child: _i14.UploadBlogScreen(
           blog: args.blog,
           key: args.key,
         ),
       );
     },
     UtmeBaseRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.UtmeBaseRoute(),
+        child: const _i15.UtmeBaseRoute(),
       );
     },
   };
@@ -151,8 +159,8 @@ abstract class $AppRouter extends _i15.RootStackRouter {
 
 /// generated route for
 /// [_i1.BlogBaseScreen]
-class BlogBaseRoute extends _i15.PageRouteInfo<void> {
-  const BlogBaseRoute({List<_i15.PageRouteInfo>? children})
+class BlogBaseRoute extends _i16.PageRouteInfo<void> {
+  const BlogBaseRoute({List<_i16.PageRouteInfo>? children})
       : super(
           BlogBaseRoute.name,
           initialChildren: children,
@@ -160,13 +168,13 @@ class BlogBaseRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'BlogBaseRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.BlogScreen]
-class BlogRoute extends _i15.PageRouteInfo<void> {
-  const BlogRoute({List<_i15.PageRouteInfo>? children})
+class BlogRoute extends _i16.PageRouteInfo<void> {
+  const BlogRoute({List<_i16.PageRouteInfo>? children})
       : super(
           BlogRoute.name,
           initialChildren: children,
@@ -174,13 +182,13 @@ class BlogRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'BlogRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i3.CategoryScreen]
-class CategoryRoute extends _i15.PageRouteInfo<void> {
-  const CategoryRoute({List<_i15.PageRouteInfo>? children})
+class CategoryRoute extends _i16.PageRouteInfo<void> {
+  const CategoryRoute({List<_i16.PageRouteInfo>? children})
       : super(
           CategoryRoute.name,
           initialChildren: children,
@@ -188,13 +196,13 @@ class CategoryRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'CategoryRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i4.LoginScreen]
-class LoginRoute extends _i15.PageRouteInfo<void> {
-  const LoginRoute({List<_i15.PageRouteInfo>? children})
+class LoginRoute extends _i16.PageRouteInfo<void> {
+  const LoginRoute({List<_i16.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -202,13 +210,13 @@ class LoginRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'LoginRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i5.PostUtmeAddQuestionScreen]
-class PostUtmeAddQuestionRoute extends _i15.PageRouteInfo<void> {
-  const PostUtmeAddQuestionRoute({List<_i15.PageRouteInfo>? children})
+class PostUtmeAddQuestionRoute extends _i16.PageRouteInfo<void> {
+  const PostUtmeAddQuestionRoute({List<_i16.PageRouteInfo>? children})
       : super(
           PostUtmeAddQuestionRoute.name,
           initialChildren: children,
@@ -216,13 +224,13 @@ class PostUtmeAddQuestionRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'PostUtmeAddQuestionRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i6.PostUtmeBaseRoute]
-class PostUtmeBaseRoute extends _i15.PageRouteInfo<void> {
-  const PostUtmeBaseRoute({List<_i15.PageRouteInfo>? children})
+class PostUtmeBaseRoute extends _i16.PageRouteInfo<void> {
+  const PostUtmeBaseRoute({List<_i16.PageRouteInfo>? children})
       : super(
           PostUtmeBaseRoute.name,
           initialChildren: children,
@@ -230,16 +238,16 @@ class PostUtmeBaseRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'PostUtmeBaseRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i7.PostUtmeDashBoard]
-class PostUtmeDashBoard extends _i15.PageRouteInfo<PostUtmeDashBoardArgs> {
+class PostUtmeDashBoard extends _i16.PageRouteInfo<PostUtmeDashBoardArgs> {
   PostUtmeDashBoard({
     required String school,
-    _i16.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i17.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           PostUtmeDashBoard.name,
           args: PostUtmeDashBoardArgs(
@@ -252,8 +260,8 @@ class PostUtmeDashBoard extends _i15.PageRouteInfo<PostUtmeDashBoardArgs> {
 
   static const String name = 'PostUtmeDashBoard';
 
-  static const _i15.PageInfo<PostUtmeDashBoardArgs> page =
-      _i15.PageInfo<PostUtmeDashBoardArgs>(name);
+  static const _i16.PageInfo<PostUtmeDashBoardArgs> page =
+      _i16.PageInfo<PostUtmeDashBoardArgs>(name);
 }
 
 class PostUtmeDashBoardArgs {
@@ -264,7 +272,7 @@ class PostUtmeDashBoardArgs {
 
   final String school;
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -274,8 +282,8 @@ class PostUtmeDashBoardArgs {
 
 /// generated route for
 /// [_i8.PostUtmeEditQuestionScreen]
-class PostUtmeEditQuestionRoute extends _i15.PageRouteInfo<void> {
-  const PostUtmeEditQuestionRoute({List<_i15.PageRouteInfo>? children})
+class PostUtmeEditQuestionRoute extends _i16.PageRouteInfo<void> {
+  const PostUtmeEditQuestionRoute({List<_i16.PageRouteInfo>? children})
       : super(
           PostUtmeEditQuestionRoute.name,
           initialChildren: children,
@@ -283,44 +291,58 @@ class PostUtmeEditQuestionRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'PostUtmeEditQuestionRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i9.PostUtmeQuestionList]
-class PostUtmeQuestionList extends _i15.PageRouteInfo<void> {
-  const PostUtmeQuestionList({List<_i15.PageRouteInfo>? children})
+/// [_i9.PostUtmeListScreen]
+class PostUtmeListRoute extends _i16.PageRouteInfo<void> {
+  const PostUtmeListRoute({List<_i16.PageRouteInfo>? children})
       : super(
-          PostUtmeQuestionList.name,
+          PostUtmeListRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'PostUtmeQuestionList';
+  static const String name = 'PostUtmeListRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i10.PostUtmeQuestionViewScreen]
-class PostUtmeQuestionViewRoute extends _i15.PageRouteInfo<void> {
-  const PostUtmeQuestionViewRoute({List<_i15.PageRouteInfo>? children})
+/// [_i10.PostUtmeQuestionDisplayScreen]
+class PostUtmeQuestionDisplayRoute extends _i16.PageRouteInfo<void> {
+  const PostUtmeQuestionDisplayRoute({List<_i16.PageRouteInfo>? children})
       : super(
-          PostUtmeQuestionViewRoute.name,
+          PostUtmeQuestionDisplayRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'PostUtmeQuestionViewRoute';
+  static const String name = 'PostUtmeQuestionDisplayRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i11.PreviewBlogScreen]
-class PreviewBlogRoute extends _i15.PageRouteInfo<PreviewBlogRouteArgs> {
+/// [_i11.PostUtmeQuestionsScreen]
+class PostUtmeQuestionsRoute extends _i16.PageRouteInfo<void> {
+  const PostUtmeQuestionsRoute({List<_i16.PageRouteInfo>? children})
+      : super(
+          PostUtmeQuestionsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PostUtmeQuestionsRoute';
+
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i12.PreviewBlogScreen]
+class PreviewBlogRoute extends _i16.PageRouteInfo<PreviewBlogRouteArgs> {
   PreviewBlogRoute({
-    _i17.BlogModel? blog,
-    _i16.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i18.BlogModel? blog,
+    _i17.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           PreviewBlogRoute.name,
           args: PreviewBlogRouteArgs(
@@ -332,8 +354,8 @@ class PreviewBlogRoute extends _i15.PageRouteInfo<PreviewBlogRouteArgs> {
 
   static const String name = 'PreviewBlogRoute';
 
-  static const _i15.PageInfo<PreviewBlogRouteArgs> page =
-      _i15.PageInfo<PreviewBlogRouteArgs>(name);
+  static const _i16.PageInfo<PreviewBlogRouteArgs> page =
+      _i16.PageInfo<PreviewBlogRouteArgs>(name);
 }
 
 class PreviewBlogRouteArgs {
@@ -342,9 +364,9 @@ class PreviewBlogRouteArgs {
     this.key,
   });
 
-  final _i17.BlogModel? blog;
+  final _i18.BlogModel? blog;
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -353,9 +375,9 @@ class PreviewBlogRouteArgs {
 }
 
 /// generated route for
-/// [_i12.SelectCategoryScreen]
-class SelectCategoryRoute extends _i15.PageRouteInfo<void> {
-  const SelectCategoryRoute({List<_i15.PageRouteInfo>? children})
+/// [_i13.SelectCategoryScreen]
+class SelectCategoryRoute extends _i16.PageRouteInfo<void> {
+  const SelectCategoryRoute({List<_i16.PageRouteInfo>? children})
       : super(
           SelectCategoryRoute.name,
           initialChildren: children,
@@ -363,16 +385,16 @@ class SelectCategoryRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'SelectCategoryRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i13.UploadBlogScreen]
-class UploadBlogRoute extends _i15.PageRouteInfo<UploadBlogRouteArgs> {
+/// [_i14.UploadBlogScreen]
+class UploadBlogRoute extends _i16.PageRouteInfo<UploadBlogRouteArgs> {
   UploadBlogRoute({
-    _i17.BlogModel? blog,
-    _i16.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i18.BlogModel? blog,
+    _i17.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           UploadBlogRoute.name,
           args: UploadBlogRouteArgs(
@@ -384,8 +406,8 @@ class UploadBlogRoute extends _i15.PageRouteInfo<UploadBlogRouteArgs> {
 
   static const String name = 'UploadBlogRoute';
 
-  static const _i15.PageInfo<UploadBlogRouteArgs> page =
-      _i15.PageInfo<UploadBlogRouteArgs>(name);
+  static const _i16.PageInfo<UploadBlogRouteArgs> page =
+      _i16.PageInfo<UploadBlogRouteArgs>(name);
 }
 
 class UploadBlogRouteArgs {
@@ -394,9 +416,9 @@ class UploadBlogRouteArgs {
     this.key,
   });
 
-  final _i17.BlogModel? blog;
+  final _i18.BlogModel? blog;
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   @override
   String toString() {
@@ -405,9 +427,9 @@ class UploadBlogRouteArgs {
 }
 
 /// generated route for
-/// [_i14.UtmeBaseRoute]
-class UtmeBaseRoute extends _i15.PageRouteInfo<void> {
-  const UtmeBaseRoute({List<_i15.PageRouteInfo>? children})
+/// [_i15.UtmeBaseRoute]
+class UtmeBaseRoute extends _i16.PageRouteInfo<void> {
+  const UtmeBaseRoute({List<_i16.PageRouteInfo>? children})
       : super(
           UtmeBaseRoute.name,
           initialChildren: children,
@@ -415,5 +437,5 @@ class UtmeBaseRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'UtmeBaseRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }

@@ -109,6 +109,7 @@ class DialogService {
   Future<dynamic> shouldAddNewQuestion(
     BuildContext context, {
     required String successMessage,
+    required Function() onrejectAddNewQuestion,
   }) {
     return showDialog(
         barrierDismissible: false,
@@ -116,6 +117,7 @@ class DialogService {
         builder: (context) {
           return SHouldAddNewQuestionWidget(
             successMessage: successMessage,
+            onrejectAddNewQuestion: onrejectAddNewQuestion,
           );
         });
   }

@@ -356,10 +356,8 @@ class TopicQuizVeiwModel extends BaseModel {
         removeQuestion(topic: topic);
         await getQuestion(topic: topic, pageNumber: "1");
         if (context.mounted) {
-          dialogService.shouldAddNewQuestion(
-            context,
-            successMessage: data.message,
-          );
+          dialogService.shouldAddNewQuestion(context,
+              successMessage: data.message, onrejectAddNewQuestion: () {});
         }
       } else {
         dialogService.showErrorDialog(

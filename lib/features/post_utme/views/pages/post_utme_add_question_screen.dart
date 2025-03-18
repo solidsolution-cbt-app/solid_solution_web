@@ -26,8 +26,8 @@ class PostUtmeAddQuestionScreen extends HookWidget {
                 const SizedBox(width: 20),
                 CustomBackButton(
                   onTap: () {
-                    context.router.navigate(
-                      const PostUtmeQuestionList(),
+                    context.pushRoute(
+                      const PostUtmeQuestionsRoute(),
                     );
                   },
                 ),
@@ -45,8 +45,10 @@ class PostUtmeAddQuestionScreen extends HookWidget {
               school: model.selectedschool,
               subject: model.selectedSubject,
               showClear: true,
-              onSubmit: (value) {
-                model.uploadQuestion(
+              shouldClear: true,
+              onSubmit: (value) async {
+                await model.uploadQuestion(
+                  context: context,
                   value: value,
                 );
               },

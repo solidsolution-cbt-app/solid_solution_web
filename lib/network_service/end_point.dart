@@ -42,11 +42,18 @@ class EndPoints {
   static String getSubjects(String school) =>
       "/admin/post-utme/subjects/$school";
   static const String uploadPostUtmeQuestion = "/admin/post-utme/question";
+  static String deletePostUtmeQuestion(String questionId) =>
+      "/admin/post-utme/question/$questionId";
+  static String getPostUtmeQuestionById(String questionId) =>
+      "/admin/post-utme/question/$questionId";
   static String getPostUtmeSchoolSubjectQuestions({
     required String school,
     required String subject,
   }) =>
       "/admin/post-utme/questions?subject=$subject&school=$school";
+
+  static String updatePostUtmeQuestion({required String id}) =>
+      "/admin/post-utme/question/$id";
 }
 
 class ClodinaryConstants {

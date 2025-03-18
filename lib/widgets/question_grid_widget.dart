@@ -19,13 +19,14 @@ class QuestionGridWidget extends HookWidget {
     this.subject,
     this.showClear,
     this.allowEdit = true,
+    this.shouldClear = false,
     super.key,
   });
   final QuestionModel? question;
   final Function(QuestionModel question) onSubmit;
 
   final String? year, subject, school;
-  final bool? showLoader, showClear;
+  final bool? showLoader, showClear, shouldClear;
   final bool allowEdit;
 
   @override
@@ -53,26 +54,26 @@ class QuestionGridWidget extends HookWidget {
           );
           var option1Doc = jsonDecode(
               "${question?.option1?.text ?? ""} ${question?.option1?.image ?? ""}");
-          questionController.value = QuillController(
+          option1Controller.value = QuillController(
             document: Document.fromJson(option1Doc),
             selection: const TextSelection.collapsed(offset: 0),
           );
           var option2Doc = jsonDecode(
               "${question?.option2?.text ?? ""} ${question?.option2?.image ?? ""}");
-          questionController.value = QuillController(
+          option2Controller.value = QuillController(
             document: Document.fromJson(option2Doc),
             selection: const TextSelection.collapsed(offset: 0),
           );
 
           var option3Doc = jsonDecode(
               "${question?.option3?.text ?? ""} ${question?.option3?.image ?? ""}");
-          questionController.value = QuillController(
+          option3Controller.value = QuillController(
             document: Document.fromJson(option3Doc),
             selection: const TextSelection.collapsed(offset: 0),
           );
           var option4Doc = jsonDecode(
               "${question?.option4?.text ?? ""} ${question?.option4?.image ?? ""}");
-          questionController.value = QuillController(
+          option4Controller.value = QuillController(
             document: Document.fromJson(option4Doc),
             selection: const TextSelection.collapsed(offset: 0),
           );
@@ -189,7 +190,7 @@ class QuestionGridWidget extends HookWidget {
               AppButton(
                 buttonText: "Submit",
                 showLoader: showLoader == true,
-                onTap: () {
+                onTap: () async {
                   String queJsonDocument = jsonEncode(
                       questionController.value.document.toDelta().toJson());
                   String solJsonDocument = jsonEncode(
@@ -222,7 +223,10 @@ class QuestionGridWidget extends HookWidget {
                       text: option4JsonDocument,
                     ),
                   );
-                  onSubmit(question);
+                  await onSubmit(question);
+                  if (shouldClear == true) {
+                    clear();
+                  }
                 },
               ),
               const SizedBox(height: 50),

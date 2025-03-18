@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:solidsolutionweb/components/custom_buttons/app_button.dart';
-import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/constants/styles.dart';
 
 class SHouldAddNewQuestionWidget extends StatelessWidget {
   const SHouldAddNewQuestionWidget({
     required this.successMessage,
+    required this.onrejectAddNewQuestion,
     super.key,
   });
   final String successMessage;
+  final Function() onrejectAddNewQuestion;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class SHouldAddNewQuestionWidget extends StatelessWidget {
                   isOutline: true,
                   onTap: () {
                     Navigator.pop(context);
-                    dialogService.hideLoaderDialog(context);
+                    onrejectAddNewQuestion();
                   },
                   buttonText: "No",
                 ),

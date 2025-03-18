@@ -11,15 +11,12 @@ import 'package:solidsolutionweb/widgets/custom_back_button.dart';
 import 'package:solidsolutionweb/widgets/question_grid_widget.dart';
 
 @RoutePage()
-class PostUtmeEditQuestionScreen extends HookWidget {
-  const PostUtmeEditQuestionScreen({
-    super.key,
-  });
+class PostUtmeQuestionDisplayScreen extends HookWidget {
+  const PostUtmeQuestionDisplayScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final questionData = useState<QuestionModel?>(null);
-
     return BaseView<PostUtmeViewModel>(
       onModelReady: (model) async {
         QuestionModel? question = await model.getQuestionById(
@@ -45,10 +42,6 @@ class PostUtmeEditQuestionScreen extends HookWidget {
                         },
                       ),
                       const Spacer(),
-                      const CustomTextHeader1(
-                        text: "Edit Question",
-                      ),
-                      const Spacer(),
                       CustomTextHeader1(
                         text: model.selectedSubject,
                       ),
@@ -61,14 +54,9 @@ class PostUtmeEditQuestionScreen extends HookWidget {
                     showLoader: model.loadUploadQuestion,
                     school: model.selectedschool,
                     subject: model.selectedSubject,
-                    showClear: false,
                     question: questionData.value,
-                    onSubmit: (value) {
-                      model.updateQuestion(
-                        value: value,
-                        questionId: questionData.value?.id ?? "",
-                      );
-                    },
+                    allowEdit: false,
+                    onSubmit: (value) {},
                   ),
                 ],
               );

@@ -24,10 +24,10 @@ class PostUtmeDashBoard extends HookWidget {
             )
           : AutoTabsRouter(
               routes: const [
-                PostUtmeQuestionList(),
+                PostUtmeQuestionsRoute(),
                 PostUtmeAddQuestionRoute(),
                 PostUtmeEditQuestionRoute(),
-                PostUtmeQuestionViewRoute()
+                PostUtmeQuestionDisplayRoute()
               ],
               builder: (context, child) {
                 return Scaffold(
