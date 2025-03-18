@@ -13,8 +13,8 @@ import 'package:solidsolutionweb/features/utme/pages/topic_quiz/views/topic_ques
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/preview_question_card.dart';
-import 'package:solidsolutionweb/widgets/question_summary_card.dart';
+import 'package:solidsolutionweb/widgets/temp/preview_question_card.dart';
+import 'package:solidsolutionweb/widgets/temp/question_summary_card.dart';
 
 class TopicQuizPreviewScreen extends StatefulWidget {
   const TopicQuizPreviewScreen({

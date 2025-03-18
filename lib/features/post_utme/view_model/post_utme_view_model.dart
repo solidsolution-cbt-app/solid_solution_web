@@ -1,26 +1,23 @@
+import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/core/base_model.dart';
+import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/network_service/api_service.dart';
 
 class PostUtmeViewModel extends BaseModel {
   List<String> schools = [];
   String selectedSubject = "";
+  String selectedschool = "";
+
   setSelectedSubject(String subject) {
     selectedSubject = subject;
     notifyListeners();
   }
 
+//loaders
   bool loadGetUniversities = false;
   bool loadGetSubjects = false;
-
-  Map<String, List<String>> subjects = {};
-
-  List<String> getSubjects(String school) {
-    if (subjects.containsKey(school)) {
-      return subjects[school]!;
-    } else {
-      return [];
-    }
-  }
+  bool loadUploadQuestion = false;
+  bool loadGetSchoolSubjectQuestion = false;
 
   toggleLoadGetUniversities(bool value) {
     loadGetUniversities = value;
@@ -31,6 +28,52 @@ class PostUtmeViewModel extends BaseModel {
     loadGetSubjects = value;
     notifyListeners();
   }
+
+  toggleloadUploadQuestion(bool value) {
+    loadUploadQuestion = value;
+    notifyListeners();
+  }
+
+  toggleloadGetSchoolSubjectQuestion(bool value) {
+    loadGetSchoolSubjectQuestion = value;
+    notifyListeners();
+  }
+
+///////
+
+  /// Ui return datas and calls
+  Map<String, List<String>> subjects = {};
+  Map<String, Map<String, List<QuestionModel>>> schoolSubjectQuestions = {};
+  QuestionModel? questionToView;
+
+  List<String> getSubjects(String school) {
+    if (subjects.containsKey(school)) {
+      return subjects[school]!;
+    } else {
+      return [];
+    }
+  }
+
+  List<QuestionModel> getSchoolSubjectQuestions(String school, String subject) {
+    if (schoolSubjectQuestions.containsKey(school)) {
+      Map<String, List<QuestionModel>> subjectquestions =
+          schoolSubjectQuestions[school]!;
+      if (subjectquestions.containsKey(subject)) {
+        return subjectquestions[subject]!;
+      }
+
+      return [];
+    } else {
+      return [];
+    }
+  }
+
+  void setQuestionToView(QuestionModel question) {
+    questionToView = question;
+    notifyListeners();
+  }
+
+  /// Api Calls
 
   Future<void> getUniversities() async {
     toggleLoadGetUniversities(true);
@@ -47,16 +90,79 @@ class PostUtmeViewModel extends BaseModel {
   }
 
   Future<void> getSchoolSubjects({required String school}) async {
+    selectedschool = school;
     toggleLoadGetSubjects(true);
     try {
       var data = await apiService.getSchoolSubjects(school: school);
       if (data.isSuccessful) {
         List<dynamic> schoolData = data.model["subjects"] as List<dynamic>;
         subjects[school] = schoolData.map((e) => e.toString()).toList();
+        selectedSubject = schoolData.first.toString();
+        getPostUtmeSchoolSubjectQuestion(
+          school: school,
+          subject: selectedSubject,
+        );
       } else {}
     } catch (e) {
       //
     }
     toggleLoadGetSubjects(false);
+  }
+
+  Future<void> getPostUtmeSchoolSubjectQuestion(
+      {required String school, required String subject}) async {
+    try {
+      toggleloadGetSchoolSubjectQuestion(true);
+      var data = await apiService.getPostUtmeSchoolSubjectQuestions(
+        subject: subject,
+        school: school,
+      );
+      if (data.isSuccessful) {
+        List<QuestionModel> newQuestions = data.model as List<QuestionModel>;
+        schoolSubjectQuestions[selectedschool] = {
+          selectedSubject: newQuestions
+        };
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      // dialogService.showErrorDialog(
+      //   errorMessage: e.toString(),
+      // );
+      //
+    }
+    toggleloadGetSchoolSubjectQuestion(false);
+  }
+
+  Future<void> uploadQuestion({
+    required QuestionModel value,
+  }) async {
+    toggleloadUploadQuestion(true);
+    try {
+      var data = await apiService.uploadPostUtmeQuestionBySubject(
+        dataSent: value.dataSent!,
+      );
+      if (data.isSuccessful) {
+        // removeQuestion(subject: getSubject(subject));
+        await getPostUtmeSchoolSubjectQuestion(
+          school: value.school!,
+          subject: value.subject!,
+        );
+        dialogService.showSuccessDialog(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+    }
+    toggleloadUploadQuestion(false);
   }
 }

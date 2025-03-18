@@ -11,7 +11,7 @@ import 'package:solidsolutionweb/features/utme/pages/subject_quiz/view_model/sub
 import 'package:solidsolutionweb/features/utme/pages/subject_quiz/views/preview_subject_question.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/question_summary_card.dart';
+import 'package:solidsolutionweb/widgets/temp/question_summary_card.dart';
 import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
 class SubjectPreviewScreen extends StatefulWidget {

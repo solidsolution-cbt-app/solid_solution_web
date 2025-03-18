@@ -19,7 +19,7 @@ import 'package:solidsolutionweb/features/utme/pages/topic_quiz/views/topic_quiz
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 import 'package:solidsolutionweb/test_screen.dart';
-import 'package:solidsolutionweb/widgets/preview_question_card.dart';
+import 'package:solidsolutionweb/widgets/temp/preview_question_card.dart';
 
 Route<RouteSettings> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {

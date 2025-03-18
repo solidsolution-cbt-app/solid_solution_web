@@ -26,6 +26,7 @@ class PreviewBlogScreen extends StatelessWidget {
           Row(
             children: [
               CustomBackButton(
+                padding: 0,
                 onTap: () {
                   context.replaceRoute(
                     UploadBlogRoute(

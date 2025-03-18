@@ -7,7 +7,7 @@ import 'package:solidsolutionweb/features/utme/pages/base/view/base_screen.dart'
 import 'package:solidsolutionweb/features/utme/pages/base/view_model/base_screen_view_model.dart';
 import 'package:solidsolutionweb/features/utme/pages/exam_quiz/view_model/exam_quiz_view_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/question_widget.dart';
+import 'package:solidsolutionweb/widgets/temp/question_widget.dart';
 
 class AddExamQuizScreen extends StatefulWidget {
   const AddExamQuizScreen({

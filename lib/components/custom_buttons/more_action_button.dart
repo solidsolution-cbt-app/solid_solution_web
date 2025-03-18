@@ -33,6 +33,7 @@ class MoreActionButton extends StatelessWidget {
                     ),
                     CustomTextBody1(
                       text: item.label,
+                      fontSize: item.fontSize,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -55,6 +56,12 @@ class MoreActionItem {
   final Widget icon;
   final dynamic value;
   final String label;
+  final double? fontSize;
 
-  MoreActionItem({required this.icon, required this.label, this.value});
+  MoreActionItem({
+    required this.icon,
+    required this.label,
+    this.value,
+    this.fontSize,
+  });
 }

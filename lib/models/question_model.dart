@@ -4,7 +4,7 @@ import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.
 class QuestionModel {
   String? text;
   String? image;
-  String? year;
+  String? year, school, subject;
   String? id;
   String? createdAt;
   String? updatedAt;
@@ -22,6 +22,8 @@ class QuestionModel {
     required this.text,
     this.image = "",
     this.year = "",
+    this.school = "",
+    this.subject = "",
     this.solutionpdf = "",
     this.solutionImage = "",
     this.solutionText = "",
@@ -38,6 +40,8 @@ class QuestionModel {
         "solution_pdf": solutionpdf,
         "solution_image": solutionImage,
         "solution_text": solutionText,
+        "school": school,
+        "subject": subject,
         "options": [
           option1!.optionjson,
           option2!.optionjson,

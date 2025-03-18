@@ -7,6 +7,7 @@ import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/features/authentication/views/login_screen.dart';
 import 'package:solidsolutionweb/features/utme/pages/base/view_model/base_screen_view_model.dart';
 import 'package:solidsolutionweb/features/utme/pages/dashboard/view/dash_board.dart';
+import 'package:solidsolutionweb/widgets/subject_button.dart';
 import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
 class BaseScreen extends StatelessWidget {
@@ -193,53 +194,5 @@ class AppSideNav extends StatelessWidget {
         ),
       );
     });
-  }
-}
-
-class SubjectButton extends StatelessWidget {
-  const SubjectButton({
-    required this.onTap,
-    required this.selectedSubject,
-    required this.subject,
-    super.key,
-  });
-  final Function(String subject) onTap;
-  final String selectedSubject;
-  final String subject;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: Material(
-        child: InkWell(
-          onTap: () {
-            onTap(subject);
-          },
-          child: Container(
-            width: 320,
-            decoration: BoxDecoration(
-              color: selectedSubject != subject
-                  ? Colors.transparent
-                  : AppColors.violet.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-            child: Container(
-              padding: const EdgeInsets.only(left: 50),
-              child: Row(
-                children: [
-                  CustomTextBody1(
-                    text: subject,
-                    textColor: Colors.white,
-                    fontSize: 15,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

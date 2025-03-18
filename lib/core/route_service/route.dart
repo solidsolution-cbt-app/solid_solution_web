@@ -49,31 +49,25 @@ class AppRouter extends $AppRouter {
           ],
         ),
         AutoRoute(
-          path: "/post-utme/:school",
-          page: PostUtmeRouterRoute.page,
+          page: PostUtmeDashBoard.page,
+          path: "/dashboard/:school",
           children: [
             AutoRoute(
-              page: PostUtmeDashboard.page,
-              path: "dashboard",
-              children: [
-                AutoRoute(
-                  initial: true,
-                  path: "question-list",
-                  page: PostUtmeQuestionList.page,
-                ),
-                AutoRoute(
-                  path: "add-question",
-                  page: PostUtmeAddQuestionRoute.page,
-                ),
-                AutoRoute(
-                  path: "edit-question",
-                  page: PostUtmeEditQuestionRoute.page,
-                ),
-                AutoRoute(
-                  path: "question-view",
-                  page: PostUtmeQuestionViewRoute.page,
-                ),
-              ],
+              initial: true,
+              path: "question-list",
+              page: PostUtmeQuestionList.page,
+            ),
+            AutoRoute(
+              path: "add-question",
+              page: PostUtmeAddQuestionRoute.page,
+            ),
+            AutoRoute(
+              path: "edit-question",
+              page: PostUtmeEditQuestionRoute.page,
+            ),
+            AutoRoute(
+              path: "question-view",
+              page: PostUtmeQuestionViewRoute.page,
             ),
           ],
         ),

@@ -28,6 +28,7 @@ dependencies:
   logman: ^0.0.21
   toastification: ^2.3.0
   easy_pdf_viewer: ^1.0.8
+  flutter_quill: ^10.8.1
 
 dev_dependencies:
   auto_route_generator: ^7.3.2

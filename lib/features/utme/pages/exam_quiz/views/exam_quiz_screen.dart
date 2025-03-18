@@ -11,7 +11,7 @@ import 'package:solidsolutionweb/features/utme/pages/exam_quiz/view_model/exam_q
 import 'package:solidsolutionweb/features/utme/pages/exam_quiz/views/exam_quiz_preview_screen.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/question_summary_card.dart';
+import 'package:solidsolutionweb/widgets/temp/question_summary_card.dart';
 
 class ExamQuizScreen extends StatefulWidget {
   const ExamQuizScreen({

@@ -8,6 +8,7 @@ import 'package:solidsolutionweb/features/utme/pages/subject_quiz/views/add_subj
 import 'package:solidsolutionweb/features/utme/pages/topic_quiz/views/add_topic_quiz_sereen.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 
+// To be removed
 class AddNewQuestionCard extends StatelessWidget {
   const AddNewQuestionCard({
     this.topic,
@@ -37,6 +38,57 @@ class AddNewQuestionCard extends StatelessWidget {
             );
           }
         },
+        child: Container(
+          width: 400,
+          height: 200,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: AppColors.violet,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    width: 2,
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  size: 30,
+                  color: AppColors.primaryColor,
+                ),
+              ),
+              const SizedBox(width: 20),
+              const CustomTextHeader1(
+                text: "Add New Question",
+                fontWeight: FontWeight.w500,
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class AddQuestionCard extends StatelessWidget {
+  const AddQuestionCard({
+    required this.onTap,
+    super.key,
+  });
+  final Function() onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: InkWell(
+        onTap: onTap,
         child: Container(
           width: 400,
           height: 200,

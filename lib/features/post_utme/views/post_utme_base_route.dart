@@ -51,7 +51,7 @@ class PostUtmeBaseRoute extends StatelessWidget {
                                 imagePath: "asset/svg/cap.svg",
                                 onTap: () {
                                   context.pushRoute(
-                                    PostUtmeRouterRoute(
+                                    PostUtmeDashBoard(
                                       school: e,
                                     ),
                                   );

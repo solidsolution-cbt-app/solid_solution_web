@@ -4,7 +4,7 @@ import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/core/route_service/route.gr.dart';
 import 'package:solidsolutionweb/features/blog/view_models/blog_view_model.dart';
 import 'package:solidsolutionweb/features/blog/widget/blog_card.dart';
-import 'package:solidsolutionweb/widgets/add_new_blog_card.dart';
+import 'package:solidsolutionweb/features/blog/widget/add_new_blog_card.dart';
 
 @RoutePage()
 class BlogScreen extends StatelessWidget {

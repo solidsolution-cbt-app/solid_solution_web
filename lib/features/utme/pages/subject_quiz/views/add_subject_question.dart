@@ -9,7 +9,7 @@ import 'package:solidsolutionweb/features/utme/pages/base/view_model/base_screen
 import 'package:solidsolutionweb/features/utme/pages/subject_quiz/view_model/subject_quiz_view_model.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/question_widget.dart';
+import 'package:solidsolutionweb/widgets/temp/question_widget.dart';
 import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
 class AddSubjectQuizScreen extends StatefulWidget {

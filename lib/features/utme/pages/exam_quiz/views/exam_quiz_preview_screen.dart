@@ -9,7 +9,7 @@ import 'package:solidsolutionweb/features/utme/pages/exam_quiz/view_model/exam_q
 import 'package:solidsolutionweb/features/utme/pages/exam_quiz/views/edit_exam_quiz_screen.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/preview_question_card.dart';
+import 'package:solidsolutionweb/widgets/temp/preview_question_card.dart';
 
 class ExamQuizPreviewScreen extends StatefulWidget {
   const ExamQuizPreviewScreen({

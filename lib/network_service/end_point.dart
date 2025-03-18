@@ -41,6 +41,12 @@ class EndPoints {
   static const String getUniversity = "/admin/post-utme/schools";
   static String getSubjects(String school) =>
       "/admin/post-utme/subjects/$school";
+  static const String uploadPostUtmeQuestion = "/admin/post-utme/question";
+  static String getPostUtmeSchoolSubjectQuestions({
+    required String school,
+    required String subject,
+  }) =>
+      "/admin/post-utme/questions?subject=$subject&school=$school";
 }
 
 class ClodinaryConstants {

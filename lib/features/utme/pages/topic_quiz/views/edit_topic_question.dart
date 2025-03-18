@@ -6,8 +6,8 @@ import 'package:solidsolutionweb/core/base_view.dart';
 import 'package:solidsolutionweb/features/utme/pages/base/view/base_screen.dart';
 import 'package:solidsolutionweb/features/utme/pages/topic_quiz/view_model/topic_view_model.dart';
 import 'package:solidsolutionweb/widgets/app_progress_indicator.dart';
-import 'package:solidsolutionweb/widgets/edit_question_widget.dart';
-import 'package:solidsolutionweb/widgets/preview_question_card.dart';
+import 'package:solidsolutionweb/widgets/temp/edit_question_widget.dart';
+import 'package:solidsolutionweb/widgets/temp/preview_question_card.dart';
 
 class EditTopicQuestionPreviewScreen extends StatefulWidget {
   const EditTopicQuestionPreviewScreen(
