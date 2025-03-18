@@ -165,4 +165,34 @@ class PostUtmeViewModel extends BaseModel {
     }
     toggleloadUploadQuestion(false);
   }
+
+  Future<void> deleteQuestion({
+    required QuestionModel value,
+  }) async {
+    toggleloadGetSchoolSubjectQuestion(true);
+    try {
+      var data = await apiService.uploadPostUtmeQuestionBySubject(
+        dataSent: value.dataSent!,
+      );
+      if (data.isSuccessful) {
+        // removeQuestion(subject: getSubject(subject));
+        await getPostUtmeSchoolSubjectQuestion(
+          school: value.school!,
+          subject: value.subject!,
+        );
+        dialogService.showSuccessDialog(
+          successMessage: data.message,
+        );
+      } else {
+        dialogService.showErrorDialog(
+          errorMessage: data.message,
+        );
+      }
+    } catch (e) {
+      dialogService.showErrorDialog(
+        errorMessage: e.toString(),
+      );
+    }
+    toggleloadGetSchoolSubjectQuestion(false);
+  }
 }

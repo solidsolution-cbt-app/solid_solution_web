@@ -15,10 +15,12 @@ class QuillQuestionCard extends HookWidget {
     this.isCorrectOption,
     this.isOption,
     required this.controller,
+    this.allowEdit = true,
     super.key,
   });
   final String? initialValue, title;
   final bool? isOption, isCorrectOption;
+  final bool allowEdit;
   final QuillController controller;
 
   @override
@@ -133,6 +135,7 @@ class QuillQuestionCard extends HookWidget {
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           scrollable: true,
                           expands: false,
+                          enableInteractiveSelection: allowEdit,
                           placeholder: "Type Here",
                           embedBuilders: [
                             CustomImageEmbedBuilder(),

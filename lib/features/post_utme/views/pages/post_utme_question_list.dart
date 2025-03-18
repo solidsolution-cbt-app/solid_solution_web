@@ -55,6 +55,12 @@ class PostUtmeQuestionList extends StatelessWidget {
                                 const PostUtmeEditQuestionRoute(),
                               );
                             }
+                            if (value == AppString.viewQuestion) {
+                              model.setQuestionToView(e);
+                              context.router.navigate(
+                                const PostUtmeQuestionViewRoute(),
+                              );
+                            }
                           },
                         ),
                       ),
