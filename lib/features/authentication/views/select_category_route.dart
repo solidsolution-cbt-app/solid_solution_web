@@ -11,11 +11,16 @@ class SelectCategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      routes: const [
-        CategoryRoute(),
-        BlogRoute(),
-        UtmeBaseRoute(),
-        PostUtmeBaseRoute(),
+      routes: [
+        const CategoryRoute(),
+        const UtmeBaseRoute(),
+        const PostUtmeBaseRoute(),
+        BlogRoute(
+          children: [
+            UploadBlogRoute(),
+            PreviewBlogRoute(),
+          ],
+        ),
       ],
       builder: (context, child) {
         return Scaffold(
@@ -40,7 +45,7 @@ class SelectCategoryScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 10),
-               Divider(
+              Divider(
                 color: AppColors.grey400Color.withOpacity(.1),
                 thickness: 5,
               ),

@@ -1,29 +1,46 @@
 class EndPoints {
-  static const String baseUrl = "https://cbt-api.onrender.com/admin/";
-  static const String login = "login";
-  static const String addTopic = "add-topic";
-  static const String getTopic = "fetch-topics?subject";
-  static const String addTopicQuestion = "add-topic-question?topicId=";
-  static const String deleteTopic = "delete-topic?topicId=";
-  static const String deleteTopicQuestion = "delete-topic-question?questionId=";
-  static const String fetchTopicQuestion = "fetch-topic-questions?topicId=";
+  static const String baseUrl = "https://cbt-api.onrender.com";
+  static const String login = "/admin/login";
+  static const String addTopic = "/admin/add-topic";
+  static const String getTopic = "/admin/fetch-topics?subject";
+  static const String addTopicQuestion = "/admin/add-topic-question?topicId=";
+  static const String deleteTopic = "/admin/delete-topic?topicId=";
+  static const String deleteTopicQuestion =
+      "/admin/delete-topic-question?questionId=";
+  static const String fetchTopicQuestion =
+      "/admin/fetch-topic-questions?topicId=";
   static const String fetchTopicQuestionData =
-      "fetch-topic-question?questionId=";
-  static const String editTopicQuestionData = "edit-topic-question?questionId=";
-  static const String addExam = "add-exam-question?subject=";
-  static const String fetchExamQuestion = "fetch-exam-questions?subject=";
-  static const String fetchExamQuestionData = "fetch-exam-question?questionId=";
-  static const String editExamQuestionData = "edit-exam-question?questionId=";
-  static const String addSubject = "add-subject-question?subject=";
-  static const String fetchSubjectQuestion = "fetch-subject-questions?subject=";
+      "/admin/fetch-topic-question?questionId=";
+  static const String editTopicQuestionData =
+      "/admin/edit-topic-question?questionId=";
+  static const String addExam = "/admin/add-exam-question?subject=";
+  static const String fetchExamQuestion =
+      "/admin/fetch-exam-questions?subject=";
+  static const String fetchExamQuestionData =
+      "/admin/fetch-exam-question?questionId=";
+  static const String editExamQuestionData =
+      "/admin/edit-exam-question?questionId=";
+  static const String addSubject = "/admin/add-subject-question?subject=";
+  static const String fetchSubjectQuestion =
+      "/admin/fetch-subject-questions?subject=";
   static const String fetchSubjectQuestionData =
-      "fetch-subject-question?questionId=";
+      "/admin/fetch-subject-question?questionId=";
 
   static const String deleteSubjectQuestion =
-      "delete-subject-question?questionId=";
+      "/admin/delete-subject-question?questionId=";
   static const String editSubjectQuestionData =
-      "edit-subject-question?questionId=";
-  static const String deleteExamQuestion = "delete-exam-question?questionId=";
+      "/admin/edit-subject-question?questionId=";
+  static const String deleteExamQuestion =
+      "/admin/delete-exam-question?questionId=";
+
+  //
+  static const String postBlog = "/blog";
+  static const String getBlogs = "/blogs";
+
+  //post utme
+  static const String getUniversity = "/admin/post-utme/schools";
+  static String getSubjects(String school) =>
+      "/admin/post-utme/subjects/$school";
 }
 
 class ClodinaryConstants {

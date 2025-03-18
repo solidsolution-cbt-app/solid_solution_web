@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:solidsolutionweb/core/local_data_base.dart';
+import 'package:solidsolutionweb/features/blog/model/blog_model.dart';
 import 'package:solidsolutionweb/models/authentication_model/login_model.dart';
 import 'package:solidsolutionweb/models/exception_model_calss/api_errors.dart';
 import 'package:solidsolutionweb/models/exception_model_calss/local_errors.dart.dart';
@@ -1254,6 +1255,350 @@ class ApiService {
         return LocalExceptionModel(
           isSuccessful: true,
           message: data["message"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> postBlog({required BlogModel blog}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.post(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.postBlog}",
+        ),
+        body: blog.toJson(),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: data["data"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> updateBlog({
+    required String blogId,
+    required BlogModel blog,
+  }) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.patch(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.postBlog}/$blogId",
+        ),
+        body: blog.toJson(),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: data["data"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> deleteBlog({
+    required String blogId,
+  }) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.delete(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.postBlog}/$blogId",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: data["data"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getBlog() async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.getBlogs}",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: data["data"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getUniversity() async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.getUniversity}",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: data["data"],
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: data["message"],
+        );
+      }
+    } catch (e) {
+      if (e is SocketException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.socketException,
+          ),
+        );
+      } else if (e is TimeoutException) {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.timeOutException,
+          ),
+        );
+      } else {
+        return LocalExceptionModel(
+          isSuccessful: false,
+          message: apiErrors.getErrorMessageFromException(
+            e: RunTimeTypeExceptions.unKnownException,
+          ),
+        );
+      }
+    }
+  }
+
+  Future<LocalExceptionModel> getSchoolSubjects(
+      {required String school}) async {
+    String token = StorageUtil.getString(
+      key: LocalDBStrings.token,
+    );
+
+    try {
+      http.Response? response;
+      response = await http.get(
+        Uri.parse(
+          "${EndPoints.baseUrl}${EndPoints.getSubjects(school)}",
+        ),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: "Bearer $token",
+        },
+      );
+      var data = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return LocalExceptionModel(
+          isSuccessful: true,
+          message: data["message"],
+          model: data["data"],
         );
       } else {
         return LocalExceptionModel(

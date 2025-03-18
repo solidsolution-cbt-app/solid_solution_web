@@ -11,11 +11,13 @@ class CustomTextBody1 extends StatelessWidget {
     this.overflow,
     this.fontWeight,
     this.textDecoration,
+    this.maxLines,
     Key? key,
   }) : super(key: key);
   final String? text;
   final Color? textColor;
   final double? fontSize;
+  final int? maxLines;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
   final TextDecoration? textDecoration;
@@ -25,6 +27,7 @@ class CustomTextBody1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text ?? "",
+      maxLines: maxLines,
       style: textStyle ??
           TextStyle(
             fontSize: fontSize ?? 20,

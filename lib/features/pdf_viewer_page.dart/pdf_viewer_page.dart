@@ -15,7 +15,7 @@ class PdfViewerPage extends HookWidget {
   Widget build(BuildContext context) {
     final pdfDoc = useState<PDFDocument?>(null);
     useEffect(() {
-      WidgetsFlutterBinding().addPostFrameCallback(
+      WidgetsBinding.instance.addPostFrameCallback(
         (valur) async {
           pdfDoc.value = await PDFDocument.fromURL(pdfLink);
         },

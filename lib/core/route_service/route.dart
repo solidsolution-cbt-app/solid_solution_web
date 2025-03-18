@@ -20,10 +20,6 @@ class AppRouter extends $AppRouter {
               page: CategoryRoute.page,
             ),
             AutoRoute(
-              path: "blog-screen",
-              page: BlogRoute.page,
-            ),
-            AutoRoute(
               path: "utme-screen",
               page: UtmeBaseRoute.page,
             ),
@@ -31,41 +27,55 @@ class AppRouter extends $AppRouter {
               path: "postutme-screen",
               page: PostUtmeBaseRoute.page,
             ),
+            AutoRoute(
+              page: BlogBaseRoute.page,
+              path: "blog-base-screen",
+              children: [
+                AutoRoute(
+                  path: "blog-screen",
+                  initial: true,
+                  page: BlogRoute.page,
+                ),
+                AutoRoute(
+                  path: "preview-blog-screen",
+                  page: PreviewBlogRoute.page,
+                ),
+                AutoRoute(
+                  path: "upload-blog-screen",
+                  page: UploadBlogRoute.page,
+                ),
+              ],
+            ),
           ],
         ),
-
-        //Jamb Dashboard Route
-        // CustomRoute(
-        //   page: AuthenticationBaseRoute.page,
-        //   initial: true,
-        //   path: '/auth-screen',
-        //   transitionsBuilder: (_, animation, ___, child) => FadeTransition(
-        //     opacity: animation,
-        //     child: child,
-        //   ),
-        //   children: [
-        //     AutoRoute(
-        //       path: "signup_screen",
-        //       page: SignUpRoute.page,
-        //     ),
-        //     AutoRoute(
-        //       path: "login_screen",
-        //       page: LoginRoute.page,
-        //     ),
-        //     AutoRoute(
-        //       path: "otpverification_screen",
-        //       page: OtpVerificationRoute.page,
-        //     ),
-        //     AutoRoute(
-        //       path: "changepassword_screen",
-        //       page: ChangePasswordRoute.page,
-        //     ),
-        //     AutoRoute(
-        //       path: "forgotpassword_screen",
-        //       page: ForgotPasswordRoute.page,
-        //     ),
-        //   ],
-        // ),
-        // // MainAppRoute Route
+        AutoRoute(
+          path: "/post-utme/:school",
+          page: PostUtmeRouterRoute.page,
+          children: [
+            AutoRoute(
+              page: PostUtmeDashboard.page,
+              path: "dashboard",
+              children: [
+                AutoRoute(
+                  initial: true,
+                  path: "question-list",
+                  page: PostUtmeQuestionList.page,
+                ),
+                AutoRoute(
+                  path: "add-question",
+                  page: PostUtmeAddQuestionRoute.page,
+                ),
+                AutoRoute(
+                  path: "edit-question",
+                  page: PostUtmeEditQuestionRoute.page,
+                ),
+                AutoRoute(
+                  path: "question-view",
+                  page: PostUtmeQuestionViewRoute.page,
+                ),
+              ],
+            ),
+          ],
+        ),
       ];
 }

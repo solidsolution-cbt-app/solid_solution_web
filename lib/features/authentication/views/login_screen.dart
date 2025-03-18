@@ -39,6 +39,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   AppTextField(
+                    maxLines: 1,
                     controller: model.passwordController,
                     fieldLabel: "Password",
                     prefixIconPath: "asset/svg/lock.svg",

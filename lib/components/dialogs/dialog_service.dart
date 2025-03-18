@@ -97,6 +97,15 @@ class DialogService {
         });
   }
 
+  Future<dynamic> showCustomDialog(BuildContext context,
+      {required Widget dialogWidget}) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return Center(child: dialogWidget);
+        });
+  }
+
   Future<dynamic> shouldAddNewQuestion(
     BuildContext context, {
     required String successMessage,

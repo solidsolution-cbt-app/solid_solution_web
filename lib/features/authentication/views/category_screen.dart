@@ -39,7 +39,7 @@ class CategoryScreen extends StatelessWidget {
           imagePath: "asset/svg/file.svg",
           onTap: () {
             context.router.navigate(
-              const BlogRoute(),
+              const BlogBaseRoute(),
             );
           },
         ),

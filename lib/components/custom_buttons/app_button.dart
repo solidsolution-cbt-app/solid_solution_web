@@ -17,11 +17,12 @@ class AppButton extends StatelessWidget {
     this.buttonWidth = 450,
     this.isOutline = false,
     this.showLoader = false,
+    this.textColor,
     super.key,
   });
   final Function() onTap;
   final bool isOutline;
-  final Color? backgroundColor;
+  final Color? backgroundColor, textColor;
   final double? buttonWidth;
   final double? buttonHeight;
   final String buttonText;
@@ -73,7 +74,8 @@ class AppButton extends StatelessWidget {
             replacement: Text(
               buttonText,
               style: AppTextStyles.labelRegular.copyWith(
-                color: isOutline ? AppColors.primaryColor : Colors.white,
+                color: textColor ??
+                    (isOutline ? AppColors.primaryColor : Colors.white),
                 fontSize: 16,
               ),
             ),
