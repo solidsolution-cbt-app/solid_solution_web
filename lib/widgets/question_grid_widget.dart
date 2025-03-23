@@ -8,13 +8,13 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/models/question_model.dart';
 import 'package:solidsolutionweb/widgets/quill_question_card.dart.dart';
+import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
 class QuestionGridWidget extends HookWidget {
   const QuestionGridWidget({
     required this.onSubmit,
     this.question,
     this.showLoader,
-    this.year,
     this.school,
     this.subject,
     this.showClear,
@@ -25,12 +25,14 @@ class QuestionGridWidget extends HookWidget {
   final QuestionModel? question;
   final Function(QuestionModel question) onSubmit;
 
-  final String? year, subject, school;
+  final String? subject, school;
   final bool? showLoader, showClear, shouldClear;
   final bool allowEdit;
 
   @override
   Widget build(BuildContext context) {
+    final selectedYear =
+        useState<String>(question?.year ?? DateTime.now().year.toString());
     final questionController =
         useState<QuillController>(QuillController.basic());
     final option1Controller =
@@ -115,17 +117,32 @@ class QuestionGridWidget extends HookWidget {
         padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: Column(
           children: [
-            if (showClear == true)
-              Align(
-                alignment: Alignment.bottomRight,
-                child: AppButton(
-                  buttonWidth: 200,
-                  buttonText: "Clear",
-                  onTap: () {
-                    clear();
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                if (showClear == true) ...[
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: AppButton(
+                      buttonWidth: 200,
+                      buttonText: "Clear",
+                      onTap: () {
+                        clear();
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  )
+                ],
+                YearFilter(
+                  onChangeyear: (value) {
+                    selectedYear.value = value;
                   },
-                ),
-              ),
+                  selectedYear: selectedYear.value,
+                )
+              ],
+            ),
             QuillQuestionCard(
               controller: questionController.value,
               allowEdit: allowEdit,
@@ -205,7 +222,7 @@ class QuestionGridWidget extends HookWidget {
                       option4Controller.value.document.toDelta().toJson());
                   QuestionModel question = QuestionModel.tojson(
                     text: queJsonDocument,
-                    year: year,
+                    year: selectedYear.value,
                     subject: subject,
                     school: school,
                     solutionText: solJsonDocument,
@@ -225,7 +242,7 @@ class QuestionGridWidget extends HookWidget {
                   );
                   await onSubmit(question);
                   if (shouldClear == true) {
-                    clear();
+                    // clear();
                   }
                 },
               ),

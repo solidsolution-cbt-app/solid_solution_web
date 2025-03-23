@@ -8,7 +8,6 @@ import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/core/route_service/route.dart';
 import 'package:toastification/toastification.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageUtil.getInstance();

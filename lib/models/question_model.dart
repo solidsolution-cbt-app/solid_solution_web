@@ -33,7 +33,7 @@ class QuestionModel {
     required this.option4,
   }) {
     Map<String, dynamic> questiondata = {};
-    if (year != "") {
+    if (year == "") {
       questiondata = {
         "text": " $text",
         "image": image,
@@ -57,6 +57,8 @@ class QuestionModel {
         "solution": solutionpdf,
         "solution_image": solutionImage,
         "solution_text": solutionText,
+        "school": school,
+        "subject": subject,
         "options": [
           option1!.optionjson,
           option2!.optionjson,
