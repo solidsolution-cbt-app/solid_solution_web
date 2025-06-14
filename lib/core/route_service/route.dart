@@ -78,5 +78,36 @@ class AppRouter extends $AppRouter {
             ),
           ],
         ),
+
+        AutoRoute(
+          page: ExamDashBoard.page,
+          path: "/exam-dashboard",
+          children: [
+            AutoRoute(
+              initial: true,
+              path: "exam-list",
+              page: ExamListRoute.page,
+              children: [
+                AutoRoute(
+                  path: "exam-questions-route",
+                  initial: true,
+                  page: ExamQuestionRoute.page,
+                ),
+                AutoRoute(
+                  path: "add-exam-question",
+                  page: AddExamQuestionRoute.page,
+                ),
+                AutoRoute(
+                  path: "edit-exam-question",
+                  page: EditExamQuestionRoute.page,
+                ),
+                AutoRoute(
+                  path: "exam-question-display",
+                  page: DisplayExamQuestionRoute.page,
+                ),
+              ],
+            ),
+          ],
+        ),
       ];
 }

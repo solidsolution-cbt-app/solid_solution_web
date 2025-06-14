@@ -1749,6 +1749,7 @@ class ApiService {
   Future<LocalExceptionModel> getPostUtmeSchoolSubjectQuestions({
     required String school,
     required String subject,
+    required String year,
   }) async {
     String token = StorageUtil.getString(
       key: LocalDBStrings.token,
@@ -1760,7 +1761,7 @@ class ApiService {
             "${EndPoints.baseUrl}${EndPoints.getPostUtmeSchoolSubjectQuestions(
           school: school,
           subject: subject,
-        )}"),
+        )}&year=$year"),
         headers: {
           HttpHeaders.contentTypeHeader: 'application/json',
           HttpHeaders.authorizationHeader: "Bearer $token",

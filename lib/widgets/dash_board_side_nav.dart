@@ -23,6 +23,7 @@ class DashBoardSideNav extends StatelessWidget {
       height: size.height,
       color: AppColors.primaryColor.withOpacity(.7),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             margin: const EdgeInsets.only(top: 10),
@@ -36,11 +37,14 @@ class DashBoardSideNav extends StatelessWidget {
               children: [
                 SvgPicture.asset("asset/svg/book-square.svg"),
                 const SizedBox(width: 10),
-                CustomTextBody1(
-                  text: selectedSubject,
-                  fontSize: 14,
-                  textColor: AppColors.primaryColor,
-                  fontWeight: FontWeight.w600,
+                Expanded(
+                  child: CustomTextBody1(
+                    text: selectedSubject,
+                    fontSize: 14,
+                    textColor: AppColors.primaryColor,
+                    fontWeight: FontWeight.w600,
+                    textAlign: TextAlign.start,
+                  ),
                 )
               ],
             ),
@@ -48,6 +52,7 @@ class DashBoardSideNav extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ...subjects.map(
                     (e) => SubjectButton(

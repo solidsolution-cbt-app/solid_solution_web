@@ -3,9 +3,9 @@ import 'package:solidsolutionweb/components/custom_texts/custom_texts.dart';
 import 'package:solidsolutionweb/constants/colors.dart';
 import 'package:solidsolutionweb/core/locator.dart';
 import 'package:solidsolutionweb/enums/question_type_enum.dart';
-import 'package:solidsolutionweb/features/utme/pages/exam_quiz/views/add_exam_quiz_screen.dart';
-import 'package:solidsolutionweb/features/utme/pages/subject_quiz/views/add_subject_question.dart';
-import 'package:solidsolutionweb/features/utme/pages/topic_quiz/views/add_topic_quiz_sereen.dart';
+import 'package:solidsolutionweb/features/utme/pages/temp/exam_quiz/views/add_exam_quiz_screen.dart';
+import 'package:solidsolutionweb/features/utme/pages/temp/subject_quiz/views/add_subject_question.dart';
+import 'package:solidsolutionweb/features/utme/pages/temp/topic_quiz/views/add_topic_quiz_sereen.dart';
 import 'package:solidsolutionweb/models/topic_quiz_model.dart';
 
 // To be removed

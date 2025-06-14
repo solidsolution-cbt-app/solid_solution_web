@@ -10,6 +10,11 @@ class PostUtmeViewModel extends BaseModel {
   List<String> schools = [];
   String selectedSubject = "";
   String selectedschool = "";
+  String selectedYear = DateTime.now().year.toString();
+  setSelectedYear(String value) {
+    selectedYear = value;
+    notifyListeners();
+  }
 
   setSelectedSubject(String subject) {
     selectedSubject = subject;
@@ -117,13 +122,17 @@ class PostUtmeViewModel extends BaseModel {
     toggleLoadGetSubjects(false);
   }
 
-  Future<void> getPostUtmeSchoolSubjectQuestion(
-      {required String school, required String subject}) async {
+  Future<void> getPostUtmeSchoolSubjectQuestion({
+    required String school,
+    required String subject,
+    String? year,
+  }) async {
     try {
       toggleloadGetSchoolSubjectQuestion(true);
       var data = await apiService.getPostUtmeSchoolSubjectQuestions(
         subject: subject,
         school: school,
+        year: year?? selectedYear,
       );
       if (data.isSuccessful) {
         List<QuestionModel> newQuestions = data.model as List<QuestionModel>;

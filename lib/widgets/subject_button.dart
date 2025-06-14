@@ -35,10 +35,13 @@ class SubjectButton extends StatelessWidget {
               padding: const EdgeInsets.only(left: 50),
               child: Row(
                 children: [
-                  CustomTextBody1(
-                    text: subject,
-                    textColor: Colors.white,
-                    fontSize: 15,
+                  Expanded(
+                    child: CustomTextBody1(
+                      text: subject,
+                      textColor: Colors.white,
+                      fontSize: 15,
+                      textAlign: TextAlign.start,
+                    ),
                   ),
                 ],
               ),

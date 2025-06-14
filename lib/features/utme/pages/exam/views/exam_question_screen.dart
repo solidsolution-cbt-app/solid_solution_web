@@ -1,61 +1,35 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:solidsolutionweb/components/dialogs/dialog_service.dart';
 import 'package:solidsolutionweb/constants/app_strings.dart';
 import 'package:solidsolutionweb/core/base_view.dart';
-import 'package:solidsolutionweb/core/route_service/route.gr.dart';
-import 'package:solidsolutionweb/features/post_utme/view_model/post_utme_view_model.dart';
+import 'package:solidsolutionweb/features/utme/pages/exam/view_model/exam_view_model.dart';
 import 'package:solidsolutionweb/widgets/add_question_card.dart';
 import 'package:solidsolutionweb/widgets/question_diaplay_card.dart';
 import 'package:solidsolutionweb/widgets/should_delete_question.dart';
-import 'package:solidsolutionweb/widgets/year_filter_widget.dart';
 
 @RoutePage()
-class PostUtmeQuestionsScreen extends HookWidget {
-  const PostUtmeQuestionsScreen({
-    super.key,
-  });
+class ExamQuestionScreen extends StatelessWidget {
+  const ExamQuestionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<PostUtmeViewModel>(
+    return BaseView<ExamViewModel>(
       onModelReady: (model) async {
         await Future.delayed(const Duration(seconds: 1)).then((value) {});
       },
       builder: (context, model, child) {
-        return model.loadGetSchoolSubjectQuestion
+        return model.loadGetQuestion
             ? const Center(
                 child: CircularProgressIndicator(),
               )
             : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 20),
-                      child: SizedBox(
-                        width: 200,
-                        child: YearFilter(
-                          onChangeyear: (value) {
-                            model.setSelectedYear(value);
-                            model.getPostUtmeSchoolSubjectQuestion(
-                              school: model.selectedschool,
-                              subject: model.selectedSubject,
-                              year: value,
-                            );
-                          },
-                          selectedYear: model.selectedYear,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
+              children: [
+                Expanded(
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 50),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
                       child: Wrap(
                         spacing: 50,
                         runSpacing: 50,
@@ -65,14 +39,13 @@ class PostUtmeQuestionsScreen extends HookWidget {
                         children: [
                           AddQuestionCard(
                             onTap: () {
-                              context.router.navigate(
-                                const PostUtmeAddQuestionRoute(),
-                              );
+                              // context.router.navigate(
+                              //   const PostUtmeAddQuestionRoute(),
+                              // );
                             },
                           ),
                           ...model
-                              .getSchoolSubjectQuestions(
-                                  model.selectedschool, model.selectedSubject)
+                              .getExamQuestion(model.selectedSubject)
                               .mapIndexed(
                                 (index, e) => QuestionDiaplaySummaryCard(
                                   questionNumber: index + 1,
@@ -80,23 +53,22 @@ class PostUtmeQuestionsScreen extends HookWidget {
                                   onSelect: (value) {
                                     if (value == AppString.editQuestion) {
                                       model.setQuestionToView(e);
-                                      context.pushRoute(
-                                        const PostUtmeEditQuestionRoute(),
-                                      );
+                                      // context.pushRoute(
+                                      //   const PostUtmeEditQuestionRoute(),
+                                      // );
                                     }
                                     if (value == AppString.viewQuestion) {
                                       model.setQuestionToView(e);
-                                      context.pushRoute(
-                                        const PostUtmeQuestionDisplayRoute(),
-                                      );
+                                      // context.pushRoute(
+                                      //   const PostUtmeQuestionDisplayRoute(),
+                                      // );
                                     }
                                     if (value == AppString.delete) {
                                       dialogService.showCustomDialog(
                                         context,
                                         dialogWidget: ShouldDeleteQuestion(
                                           onDelete: () async {
-                                            await model.deleteQuestion(
-                                                value: e);
+                                            // await model.deleteQuestion(value: e);
                                           },
                                         ),
                                       );
@@ -108,8 +80,8 @@ class PostUtmeQuestionsScreen extends HookWidget {
                       ),
                     ),
                   ),
-                ],
-              );
+              ],
+            );
       },
     );
   }
